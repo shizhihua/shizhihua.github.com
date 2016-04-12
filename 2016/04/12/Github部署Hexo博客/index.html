@@ -31,7 +31,7 @@ Hexo安装自己在安装中，必须使用 sudo，否则会有文件读写权�
 1hexo init blog
 安装依赖，并启动服务器，在浏览器中输入localhost:4000即可看到博客网站内容：
 123cd blognpm ins">
-<meta property="og:updated_time" content="2016-04-12T12:33:51.000Z">
+<meta property="og:updated_time" content="2016-04-12T12:59:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Github部署Hexo博客">
 <meta name="twitter:description" content="本过程在Mac上实现
@@ -84,7 +84,7 @@ Hexo安装自己在安装中，必须使用 sudo，否则会有文件读写权�
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Zoeken"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Søk"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -126,11 +126,29 @@ Hexo安装自己在安装中，必须使用 sudo，否则会有文件读写权�
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init blog</span><br></pre></td></tr></table></figure>
 <p>安装依赖，并启动服务器，在浏览器中输入<code>localhost:4000</code>即可看到博客网站内容：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
-<h2 id="Github"><a href="#Github" class="headerlink" title="Github"></a>Github</h2>
+<h2 id="Github仓库建立和配置"><a href="#Github仓库建立和配置" class="headerlink" title="Github仓库建立和配置"></a>Github仓库建立和配置</h2><ul>
+<li>Github上创建repository：username.github.io (其中username是github账号的用户名)</li>
+<li>拷贝repository对应的HTTPS，并配置本地博客目录中的文件<code>_config.yml</code></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repo: https://github.com/username/username.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+<p>上面的｀username｀需要换成实际的Github账号用户名。</p>
+<h2 id="SSH配置"><a href="#SSH配置" class="headerlink" title="SSH配置"></a>SSH配置</h2><p>本机新安装，因此直接输入下来指令生成SSH Key：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">"邮箱"</span></span><br><span class="line">ssh-agent <span class="_">-s</span></span><br><span class="line">ssh-add ~/.ssh/id_rsa</span><br></pre></td></tr></table></figure>
+<p>上述命令中，出现要输入的地方，一直回车键。上述邮箱使用了Github账号对应的邮箱。</p>
+<p>使用命令显示下列文件内容</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
+<p>拷贝上述文件内容，并保存到Github仓库的设置<code>Add SSH Key</code>中（title可以随便写个名字）。</p>
+<h2 id="Git配置"><a href="#Git配置" class="headerlink" title="Git配置"></a>Git配置</h2><p>为了避免每次<code>hexo deploy</code>时每次输入Github的账号和密码，需要进行对Git进行配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">"username"</span></span><br><span class="line">git config --global user.email  <span class="string">"emailaddress"</span></span><br></pre></td></tr></table></figure>
+<p>上述用户名和邮箱使用Github账号所对应的。</p>
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>在博客目录下，输入下述命令，无需人工干预，最后可以看到成功信息。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+<p>在浏览器中输入<code>username.github.io</code>即可看到博客的内容（其中<code>username</code>同上，是github账号的用户名）。</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/12/Github部署Hexo博客/" data-id="cimxez8kj0000l3s68lq00nzr" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2016/04/12/Github部署Hexo博客/" data-id="cimxfqdhl0001nis6025lzenw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
@@ -143,7 +161,7 @@ Hexo安装自己在安装中，必须使用 sudo，否则会有文件读写权�
   
   
     <a href="/2016/04/12/插件测试/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Ouder</strong>
+      <strong class="article-nav-caption">Older</strong>
       <div class="article-nav-title">插件测试</div>
     </a>
   
@@ -161,7 +179,7 @@ Hexo安装自己在安装中，必须使用 sudo，否则会有文件读写权�
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Labels</h3>
+    <h3 class="widget-title">Tags</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
     </div>
@@ -180,7 +198,7 @@ Hexo安装自己在安装中，必须使用 sudo，否则会有文件读写权�
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archieven</h3>
+    <h3 class="widget-title">Arkiv</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li></ul>
     </div>
@@ -190,7 +208,7 @@ Hexo安装自己在安装中，必须使用 sudo，否则会有文件读写权�
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recente berichten</h3>
+    <h3 class="widget-title">Siste innlegg</h3>
     <div class="widget">
       <ul>
         
