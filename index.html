@@ -55,9 +55,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS-каналы"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Поиск"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -67,6 +67,116 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-Gradle构建Java程序：Junit集成" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/04/17/Gradle构建Java程序：Junit集成/" class="article-date">
+  <time datetime="2016-04-17T06:54:21.000Z" itemprop="datePublished">2016-04-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/17/Gradle构建Java程序：Junit集成/">Gradle构建Java程序：Junit集成</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Build文件"><a href="#Build文件" class="headerlink" title="Build文件"></a>Build文件</h2><p><code>build.gradle</code>如下：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'java'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">repositories</span> &#123;</span><br><span class="line">	mavenCentral()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">	testCompile <span class="string">'junit:junit:4.12'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述配置指定仓库后，不需要额外再安装Junit4了。</p>
+<h2 id="Java文件"><a href="#Java文件" class="headerlink" title="Java文件"></a>Java文件</h2><p><code>Calculator.java</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.shizhihua.example;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Calculator</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">evaluate</span><span class="params">(String expression)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (String summand: expression.split(<span class="string">"\\+"</span>))</span><br><span class="line">      sum += Integer.valueOf(summand);</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="测试文件"><a href="#测试文件" class="headerlink" title="测试文件"></a>测试文件</h2><p><code>CalculatorTest.java</code>：</p>
+<ul>
+<li>测试文件和类是在被测类名后添加<code>Test</code></li>
+<li><code>@Test</code>表示需要运行的测试函数</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.shizhihua.example;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.Assert.assertEquals;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CalculatorTest</span> </span>&#123;</span><br><span class="line">  <span class="meta">@Test</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">evaluatesExpression</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Calculator calculator = <span class="keyword">new</span> Calculator();</span><br><span class="line">    <span class="keyword">int</span> sum = calculator.evaluate(<span class="string">"1+2+3"</span>);</span><br><span class="line">    assertEquals(<span class="number">6</span>, sum);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h2><p>为了Gradle，项目结构需要按照下面约定。注意被测的源java文件和测试例的java文件目录相对应。</p>
+<p>执行测试：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+<p>运行上述命令后，整个项目的目录结构如下：</p>
+<img src="http://www.plantuml.com/plantuml/svg/hOyn3iCW34LtJk7TIYxHhNCku1AhK9a40QdILhbx2P1AdTljstm__eyaIRtKQr08lKA4os9bp0912yN8STS8ZknKLDxFhYg4QEpJMBDGMo3mIiuB7pF2YKGlGcaEVG4MzCYUfv4d_UWqQLFi4DZF8RN_4iSc4Moshhr9JjJnr0MEYrG79EVLaSnRuJFTQo2uKVXqwg-1nf8COj3ggrGsjfCVwXsCFT_Vg4E6LVAcjZS0">
+<p>打开上述<code>index.html</code>可以看到测试结果的统计报告。</p>
+<h2 id="设置多进程"><a href="#设置多进程" class="headerlink" title="设置多进程"></a>设置多进程</h2><p>当项目中的测试例过多，需要通过并行的方法来加快运行速度。但是，如果每个unit test都需要自己独立的JVM，则系统overhead消耗大。Gradle采用了一种这种方法：设定<code>maxParallelForks</code>，限定最大的并发JVMs。</p>
+<p>如果一个JVM不断运行unit test，可能会引起性能问题（e.g.,<code>leak</code>）。Gradle设定<code>forkEvery</code>，使得一个test-running JVM运行完设定的test数目后会结束，并启动一个新的test-running JVM来替代。</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'java'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">repositories</span> &#123;</span><br><span class="line">	mavenCentral()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">	testCompile <span class="string">'junit:junit:4.12'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test &#123;</span><br><span class="line">	maxParallelForks = <span class="number">5</span></span><br><span class="line">	forkEvery = <span class="number">50</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：Junit集成/" data-id="cin48rxhe000d2qs64n9g67m7" class="article-share-link">Поделиться</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Junit/">Junit</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Gradle构建Java程序：入门" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/04/17/Gradle构建Java程序：入门/" class="article-date">
+  <time datetime="2016-04-17T05:09:33.000Z" itemprop="datePublished">2016-04-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/17/Gradle构建Java程序：入门/">Gradle构建Java程序：入门</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="安装Gradle"><a href="#安装Gradle" class="headerlink" title="安装Gradle"></a>安装Gradle</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install gradle</span><br></pre></td></tr></table></figure>
+<p>查看版本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle -v</span><br></pre></td></tr></table></figure>
+<p>本机安装版本为<code>Gradle 2.12</code>。</p>
+<h2 id="Java程序构建"><a href="#Java程序构建" class="headerlink" title="Java程序构建"></a>Java程序构建</h2><h3 id="Gradle文件"><a href="#Gradle文件" class="headerlink" title="Gradle文件"></a>Gradle文件</h3><p>在当前目录下生成文件<code>build.gradle</code>:</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'java'</span></span><br></pre></td></tr></table></figure>
+<h3 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h3><p>项目的目录结构需要按照下列固定约束（最里面几层对应package）：</p>
+<img src="http://www.plantuml.com/plantuml/svg/BOnB2e0m34JtEKNsWHx20oY85uXQR2HLyOTQlBkrkfet7sPXNI50g83G017McsXhkfbRjQzVvYOAeMSPNY3iUUT4XCteFuex9vSJj_rLJEp1VaedVr2KLbJFxCpPMvDkRhWV">
+<p>Java文件：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.shizhihua.example;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.net.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OReillyByName</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		String host = <span class="string">"www.baidu.com"</span>;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			InetAddress add = InetAddress.getLocalHost();</span><br><span class="line">			System.out.println(add);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (UnknownHostException ex) &#123;</span><br><span class="line">			System.out.println(<span class="string">"Couldn't not find the localhost"</span>);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			InetAddress adds[] = InetAddress.getAllByName(host);</span><br><span class="line">			<span class="keyword">for</span> (InetAddress add:adds) &#123;</span><br><span class="line">				System.out.println(add);</span><br><span class="line">				System.out.println(add.getHostName());</span><br><span class="line">				System.out.println(add.getHostAddress());</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">catch</span> (UnknownHostException ex) &#123;</span><br><span class="line">			System.out.println(<span class="string">"Couldn't not find "</span> + host);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="执行构建"><a href="#执行构建" class="headerlink" title="执行构建"></a>执行构建</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle build</span><br></pre></td></tr></table></figure>
+<h3 id="生成后的项目目录"><a href="#生成后的项目目录" class="headerlink" title="生成后的项目目录"></a>生成后的项目目录</h3><p>执行构建后，Gradle会生出一个目录<code>build</code>：</p>
+<img src="http://www.plantuml.com/plantuml/svg/fOux3i8m38PtdyAxHG_1o00IuW9kOX4ZfqHDYoXLxqv9MoHcji-F_v7PEXXXl01X1KHOzsf-1a9ddBFa3nD6rgRGlB_7XGXpq5VGqFEw89GdnsIopOIdiwZPi1-E7AKgdiNTIvB6I-E6dMCNYW9Dw-NQnGHRM5AJ0p-M3Bnn-wrPNLls9Gnpw-2dv_ouIlvhN6mccDu0">
+<h3 id="运行java程序"><a href="#运行java程序" class="headerlink" title="运行java程序"></a>运行java程序</h3><p>运行程序时，必须通过<code>-cp</code>指定<code>CLASSPATH</code>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -cp build/classes/main/ com/shizhihua/example/OReillyByName</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：入门/" data-id="cin48rxgi00012qs6ilzt6ujo" class="article-share-link">Поделиться</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gadle/">Gadle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-Homebrew使用简介" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -92,7 +202,7 @@
       
         <p>Homebrew，简称为<code>brew</code>，是Mac上的软件包管理工具，类似于Debain中的<code>apt-get</code>。</p>
 <p>Homebrew的官网地址为： <a href="http://brew.sh" target="_blank" rel="external">Homebrew</a></p>
-<h2 id="brew的安装与卸载"><a href="#brew的安装与卸载" class="headerlink" title="brew的安装与卸载"></a>brew的安装与卸载</h2><p>安装时不需要使用了<code>sudo</code>。Homebrew不需要<code>sudo</code>可以正常安装软件，因为其认为<code>sudo</code>不完全。</p>
+<h2 id="brew的安装与卸载"><a href="#brew的安装与卸载" class="headerlink" title="brew的安装与卸载"></a>brew的安装与卸载</h2><p>安装时不需要使用<code>sudo</code>。Homebrew不需要<code>sudo</code>可以正常安装软件，因为其认为<code>sudo</code>不完全。</p>
 <p>安装命令如下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby <span class="_">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></span><br></pre></td></tr></table></figure>
 <p>卸载命令如下：</p>
@@ -125,7 +235,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/17/Homebrew使用简介/" data-id="cin3zx67y0001b1s6fk5v0x57" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/17/Homebrew使用简介/" data-id="cin48rxgp00032qs6qot9tza7" class="article-share-link">Поделиться</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/">Mac</a></li></ul>
@@ -174,7 +284,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/16/常用内网IP段/" data-id="cin3zx6880004b1s6njl8o9cr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/16/常用内网IP段/" data-id="cin48rxh000082qs6lv9slgnn" class="article-share-link">Поделиться</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Internet/">Internet</a></li></ul>
@@ -268,7 +378,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/16/常用Internet协议的RFC编号/" data-id="cin3zx68e0008b1s63yvfobdf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/16/常用Internet协议的RFC编号/" data-id="cin48rxgt00042qs67hntpkqh" class="article-share-link">Поделиться</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Internet/">Internet</a></li></ul>
@@ -307,7 +417,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/15/网络协议Layers/" data-id="cin3zx68h000ab1s6gmh83hp1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/15/网络协议Layers/" data-id="cin48rxh8000b2qs6pd2wrrgg" class="article-share-link">Поделиться</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Internet/">Internet</a></li></ul>
@@ -377,7 +487,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/12/Github部署Hexo博客/" data-id="cin3zx67s0000b1s6077kbvaf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/12/Github部署Hexo博客/" data-id="cin48rxgb00002qs635hwy6uf" class="article-share-link">Поделиться</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
@@ -422,7 +532,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/12/插件测试/" data-id="cin3zx68b0006b1s6j5qmlz4a" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/12/插件测试/" data-id="cin48rxh400092qs6812vt4ri" class="article-share-link">Поделиться</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
@@ -469,7 +579,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/12/hello-world/" data-id="cin3zx6860003b1s6dvx2qmuw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/12/hello-world/" data-id="cin48rxgx00062qs6h4l2wqrp" class="article-share-link">Поделиться</a>
       
       
     </footer>
@@ -489,9 +599,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">Метки</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internet/">Internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gadle/">Gadle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internet/">Internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li></ul>
     </div>
   </div>
 
@@ -499,16 +609,16 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">Облако меток</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/Internet/" style="font-size: 20px;">Internet</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a>
+      <a href="/tags/Gadle/" style="font-size: 10px;">Gadle</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/Internet/" style="font-size: 20px;">Internet</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Junit/" style="font-size: 10px;">Junit</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a>
     </div>
   </div>
 
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">Архив</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li></ul>
     </div>
@@ -518,9 +628,17 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Недавние записи</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/04/17/Gradle构建Java程序：Junit集成/">Gradle构建Java程序：Junit集成</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/17/Gradle构建Java程序：入门/">Gradle构建Java程序：入门</a>
+          </li>
         
           <li>
             <a href="/2016/04/17/Homebrew使用简介/">Homebrew使用简介</a>
@@ -532,14 +650,6 @@
         
           <li>
             <a href="/2016/04/16/常用Internet协议的RFC编号/">常用Internet协议的RFC编号</a>
-          </li>
-        
-          <li>
-            <a href="/2016/04/15/网络协议Layers/">网络协议Layers</a>
-          </li>
-        
-          <li>
-            <a href="/2016/04/12/Github部署Hexo博客/">Github部署Hexo博客</a>
           </li>
         
       </ul>
@@ -555,7 +665,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2016 shizhihua<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Создано с помощью <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>

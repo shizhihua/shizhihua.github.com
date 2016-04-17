@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <title>Gradle构建Java程序：入门 | 一沙一世界</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="安装Gradle1brew install gradle
+查看版本
+1gradle -v
+本机安装版本为Gradle 2.12。
+Java程序构建Gradle文件在当前目录下生成文件build.gradle:
+1apply plugin: &apos;java&apos;
+项目结构项目的目录结构需要按照下列固定约束（最里面几层对应package）：
+
+Java文件：
+1234567891011121314151617">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gradle构建Java程序：入门">
+<meta property="og:url" content="http://yoursite.com/2016/04/17/Gradle构建Java程序：入门/index.html">
+<meta property="og:site_name" content="一沙一世界">
+<meta property="og:description" content="安装Gradle1brew install gradle
+查看版本
+1gradle -v
+本机安装版本为Gradle 2.12。
+Java程序构建Gradle文件在当前目录下生成文件build.gradle:
+1apply plugin: &apos;java&apos;
+项目结构项目的目录结构需要按照下列固定约束（最里面几层对应package）：
+
+Java文件：
+1234567891011121314151617">
+<meta property="og:image" content="http://www.plantuml.com/plantuml/svg/BOnB2e0m34JtEKNsWHx20oY85uXQR2HLyOTQlBkrkfet7sPXNI50g83G017McsXhkfbRjQzVvYOAeMSPNY3iUUT4XCteFuex9vSJj_rLJEp1VaedVr2KLbJFxCpPMvDkRhWV">
+<meta property="og:image" content="http://www.plantuml.com/plantuml/svg/fOux3i8m38PtdyAxHG_1o00IuW9kOX4ZfqHDYoXLxqv9MoHcji-F_v7PEXXXl01X1KHOzsf-1a9ddBFa3nD6rgRGlB_7XGXpq5VGqFEw89GdnsIopOIdiwZPi1-E7AKgdiNTIvB6I-E6dMCNYW9Dw-NQnGHRM5AJ0p-M3Bnn-wrPNLls9Gnpw-2dv_ouIlvhN6mccDu0">
+<meta property="og:updated_time" content="2016-04-17T07:02:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gradle构建Java程序：入门">
+<meta name="twitter:description" content="安装Gradle1brew install gradle
+查看版本
+1gradle -v
+本机安装版本为Gradle 2.12。
+Java程序构建Gradle文件在当前目录下生成文件build.gradle:
+1apply plugin: &apos;java&apos;
+项目结构项目的目录结构需要按照下列固定约束（最里面几层对应package）：
+
+Java文件：
+1234567891011121314151617">
+<meta name="twitter:image" content="http://www.plantuml.com/plantuml/svg/BOnB2e0m34JtEKNsWHx20oY85uXQR2HLyOTQlBkrkfet7sPXNI50g83G017McsXhkfbRjQzVvYOAeMSPNY3iUUT4XCteFuex9vSJj_rLJEp1VaedVr2KLbJFxCpPMvDkRhWV">
+  
+    <link rel="alternate" href="/atom.xml" title="一沙一世界" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">一沙一世界</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">SHIZHIHUA&#39;s BLOG</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS-каналы"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Поиск"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Gradle构建Java程序：入门" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/04/17/Gradle构建Java程序：入门/" class="article-date">
+  <time datetime="2016-04-17T05:09:33.000Z" itemprop="datePublished">2016-04-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Gradle构建Java程序：入门
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="安装Gradle"><a href="#安装Gradle" class="headerlink" title="安装Gradle"></a>安装Gradle</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install gradle</span><br></pre></td></tr></table></figure>
+<p>查看版本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle -v</span><br></pre></td></tr></table></figure>
+<p>本机安装版本为<code>Gradle 2.12</code>。</p>
+<h2 id="Java程序构建"><a href="#Java程序构建" class="headerlink" title="Java程序构建"></a>Java程序构建</h2><h3 id="Gradle文件"><a href="#Gradle文件" class="headerlink" title="Gradle文件"></a>Gradle文件</h3><p>在当前目录下生成文件<code>build.gradle</code>:</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'java'</span></span><br></pre></td></tr></table></figure>
+<h3 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h3><p>项目的目录结构需要按照下列固定约束（最里面几层对应package）：</p>
+<img src="http://www.plantuml.com/plantuml/svg/BOnB2e0m34JtEKNsWHx20oY85uXQR2HLyOTQlBkrkfet7sPXNI50g83G017McsXhkfbRjQzVvYOAeMSPNY3iUUT4XCteFuex9vSJj_rLJEp1VaedVr2KLbJFxCpPMvDkRhWV">
+<p>Java文件：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.shizhihua.example;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.net.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OReillyByName</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		String host = <span class="string">"www.baidu.com"</span>;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			InetAddress add = InetAddress.getLocalHost();</span><br><span class="line">			System.out.println(add);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (UnknownHostException ex) &#123;</span><br><span class="line">			System.out.println(<span class="string">"Couldn't not find the localhost"</span>);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			InetAddress adds[] = InetAddress.getAllByName(host);</span><br><span class="line">			<span class="keyword">for</span> (InetAddress add:adds) &#123;</span><br><span class="line">				System.out.println(add);</span><br><span class="line">				System.out.println(add.getHostName());</span><br><span class="line">				System.out.println(add.getHostAddress());</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">catch</span> (UnknownHostException ex) &#123;</span><br><span class="line">			System.out.println(<span class="string">"Couldn't not find "</span> + host);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="执行构建"><a href="#执行构建" class="headerlink" title="执行构建"></a>执行构建</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle build</span><br></pre></td></tr></table></figure>
+<h3 id="生成后的项目目录"><a href="#生成后的项目目录" class="headerlink" title="生成后的项目目录"></a>生成后的项目目录</h3><p>执行构建后，Gradle会生出一个目录<code>build</code>：</p>
+<img src="http://www.plantuml.com/plantuml/svg/fOux3i8m38PtdyAxHG_1o00IuW9kOX4ZfqHDYoXLxqv9MoHcji-F_v7PEXXXl01X1KHOzsf-1a9ddBFa3nD6rgRGlB_7XGXpq5VGqFEw89GdnsIopOIdiwZPi1-E7AKgdiNTIvB6I-E6dMCNYW9Dw-NQnGHRM5AJ0p-M3Bnn-wrPNLls9Gnpw-2dv_ouIlvhN6mccDu0">
+<h3 id="运行java程序"><a href="#运行java程序" class="headerlink" title="运行java程序"></a>运行java程序</h3><p>运行程序时，必须通过<code>-cp</code>指定<code>CLASSPATH</code>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -cp build/classes/main/ com/shizhihua/example/OReillyByName</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：入门/" data-id="cin48rxgi00012qs6ilzt6ujo" class="article-share-link">Поделиться</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gadle/">Gadle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/04/17/Gradle构建Java程序：Junit集成/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Следующий</strong>
+      <div class="article-nav-title">
+        
+          Gradle构建Java程序：Junit集成
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/04/17/Homebrew使用简介/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Предыдущий</strong>
+      <div class="article-nav-title">Homebrew使用简介</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Метки</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gadle/">Gadle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internet/">Internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Облако меток</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Gadle/" style="font-size: 10px;">Gadle</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/Internet/" style="font-size: 20px;">Internet</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Junit/" style="font-size: 10px;">Junit</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Архив</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Недавние записи</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/04/17/Gradle构建Java程序：Junit集成/">Gradle构建Java程序：Junit集成</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/17/Gradle构建Java程序：入门/">Gradle构建Java程序：入门</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/17/Homebrew使用简介/">Homebrew使用简介</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/16/常用内网IP段/">常用内网IP段</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/16/常用Internet协议的RFC编号/">常用Internet协议的RFC编号</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 shizhihua<br>
+      Создано с помощью <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
