@@ -68,6 +68,70 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Gradle构建Java程序：Gradle常用命令" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/04/17/Gradle构建Java程序：Gradle常用命令/" class="article-date">
+  <time datetime="2016-04-17T13:18:05.000Z" itemprop="datePublished">2016-04-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/17/Gradle构建Java程序：Gradle常用命令/">Gradle构建Java程序：Gradle常用命令</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Gradle通用命令格式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle [option ...] [task ...]</span><br></pre></td></tr></table></figure>
+<p>运行gradle相关命令后，可以看到依次执行的tasks：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&gt; gradle build</span><br><span class="line">:compileJava</span><br><span class="line">:processResources </span><br><span class="line">:classes</span><br><span class="line">:jar</span><br><span class="line">:assemble</span><br><span class="line">:compileTestJava </span><br><span class="line">:processTestResources </span><br><span class="line">:<span class="built_in">test</span>Classes </span><br><span class="line">:<span class="built_in">test</span></span><br><span class="line">:check </span><br><span class="line">:build</span><br><span class="line"> </span><br><span class="line">BUILD SUCCESSFUL</span><br></pre></td></tr></table></figure>
+<p>帮助命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gradle <span class="built_in">help</span></span><br><span class="line">gradle --help</span><br></pre></td></tr></table></figure>
+<p>执行完整的项目构建（生成class文件、jar文件、执行单元测试等）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle build</span><br></pre></td></tr></table></figure>
+<p>编译源代码，并生成jar文件（不执行单元测试）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle assemble</span><br></pre></td></tr></table></figure>
+<p>删除构建目录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle clean</span><br></pre></td></tr></table></figure>
+<p>编译源代码：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle classes</span><br></pre></td></tr></table></figure>
+<p>编译测试类的代码：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle <span class="built_in">test</span>Classes</span><br></pre></td></tr></table></figure>
+<p>生成jar文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle jar</span><br></pre></td></tr></table></figure>
+<p>生成Javadoc API文档：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle javadoc</span><br></pre></td></tr></table></figure>
+<p>显示项目的<code>properties</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle properties</span><br></pre></td></tr></table></figure>
+<p>显示当前项目的可运行task的完整列表：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle tasks</span><br></pre></td></tr></table></figure>
+<p>通过这种方式，不需要阅读构建脚本，就能对项目进行大致的浏览。由于Java插件在构建中自动加入了很多任务，因此上述命令可以看到build文件中之外的其它一些task。</p>
+<p>在某个项目下，上述命令运行后，terminal显示如下信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">:tasks</span><br><span class="line"></span><br><span class="line">------------------------------------------------------------</span><br><span class="line">All tasks runnable from root project</span><br><span class="line">------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">Build tasks</span><br><span class="line">-----------</span><br><span class="line">assemble - Assembles the outputs of this project.</span><br><span class="line">build - Assembles and tests this project.</span><br><span class="line">buildDependents - Assembles and tests this project and all projects that depend on it.</span><br><span class="line">buildNeeded - Assembles and tests this project and all projects it depends on.</span><br><span class="line">classes - Assembles main classes.</span><br><span class="line">clean - Deletes the build directory.</span><br><span class="line">jar - Assembles a jar archive containing the main classes.</span><br><span class="line"><span class="built_in">test</span>Classes - Assembles <span class="built_in">test</span> classes.</span><br><span class="line"></span><br><span class="line">Build Setup tasks</span><br><span class="line">-----------------</span><br><span class="line">init - Initializes a new Gradle build. [incubating]</span><br><span class="line">wrapper - Generates Gradle wrapper files. [incubating]</span><br><span class="line"></span><br><span class="line">Documentation tasks</span><br><span class="line">-------------------</span><br><span class="line">javadoc - Generates Javadoc API documentation <span class="keyword">for</span> the main <span class="built_in">source</span> code.</span><br><span class="line"></span><br><span class="line">Help tasks</span><br><span class="line">----------</span><br><span class="line">buildEnvironment - Displays all buildscript dependencies declared <span class="keyword">in</span> root project <span class="string">'testJunit'</span>.</span><br><span class="line">components - Displays the components produced by root project <span class="string">'testJunit'</span>. [incubating]</span><br><span class="line">dependencies - Displays all dependencies declared <span class="keyword">in</span> root project <span class="string">'testJunit'</span>.</span><br><span class="line">dependencyInsight - Displays the insight into a specific dependency <span class="keyword">in</span> root project <span class="string">'testJunit'</span>.</span><br><span class="line"><span class="built_in">help</span> - Displays a <span class="built_in">help</span> message.</span><br><span class="line">model - Displays the configuration model of root project <span class="string">'testJunit'</span>. [incubating]</span><br><span class="line">projects - Displays the sub-projects of root project <span class="string">'testJunit'</span>.</span><br><span class="line">properties - Displays the properties of root project <span class="string">'testJunit'</span>.</span><br><span class="line">tasks - Displays the tasks runnable from root project <span class="string">'testJunit'</span>.</span><br><span class="line"></span><br><span class="line">Verification tasks</span><br><span class="line">------------------</span><br><span class="line">check - Runs all checks.</span><br><span class="line"><span class="built_in">test</span> - Runs the unit tests.</span><br><span class="line"></span><br><span class="line">Rules</span><br><span class="line">-----</span><br><span class="line">Pattern: clean&lt;TaskName&gt;: Cleans the output files of a task.</span><br><span class="line">Pattern: build&lt;ConfigurationName&gt;: Assembles the artifacts of a configuration.</span><br><span class="line">Pattern: upload&lt;ConfigurationName&gt;: Assembles and uploads the artifacts belonging to a configuration.</span><br><span class="line"></span><br><span class="line">To see all tasks and more detail, run gradle tasks --all</span><br><span class="line"></span><br><span class="line">To see more detail about a task, run gradle <span class="built_in">help</span> --task &lt;task&gt;</span><br><span class="line"></span><br><span class="line">BUILD SUCCESSFUL</span><br><span class="line"></span><br><span class="line">Total time: 3.786 secs</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：Gradle常用命令/" data-id="cin4mcl3i0000oms6dznkxd3a" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Gradle构建Java程序：Junit集成" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/04/17/Gradle构建Java程序：Junit集成/" class="article-date">
@@ -91,7 +155,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="Build文件"><a href="#Build文件" class="headerlink" title="Build文件"></a>Build文件</h2><p><code>build.gradle</code>如下：</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'java'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">repositories</span> &#123;</span><br><span class="line">	mavenCentral()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">	testCompile <span class="string">'junit:junit:4.12'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'java'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">repositories</span> &#123;</span><br><span class="line">	mavenCentral()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">	testCompile <span class="string">'junit:junit:4.12'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">jar &#123;</span><br><span class="line">    manifest &#123;</span><br><span class="line">        attributes <span class="string">'Main-Class'</span>: <span class="string">'com.shizhihua.example.Calculator'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>上述配置指定仓库后，不需要额外再安装Junit4了。</p>
 <h2 id="Java文件"><a href="#Java文件" class="headerlink" title="Java文件"></a>Java文件</h2><p><code>Calculator.java</code>：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.shizhihua.example;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Calculator</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">evaluate</span><span class="params">(String expression)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (String summand: expression.split(<span class="string">"\\+"</span>))</span><br><span class="line">      sum += Integer.valueOf(summand);</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -101,7 +165,13 @@
 <li><code>@Test</code>表示需要运行的测试函数</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.shizhihua.example;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.Assert.assertEquals;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CalculatorTest</span> </span>&#123;</span><br><span class="line">  <span class="meta">@Test</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">evaluatesExpression</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Calculator calculator = <span class="keyword">new</span> Calculator();</span><br><span class="line">    <span class="keyword">int</span> sum = calculator.evaluate(<span class="string">"1+2+3"</span>);</span><br><span class="line">    assertEquals(<span class="number">6</span>, sum);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h2><p>为了Gradle，项目结构需要按照下面约定。注意被测的源java文件和测试例的java文件目录相对应。</p>
+<h2 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h2><p>为了Gradle，项目结构需要按照下面约定。注意被测的源java文件和测试例的java文件目录相对应:</p>
+<ul>
+<li><code>src/main/java</code>目录包含项目源代码</li>
+<li><code>src/main/resources</code>目录包含项目的资源</li>
+<li><code>src/test/java</code>目录包含项目测试类</li>
+<li><code>src/test/resource</code>目录包含项目测试资源</li>
+</ul>
 <p>执行测试：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
 <p>运行上述命令后，整个项目的目录结构如下：</p>
@@ -109,12 +179,12 @@
 <p>打开上述<code>index.html</code>可以看到测试结果的统计报告。</p>
 <h2 id="设置多进程"><a href="#设置多进程" class="headerlink" title="设置多进程"></a>设置多进程</h2><p>当项目中的测试例过多，需要通过并行的方法来加快运行速度。但是，如果每个unit test都需要自己独立的JVM，则系统overhead消耗大。Gradle采用了一种这种方法：设定<code>maxParallelForks</code>，限定最大的并发JVMs。</p>
 <p>如果一个JVM不断运行unit test，可能会引起性能问题（e.g.,<code>leak</code>）。Gradle设定<code>forkEvery</code>，使得一个test-running JVM运行完设定的test数目后会结束，并启动一个新的test-running JVM来替代。</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'java'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">repositories</span> &#123;</span><br><span class="line">	mavenCentral()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">	testCompile <span class="string">'junit:junit:4.12'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test &#123;</span><br><span class="line">	maxParallelForks = <span class="number">5</span></span><br><span class="line">	forkEvery = <span class="number">50</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'java'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">repositories</span> &#123;</span><br><span class="line">	mavenCentral()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">	testCompile <span class="string">'junit:junit:4.12'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">jar &#123;</span><br><span class="line">    manifest &#123;</span><br><span class="line">        attributes <span class="string">'Main-Class'</span>: <span class="string">'com.shizhihua.example.Calculator'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test &#123;</span><br><span class="line">	maxParallelForks = <span class="number">5</span></span><br><span class="line">	forkEvery = <span class="number">50</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：Junit集成/" data-id="cin496tio00004xs6wro6m0yv" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：Junit集成/" data-id="cin4mcl3y0004oms6tesp44p7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Junit/">Junit</a></li></ul>
@@ -155,21 +225,36 @@
 <h2 id="Java程序构建"><a href="#Java程序构建" class="headerlink" title="Java程序构建"></a>Java程序构建</h2><h3 id="Gradle文件"><a href="#Gradle文件" class="headerlink" title="Gradle文件"></a>Gradle文件</h3><p>在当前目录下生成文件<code>build.gradle</code>:</p>
 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'java'</span></span><br></pre></td></tr></table></figure>
 <h3 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h3><p>项目的目录结构需要按照下列固定约束（最里面几层对应package）：</p>
+<ul>
+<li><code>src/main/java</code>目录包含项目源代码</li>
+<li><code>src/main/resources</code>目录包含项目的资源</li>
+<li><code>src/test/java</code>目录包含项目测试类</li>
+<li><code>src/test/resource</code>目录包含项目测试资源</li>
+</ul>
+<p>本例中，没有测试相关内容，因此后两个目录没有。</p>
 <img src="http://www.plantuml.com/plantuml/svg/BOnB2e0m34JtEKNsWHx20oY85uXQR2HLyOTQlBkrkfet7sPXNI50g83G017McsXhkfbRjQzVvYOAeMSPNY3iUUT4XCteFuex9vSJj_rLJEp1VaedVr2KLbJFxCpPMvDkRhWV">
 <p>Java文件：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.shizhihua.example;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.net.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OReillyByName</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		String host = <span class="string">"www.baidu.com"</span>;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			InetAddress add = InetAddress.getLocalHost();</span><br><span class="line">			System.out.println(add);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (UnknownHostException ex) &#123;</span><br><span class="line">			System.out.println(<span class="string">"Couldn't not find the localhost"</span>);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			InetAddress adds[] = InetAddress.getAllByName(host);</span><br><span class="line">			<span class="keyword">for</span> (InetAddress add:adds) &#123;</span><br><span class="line">				System.out.println(add);</span><br><span class="line">				System.out.println(add.getHostName());</span><br><span class="line">				System.out.println(add.getHostAddress());</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">catch</span> (UnknownHostException ex) &#123;</span><br><span class="line">			System.out.println(<span class="string">"Couldn't not find "</span> + host);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="执行构建"><a href="#执行构建" class="headerlink" title="执行构建"></a>执行构建</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle build</span><br></pre></td></tr></table></figure>
 <h3 id="生成后的项目目录"><a href="#生成后的项目目录" class="headerlink" title="生成后的项目目录"></a>生成后的项目目录</h3><p>执行构建后，Gradle会生出一个目录<code>build</code>：</p>
+<ul>
+<li><code>classes</code>目录包含编译生成的<code>.class</code>文件</li>
+<li><code>libs</code>目录包含生成的<code>jar</code>或<code>war</code>文件</li>
+</ul>
 <img src="http://www.plantuml.com/plantuml/svg/fOux3i8m38PtdyAxHG_1o00IuW9kOX4ZfqHDYoXLxqv9MoHcji-F_v7PEXXXl01X1KHOzsf-1a9ddBFa3nD6rgRGlB_7XGXpq5VGqFEw89GdnsIopOIdiwZPi1-E7AKgdiNTIvB6I-E6dMCNYW9Dw-NQnGHRM5AJ0p-M3Bnn-wrPNLls9Gnpw-2dv_ouIlvhN6mccDu0">
 <h3 id="运行java程序"><a href="#运行java程序" class="headerlink" title="运行java程序"></a>运行java程序</h3><p>运行程序时，必须通过<code>-cp</code>指定<code>CLASSPATH</code>:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -cp build/classes/main/ com/shizhihua/example/OReillyByName</span><br></pre></td></tr></table></figure>
+<h3 id="jar配置"><a href="#jar配置" class="headerlink" title="jar配置"></a>jar配置</h3><p>上面得到的<code>jar</code>文件运行时需要指定入口，即<br>在<code>libs</code>中的<code>jar</code>文件，需要设置<code>Main-Class</code>属性的值，指定程序的入口点。为了运行简单，可以在gradle文件中直接配置好入口，即</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'java'</span></span><br><span class="line"></span><br><span class="line">jar &#123;</span><br><span class="line">    manifest &#123;</span><br><span class="line">        attributes <span class="string">'Main-Class'</span>: <span class="string">'com.shizhihua.example.OReillyByName'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过运行<code>gradle build</code>生产的<code>jar</code>文件，即可直接运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar build/libs/<span class="built_in">test</span>Gradle.jar</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：入门/" data-id="cin496tj600044xs6vaq34moy" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：入门/" data-id="cin4mcl3v0003oms6u26th402" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gadle/">Gadle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
 
     </footer>
   </div>
@@ -235,7 +320,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/17/Homebrew使用简介/" data-id="cin496tj300034xs6fhtbfvfx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/17/Homebrew使用简介/" data-id="cin4mcl410006oms6b3g184yo" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/">Mac</a></li></ul>
@@ -284,7 +369,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/16/常用内网IP段/" data-id="cin496tjf00084xs6djw8mrvm" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/16/常用内网IP段/" data-id="cin4mcl4c000boms67w6yp5xy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Internet/">Internet</a></li></ul>
@@ -378,7 +463,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/16/常用Internet协议的RFC编号/" data-id="cin496tjc00074xs6vaxhw9o9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/16/常用Internet协议的RFC编号/" data-id="cin4mcl470008oms65pgynae2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Internet/">Internet</a></li></ul>
@@ -417,7 +502,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/15/网络协议Layers/" data-id="cin496tjs000b4xs6u4iiuuco" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/15/网络协议Layers/" data-id="cin4mcl4p000foms6cu6jzxj0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Internet/">Internet</a></li></ul>
@@ -487,7 +572,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/12/Github部署Hexo博客/" data-id="cin496tiv00014xs6um6or8qf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/12/Github部署Hexo博客/" data-id="cin4mcl3p0001oms6jt53hj3t" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
@@ -532,7 +617,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/12/插件测试/" data-id="cin496tji000a4xs6tw5ut1wk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/12/插件测试/" data-id="cin4mcl4j000doms6vkr1q0ef" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
@@ -579,7 +664,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/12/hello-world/" data-id="cin496tj800064xs6uv05i1hu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/12/hello-world/" data-id="cin4mcl450007oms6nhxnp4hi" class="article-share-link">Share</a>
       
       
     </footer>
@@ -601,7 +686,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gadle/">Gadle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internet/">Internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internet/">Internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li></ul>
     </div>
   </div>
 
@@ -611,7 +696,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Gadle/" style="font-size: 10px;">Gadle</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/Internet/" style="font-size: 20px;">Internet</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Junit/" style="font-size: 10px;">Junit</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a>
+      <a href="/tags/Gradle/" style="font-size: 20px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/Internet/" style="font-size: 20px;">Internet</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Junit/" style="font-size: 10px;">Junit</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a>
     </div>
   </div>
 
@@ -633,6 +718,10 @@
       <ul>
         
           <li>
+            <a href="/2016/04/17/Gradle构建Java程序：Gradle常用命令/">Gradle构建Java程序：Gradle常用命令</a>
+          </li>
+        
+          <li>
             <a href="/2016/04/17/Gradle构建Java程序：Junit集成/">Gradle构建Java程序：Junit集成</a>
           </li>
         
@@ -646,10 +735,6 @@
         
           <li>
             <a href="/2016/04/16/常用内网IP段/">常用内网IP段</a>
-          </li>
-        
-          <li>
-            <a href="/2016/04/16/常用Internet协议的RFC编号/">常用Internet协议的RFC编号</a>
           </li>
         
       </ul>
