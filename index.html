@@ -68,6 +68,78 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Gradle构建Java程序：Task" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/04/18/Gradle构建Java程序：Task/" class="article-date">
+  <time datetime="2016-04-18T12:43:35.000Z" itemprop="datePublished">2016-04-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/18/Gradle构建Java程序：Task/">Gradle构建Java程序：Task</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>下列内容来自《Building and Testing with Gradle》。</p>
+<p>Gradle运行生命周期如下：</p>
+<ul>
+<li><strong>Configuration phase</strong>: 运行configuration blocks</li>
+<li><strong>Execution phase</strong>：运行task actions</li>
+</ul>
+<h2 id="Task-action定义"><a href="#Task-action定义" class="headerlink" title="Task action定义"></a>Task action定义</h2><p>在Gradle中，task是build activity的基本单元，由一系列的构建指令组合而成。Task是first-class object。</p>
+<p>Task Action使用<code>task</code>和<code>&lt;&lt;</code>来定义：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> hello &lt;&lt; &#123;</span><br><span class="line">  <span class="keyword">println</span> <span class="string">'hello, world'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中<code>&lt;&lt;</code>在此处表示为<code>hello</code>任务添加一系列的操作(append a code block to the list of actions a task performs)。</p>
+<p>上述表达式可以用下面的命令来等价：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> hello</span><br><span class="line"></span><br><span class="line">hello &lt;&lt; &#123;</span><br><span class="line">  <span class="keyword">print</span> <span class="string">'hello, '</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hello &lt;&lt; &#123;</span><br><span class="line">  <span class="keyword">println</span> <span class="string">'world'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Task配置"><a href="#Task配置" class="headerlink" title="Task配置"></a>Task配置</h2><p>Task的定义与配置很像，差别在于task配置中<strong>不使用</strong><code>&lt;&lt;</code>。</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> initializeDatabase</span><br><span class="line">initializeDatabase &lt;&lt; &#123; <span class="keyword">println</span> <span class="string">'task'</span> &#125;</span><br><span class="line">initializeDatabase &#123; <span class="keyword">println</span> <span class="string">'configuration&#125;</span></span><br></pre></td></tr></table></figure>
+<p>上述第1条声明一个task，第2条添加operation到task，第3条是task的配置。</p>
+<p>运行上述build文件，可以得到下列结果：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ gradle -b scratch.gradle initializeDatabase</span><br><span class="line">configuration</span><br><span class="line">:initializeDatabase</span><br><span class="line"><span class="keyword">task</span></span><br></pre></td></tr></table></figure>
+<h2 id="Task是对象"><a href="#Task是对象" class="headerlink" title="Task是对象"></a>Task是对象</h2><p><code>Tasks are Objects</code>。和不同的对象一样，a task object可以含有方法（methods）和属性（properties）。</p>
+<p>前述定义的Task，属于<code>DefaultTask</code>，有以下一些方法。</p>
+<h3 id="dependsOn"><a href="#dependsOn" class="headerlink" title="dependsOn"></a>dependsOn</h3><p>被依赖的task会先执行。可以有不同的表示方法，结果是等效的。下面示例中定义的task依赖于两个其它task（只显示了4种方法）：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> world(dependsOn: [compileTestClasses, createSchema])</span><br></pre></td></tr></table></figure>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> world</span><br><span class="line">world.dependsOn compileTestClasses, createSchema</span><br></pre></td></tr></table></figure>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> world &#123;</span><br><span class="line">  dependsOn compileTestClasses, createSchema</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> world &#123;</span><br><span class="line">  dependsOn &lt;&lt; compileTestClasses</span><br><span class="line">  dependson &lt;&lt; createSchema</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="doFirst"><a href="#doFirst" class="headerlink" title="doFirst"></a>doFirst</h3><p><code>doFirst</code>中的代码会在对应的task action之前执行；多个<code>doFirst</code>出现时，后出现的先运行，即遵照FILO规则。</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> setupDatabaseTest &lt;&lt; &#123;</span><br><span class="line">   <span class="keyword">println</span> <span class="string">'load test data'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">setupDatabaseTest.<span class="keyword">doFirst</span> &#123;</span><br><span class="line">  <span class="keyword">println</span> <span class="string">'create schea'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> setupDatabaseTest &lt;&lt; &#123;</span><br><span class="line">   <span class="keyword">println</span> <span class="string">'load test data'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">setupDatabaseTest&#123;</span><br><span class="line">    <span class="keyword">doFirst</span> &#123;</span><br><span class="line">       <span class="keyword">println</span> <span class="string">'create schea'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="doLast"><a href="#doLast" class="headerlink" title="doLast"></a>doLast</h3><p><code>doLast</code>中的代码会在对应的task action之后执行。多个<code>doLast</code>出现时，先出现的先运行，即遵照FIFO规则。<code>doLast</code>用法与<code>doFirst</code>类似。</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> setupDatabaseTest &lt;&lt; &#123;</span><br><span class="line">   <span class="keyword">println</span> <span class="string">'create database schema'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">setupDatabaseTest.<span class="keyword">doLast</span> &#123;</span><br><span class="line">  <span class="keyword">println</span> <span class="string">'load test data'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Task-type"><a href="#Task-type" class="headerlink" title="Task type"></a>Task type</h2><p>除了<code>DefaultTask</code>，task还有其它一些type。在task名字后面添加<code>(type: typeName)</code>即可指定task type。</p>
+<h3 id="Copy"><a href="#Copy" class="headerlink" title="Copy"></a>Copy</h3><p>Copy task从一个目录拷贝文件到另一个目录。</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> copyFiles(type: <span class="keyword">Copy</span>) &#123;  <span class="keyword">from</span> <span class="string">'resources'</span>  <span class="keyword">into</span> <span class="string">'target'</span>  <span class="keyword">include</span> <span class="string">'**/*.xml'</span>, <span class="string">'**/*.txt'</span>, <span class="string">'**/*.properties'</span>&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Jar"><a href="#Jar" class="headerlink" title="Jar"></a>Jar</h3><p>从源文件生成<code>jar</code>文件</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'java'</span></span><br><span class="line"><span class="keyword">task</span> customJar(type: Jar) &#123;    manifest &#123;         attributes firstKey: <span class="string">'firstValue'</span>, secondKey: <span class="string">'secondValue'</span>    &#125;    archiveName = <span class="string">'hello.jar'</span>    <span class="keyword">destinationDir</span> = <span class="keyword">file</span>(<span class="string">"$&#123;buildDir&#125;/jars"</span>)    <span class="keyword">from</span> <span class="keyword">sourceSets</span>.main.classes&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/04/18/Gradle构建Java程序：Task/" data-id="cin6325890003wws6dzpeqb1t" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Gradle构建Java程序：Gradle常用命令" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/04/17/Gradle构建Java程序：Gradle常用命令/" class="article-date">
@@ -120,7 +192,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：Gradle常用命令/" data-id="cin4mcl3i0000oms6dznkxd3a" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：Gradle常用命令/" data-id="cin6325830001wws6pz1hj0uy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
@@ -184,7 +256,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：Junit集成/" data-id="cin4mcl3y0004oms6tesp44p7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：Junit集成/" data-id="cin63258c0004wws6es44qva0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Junit/">Junit</a></li></ul>
@@ -251,7 +323,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：入门/" data-id="cin4mcl3v0003oms6u26th402" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：入门/" data-id="cin63258d0006wws6q29y6w7m" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
@@ -320,7 +392,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/17/Homebrew使用简介/" data-id="cin4mcl410006oms6b3g184yo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/17/Homebrew使用简介/" data-id="cin63258h0008wws6why4a9k1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/">Mac</a></li></ul>
@@ -369,7 +441,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/16/常用内网IP段/" data-id="cin4mcl4c000boms67w6yp5xy" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/16/常用内网IP段/" data-id="cin63258u000cwws695ad6ral" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Internet/">Internet</a></li></ul>
@@ -463,7 +535,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/16/常用Internet协议的RFC编号/" data-id="cin4mcl470008oms65pgynae2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/16/常用Internet协议的RFC编号/" data-id="cin63258l000bwws6qfodubq7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Internet/">Internet</a></li></ul>
@@ -502,7 +574,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/15/网络协议Layers/" data-id="cin4mcl4p000foms6cu6jzxj0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/15/网络协议Layers/" data-id="cin632590000gwws6yvkeed3u" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Internet/">Internet</a></li></ul>
@@ -572,7 +644,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/12/Github部署Hexo博客/" data-id="cin4mcl3p0001oms6jt53hj3t" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/12/Github部署Hexo博客/" data-id="cin63257x0000wws6lh9dst7n" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
@@ -617,7 +689,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/12/插件测试/" data-id="cin4mcl4j000doms6vkr1q0ef" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/12/插件测试/" data-id="cin63258x000ewws6hn1p1heh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
@@ -629,52 +701,11 @@
 
 
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/04/12/hello-world/" class="article-date">
-  <time datetime="2016-04-11T23:35:09.000Z" itemprop="datePublished">2016-04-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/12/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/12/hello-world/" data-id="cin4mcl450007oms6nhxnp4hi" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
 
 
-  
-
+  <nav id="page-nav">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">__('next') &raquo;</a>
+  </nav>
 </section>
         
           <aside id="sidebar">
@@ -696,7 +727,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Gradle/" style="font-size: 20px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/Internet/" style="font-size: 20px;">Internet</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Junit/" style="font-size: 10px;">Junit</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a>
+      <a href="/tags/Gradle/" style="font-size: 20px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 13.33px;">Hexo</a> <a href="/tags/Internet/" style="font-size: 16.67px;">Internet</a> <a href="/tags/Java/" style="font-size: 16.67px;">Java</a> <a href="/tags/Junit/" style="font-size: 10px;">Junit</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a>
     </div>
   </div>
 
@@ -718,6 +749,10 @@
       <ul>
         
           <li>
+            <a href="/2016/04/18/Gradle构建Java程序：Task/">Gradle构建Java程序：Task</a>
+          </li>
+        
+          <li>
             <a href="/2016/04/17/Gradle构建Java程序：Gradle常用命令/">Gradle构建Java程序：Gradle常用命令</a>
           </li>
         
@@ -731,10 +766,6 @@
         
           <li>
             <a href="/2016/04/17/Homebrew使用简介/">Homebrew使用简介</a>
-          </li>
-        
-          <li>
-            <a href="/2016/04/16/常用内网IP段/">常用内网IP段</a>
           </li>
         
       </ul>

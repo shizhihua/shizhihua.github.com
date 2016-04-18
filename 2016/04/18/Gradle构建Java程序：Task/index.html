@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <title>Gradle构建Java程序：Task | 一沙一世界</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="下列内容来自《Building and Testing with Gradle》。
+Gradle运行生命周期如下：
+
+Configuration phase: 运行configuration blocks
+Execution phase：运行task actions
+
+Task action定义在Gradle中，task是build activity的基本单元，由一系列的构建指令组合而成。Task">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gradle构建Java程序：Task">
+<meta property="og:url" content="http://yoursite.com/2016/04/18/Gradle构建Java程序：Task/index.html">
+<meta property="og:site_name" content="一沙一世界">
+<meta property="og:description" content="下列内容来自《Building and Testing with Gradle》。
+Gradle运行生命周期如下：
+
+Configuration phase: 运行configuration blocks
+Execution phase：运行task actions
+
+Task action定义在Gradle中，task是build activity的基本单元，由一系列的构建指令组合而成。Task">
+<meta property="og:updated_time" content="2016-04-18T14:32:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gradle构建Java程序：Task">
+<meta name="twitter:description" content="下列内容来自《Building and Testing with Gradle》。
+Gradle运行生命周期如下：
+
+Configuration phase: 运行configuration blocks
+Execution phase：运行task actions
+
+Task action定义在Gradle中，task是build activity的基本单元，由一系列的构建指令组合而成。Task">
+  
+    <link rel="alternate" href="/atom.xml" title="一沙一世界" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">一沙一世界</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">SHIZHIHUA&#39;s BLOG</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Gradle构建Java程序：Task" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/04/18/Gradle构建Java程序：Task/" class="article-date">
+  <time datetime="2016-04-18T12:43:35.000Z" itemprop="datePublished">2016-04-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Gradle构建Java程序：Task
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>下列内容来自《Building and Testing with Gradle》。</p>
+<p>Gradle运行生命周期如下：</p>
+<ul>
+<li><strong>Configuration phase</strong>: 运行configuration blocks</li>
+<li><strong>Execution phase</strong>：运行task actions</li>
+</ul>
+<h2 id="Task-action定义"><a href="#Task-action定义" class="headerlink" title="Task action定义"></a>Task action定义</h2><p>在Gradle中，task是build activity的基本单元，由一系列的构建指令组合而成。Task是first-class object。</p>
+<p>Task Action使用<code>task</code>和<code>&lt;&lt;</code>来定义：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> hello &lt;&lt; &#123;</span><br><span class="line">  <span class="keyword">println</span> <span class="string">'hello, world'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中<code>&lt;&lt;</code>在此处表示为<code>hello</code>任务添加一系列的操作(append a code block to the list of actions a task performs)。</p>
+<p>上述表达式可以用下面的命令来等价：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> hello</span><br><span class="line"></span><br><span class="line">hello &lt;&lt; &#123;</span><br><span class="line">  <span class="keyword">print</span> <span class="string">'hello, '</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hello &lt;&lt; &#123;</span><br><span class="line">  <span class="keyword">println</span> <span class="string">'world'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Task配置"><a href="#Task配置" class="headerlink" title="Task配置"></a>Task配置</h2><p>Task的定义与配置很像，差别在于task配置中<strong>不使用</strong><code>&lt;&lt;</code>。</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> initializeDatabase</span><br><span class="line">initializeDatabase &lt;&lt; &#123; <span class="keyword">println</span> <span class="string">'task'</span> &#125;</span><br><span class="line">initializeDatabase &#123; <span class="keyword">println</span> <span class="string">'configuration&#125;</span></span><br></pre></td></tr></table></figure>
+<p>上述第1条声明一个task，第2条添加operation到task，第3条是task的配置。</p>
+<p>运行上述build文件，可以得到下列结果：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ gradle -b scratch.gradle initializeDatabase</span><br><span class="line">configuration</span><br><span class="line">:initializeDatabase</span><br><span class="line"><span class="keyword">task</span></span><br></pre></td></tr></table></figure>
+<h2 id="Task是对象"><a href="#Task是对象" class="headerlink" title="Task是对象"></a>Task是对象</h2><p><code>Tasks are Objects</code>。和不同的对象一样，a task object可以含有方法（methods）和属性（properties）。</p>
+<p>前述定义的Task，属于<code>DefaultTask</code>，有以下一些方法。</p>
+<h3 id="dependsOn"><a href="#dependsOn" class="headerlink" title="dependsOn"></a>dependsOn</h3><p>被依赖的task会先执行。可以有不同的表示方法，结果是等效的。下面示例中定义的task依赖于两个其它task（只显示了4种方法）：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> world(dependsOn: [compileTestClasses, createSchema])</span><br></pre></td></tr></table></figure>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> world</span><br><span class="line">world.dependsOn compileTestClasses, createSchema</span><br></pre></td></tr></table></figure>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> world &#123;</span><br><span class="line">  dependsOn compileTestClasses, createSchema</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> world &#123;</span><br><span class="line">  dependsOn &lt;&lt; compileTestClasses</span><br><span class="line">  dependson &lt;&lt; createSchema</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="doFirst"><a href="#doFirst" class="headerlink" title="doFirst"></a>doFirst</h3><p><code>doFirst</code>中的代码会在对应的task action之前执行；多个<code>doFirst</code>出现时，后出现的先运行，即遵照FILO规则。</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> setupDatabaseTest &lt;&lt; &#123;</span><br><span class="line">   <span class="keyword">println</span> <span class="string">'load test data'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">setupDatabaseTest.<span class="keyword">doFirst</span> &#123;</span><br><span class="line">  <span class="keyword">println</span> <span class="string">'create schea'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> setupDatabaseTest &lt;&lt; &#123;</span><br><span class="line">   <span class="keyword">println</span> <span class="string">'load test data'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">setupDatabaseTest&#123;</span><br><span class="line">    <span class="keyword">doFirst</span> &#123;</span><br><span class="line">       <span class="keyword">println</span> <span class="string">'create schea'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="doLast"><a href="#doLast" class="headerlink" title="doLast"></a>doLast</h3><p><code>doLast</code>中的代码会在对应的task action之后执行。多个<code>doLast</code>出现时，先出现的先运行，即遵照FIFO规则。<code>doLast</code>用法与<code>doFirst</code>类似。</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> setupDatabaseTest &lt;&lt; &#123;</span><br><span class="line">   <span class="keyword">println</span> <span class="string">'create database schema'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">setupDatabaseTest.<span class="keyword">doLast</span> &#123;</span><br><span class="line">  <span class="keyword">println</span> <span class="string">'load test data'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Task-type"><a href="#Task-type" class="headerlink" title="Task type"></a>Task type</h2><p>除了<code>DefaultTask</code>，task还有其它一些type。在task名字后面添加<code>(type: typeName)</code>即可指定task type。</p>
+<h3 id="Copy"><a href="#Copy" class="headerlink" title="Copy"></a>Copy</h3><p>Copy task从一个目录拷贝文件到另一个目录。</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> copyFiles(type: <span class="keyword">Copy</span>) &#123;  <span class="keyword">from</span> <span class="string">'resources'</span>  <span class="keyword">into</span> <span class="string">'target'</span>  <span class="keyword">include</span> <span class="string">'**/*.xml'</span>, <span class="string">'**/*.txt'</span>, <span class="string">'**/*.properties'</span>&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Jar"><a href="#Jar" class="headerlink" title="Jar"></a>Jar</h3><p>从源文件生成<code>jar</code>文件</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'java'</span></span><br><span class="line"><span class="keyword">task</span> customJar(type: Jar) &#123;    manifest &#123;         attributes firstKey: <span class="string">'firstValue'</span>, secondKey: <span class="string">'secondValue'</span>    &#125;    archiveName = <span class="string">'hello.jar'</span>    <span class="keyword">destinationDir</span> = <span class="keyword">file</span>(<span class="string">"$&#123;buildDir&#125;/jars"</span>)    <span class="keyword">from</span> <span class="keyword">sourceSets</span>.main.classes&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/04/18/Gradle构建Java程序：Task/" data-id="cin6325890003wws6dzpeqb1t" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/04/17/Gradle构建Java程序：Gradle常用命令/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Gradle构建Java程序：Gradle常用命令</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internet/">Internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Gradle/" style="font-size: 20px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 13.33px;">Hexo</a> <a href="/tags/Internet/" style="font-size: 16.67px;">Internet</a> <a href="/tags/Java/" style="font-size: 16.67px;">Java</a> <a href="/tags/Junit/" style="font-size: 10px;">Junit</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/04/18/Gradle构建Java程序：Task/">Gradle构建Java程序：Task</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/17/Gradle构建Java程序：Gradle常用命令/">Gradle构建Java程序：Gradle常用命令</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/17/Gradle构建Java程序：Junit集成/">Gradle构建Java程序：Junit集成</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/17/Gradle构建Java程序：入门/">Gradle构建Java程序：入门</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/17/Homebrew使用简介/">Homebrew使用简介</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 shizhihua<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
