@@ -68,6 +68,115 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-网络协议Layers" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/04/15/网络协议Layers/" class="article-date">
+  <time datetime="2016-04-15T14:45:58.000Z" itemprop="datePublished">2016-04-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/15/网络协议Layers/">网络协议Layers</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>网络中一些典型协议的层级关系，摘自《Java Network Programming》。</p>
+<img src="http://www.plantuml.com/plantuml/svg/RP3B2eCm44NtVeMuzoF41mrK6qnAknCfmNQJWgR_tymuDtNHtRapLyESUN4-vCe7jteNifcZrbhefZebs8RdiQDGgKQGgdkWhK7N9itM-U7MzoSuFFFoYs1dqJhPXAPFs0n6QEX0vb9XVU_FanvhISNO6ZjLMcr5XiloikIpZfcFEmxIYR59ETv87K5i_qHoeFPFoC6Ev60dSa0BdluiOCGUOfkOH0Yo2M5M4Nz3J2u4IGRLk48w4204EHd9lW00">
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/04/15/网络协议Layers/" data-id="cin8yly10000mlws60lpb19cz" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Internet/">Internet</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Github部署Hexo博客" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/04/12/Github部署Hexo博客/" class="article-date">
+  <time datetime="2016-04-12T12:22:34.000Z" itemprop="datePublished">2016-04-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/12/Github部署Hexo博客/">Github部署Hexo博客</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本过程在Mac上实现。</p>
+<h2 id="Hexo安装"><a href="#Hexo安装" class="headerlink" title="Hexo安装"></a>Hexo安装</h2><h3 id="软件准备"><a href="#软件准备" class="headerlink" title="软件准备"></a>软件准备</h3><p>安装好下列软件：</p>
+<ul>
+<li>Git</li>
+<li>Node.js</li>
+</ul>
+<h3 id="Hexo安装-1"><a href="#Hexo安装-1" class="headerlink" title="Hexo安装"></a>Hexo安装</h3><p>自己在安装中，必须使用 <code>sudo</code>，否则会有文件读写权限问题</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install hexo-cli -g</span><br></pre></td></tr></table></figure>
+<p>在当前目录，创建并初始化博客目录<code>blog</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init blog</span><br></pre></td></tr></table></figure>
+<p>安装依赖，并启动服务器，在浏览器中输入<code>localhost:4000</code>即可看到博客网站内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+<h2 id="Github仓库建立和配置"><a href="#Github仓库建立和配置" class="headerlink" title="Github仓库建立和配置"></a>Github仓库建立和配置</h2><ul>
+<li>Github上创建repository：username.github.io (其中username是github账号的用户名)</li>
+<li>拷贝repository对应的HTTPS地址，并配置本地博客目录中的文件<code>_config.yml</code>：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repo: https://github.com/username/username.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+<p>上面的<code>username</code>需要换成实际的Github账号用户名。</p>
+<h2 id="SSH配置"><a href="#SSH配置" class="headerlink" title="SSH配置"></a>SSH配置</h2><p>本机新安装，因此直接输入下来指令生成SSH Key：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">"邮箱"</span></span><br><span class="line">ssh-agent <span class="_">-s</span></span><br><span class="line">ssh-add ~/.ssh/id_rsa</span><br></pre></td></tr></table></figure>
+<p>上述命令中，出现要输入的地方，一直回车键。上述邮箱使用了Github账号对应的邮箱。</p>
+<p>使用命令显示下列文件内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
+<p>拷贝上述文件内容，并保存到Github仓库的设置<code>Add SSH Key</code>中（title可以随便写个名字）。</p>
+<h2 id="Git配置"><a href="#Git配置" class="headerlink" title="Git配置"></a>Git配置</h2><p>为了避免每次<code>hexo deploy</code>时每次输入Github的账号和密码，需要进行对Git进行配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">"username"</span></span><br><span class="line">git config --global user.email  <span class="string">"emailaddress"</span></span><br></pre></td></tr></table></figure>
+<p>上述用户名和邮箱使用Github账号所对应的。</p>
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>在博客目录下，输入下述命令，无需人工干预，最后可以看到成功信息。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+<p>在浏览器中输入<code>username.github.io</code>即可看到博客的内容（其中<code>username</code>同上，是github账号的用户名）。</p>
+<p>上述两条命令可以简写为如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g <span class="_">-d</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/04/12/Github部署Hexo博客/" data-id="cin8ylxzq0001lws6m9q1i5kc" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-插件测试" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/04/12/插件测试/" class="article-date">
@@ -101,7 +210,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/12/插件测试/" data-id="cin8vyljr000egcs6tj9axzot" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/12/插件测试/" data-id="cin8yly0v000klws6m6i3s8hl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
@@ -148,7 +257,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/12/hello-world/" data-id="cin8vylje000bgcs647rqibfj" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/12/hello-world/" data-id="cin8yly080008lws6y7xisc02" class="article-share-link">Share</a>
       
       
     </footer>
@@ -184,7 +293,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Gradle/" style="font-size: 20px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 13.33px;">Hexo</a> <a href="/tags/Internet/" style="font-size: 16.67px;">Internet</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Junit/" style="font-size: 10px;">Junit</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a>
+      <a href="/tags/Gradle/" style="font-size: 17.5px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="/tags/Internet/" style="font-size: 15px;">Internet</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Junit/" style="font-size: 10px;">Junit</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Spring/" style="font-size: 15px;">Spring</a>
     </div>
   </div>
 
@@ -206,6 +315,14 @@
       <ul>
         
           <li>
+            <a href="/2016/04/20/《Spring-In-Action》学习笔记（三）：Spring-4-0-模块/">《Spring In Action》学习笔记（三）：Spring 4.0 模块</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/20/《Spring-In-Action》学习笔记（二）：Spring-Container/">《Spring In Action》学习笔记（二）：Spring Container</a>
+          </li>
+        
+          <li>
             <a href="/2016/04/20/《Spring-In-Action》学习笔记（一）：基本概念/">《Spring In Action》学习笔记（一）：基本概念</a>
           </li>
         
@@ -215,14 +332,6 @@
         
           <li>
             <a href="/2016/04/17/Gradle构建Java程序：Gradle常用命令/">Gradle构建Java程序：Gradle常用命令</a>
-          </li>
-        
-          <li>
-            <a href="/2016/04/17/Gradle构建Java程序：Junit集成/">Gradle构建Java程序：Junit集成</a>
-          </li>
-        
-          <li>
-            <a href="/2016/04/17/Gradle构建Java程序：入门/">Gradle构建Java程序：入门</a>
           </li>
         
       </ul>
