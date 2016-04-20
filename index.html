@@ -68,6 +68,121 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-《Spring-In-Action》学习笔记（一）：基本概念" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/04/20/《Spring-In-Action》学习笔记（一）：基本概念/" class="article-date">
+  <time datetime="2016-04-20T12:24:33.000Z" itemprop="datePublished">2016-04-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/20/《Spring-In-Action》学习笔记（一）：基本概念/">《Spring In Action》学习笔记（一）：基本概念</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>基于《Spring In Action》第四版。</p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>为了替代笨重的Enterprise JavaBeans (EJB)，人们设计了轻量级的框架Spring。 因此<br>Spring的设计目的就是：<strong>简化java开发</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Spring simplifies Java development</span><br></pre></td></tr></table></figure>
+<p>为了降低Java开发复杂度，Spring采用了四方面的策略</p>
+<ul>
+<li>Lightweight and minimally invasive development with POJOs</li>
+<li>Loose coupling through DI and interface orientation</li>
+<li>Declarative programming through aspects and common conventions</li>
+<li>Eliminating boilerplate code with aspects and templates</li>
+</ul>
+<p>后续四部分会分别针对这四个方面，以实际例子来说明其含义。</p>
+<p>先记录一些常用的名词：</p>
+<ul>
+<li><strong>POJO</strong>： plain old Java object （简单Java类）</li>
+<li><strong>Bean/JavaBean</strong>：Spring中使用宽松的定义，就是指一个spring component，当作POJO的同义词</li>
+<li><strong>DI</strong>：Dependency Injection（依赖注入）</li>
+<li><strong>AOP</strong>：Aspect-Oriented Programming</li>
+</ul>
+<h2 id="Non-invasive-Programming-Model"><a href="#Non-invasive-Programming-Model" class="headerlink" title="Non-invasive Programming Model"></a>Non-invasive Programming Model</h2><p>有一些Java框架在使用时，开发人员需要在自己的程序中扩展或者实现框架的的一些interface或者class。</p>
+<p>Spring框架不会让程序代码和他的API混在一起。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Spring almost never forces you to implement a Sprint-specific interface or extend a Spring-specific class.</span><br></pre></td></tr></table></figure>
+<p>通常，使用Spring时，往往感受不到在使用Spring。 最差情况是会使用一些Spring’s annotation。下面是一个例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Spring doesn’t make any unreasonable demands on HelloWorldBean</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> com.habuma.spring;</span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorldBean</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">sayHello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Hello World"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从上面例子可以看到，这就是一个简单Java类（POJO），没有Spring的组件直接体现出来。这样的好处是：</p>
+<blockquote>
+<p>同样的代码可以在其他非Spring程序中使用（in a non-Spring application）。</p>
+</blockquote>
+<h2 id="Dependency-Injection"><a href="#Dependency-Injection" class="headerlink" title="Dependency Injection"></a>Dependency Injection</h2><p>Dependency Injection (DI) 的用处主要是解耦不同的class/object。</p>
+<p>一个典型应用场景是： </p>
+<ul>
+<li>Class B1来自通用的Inferface B</li>
+<li>Class A里面需要使用Class B1<ul>
+<li>若直接在Class A中直接生产Class B1的对象，则两个类型之间产生了紧耦合。不利于后续程序的扩展</li>
+<li>Class A可以把Interface B的对象作为输入参数，这样就从外界获取Class B1的对象，而不是内部直接产生，从而实现解耦；同时也利于扩展，例如获取Interface B的其他实现B2、B3等。</li>
+</ul>
+</li>
+</ul>
+<p>下面分三部分通过例子来</p>
+<h3 id="传统紧耦合方式"><a href="#传统紧耦合方式" class="headerlink" title="传统紧耦合方式"></a>传统紧耦合方式</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.springinaction.knights;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DamselRescuingKnight</span> <span class="keyword">implements</span> <span class="title">Knight</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> RescueDamselQuest quest;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DamselRescuingKnight</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.quest = <span class="keyword">new</span> RescueDamselQuest();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">embarkOnQuest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        quest.embark();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述代码，存在两方面的问题：</p>
+<ol>
+<li><strong>紧耦合、难以扩展</strong>：两个类<code>DamselRescuingKnight</code>与<code>RescueDamselQuest</code>紧密联系在一起。如果要一个屠龙的knight，则上述代码都得重新写，很难直接利用。</li>
+<li><strong>测试测试困难</strong>：单元测试需要知道是否正确调用了<code>quest.embark()</code>，目前没有简洁的方法可以进行验证。</li>
+</ol>
+<h3 id="依赖注入（DI）"><a href="#依赖注入（DI）" class="headerlink" title="依赖注入（DI）"></a>依赖注入（DI）</h3><p>使用DI，则有一个第三方来负责协同两个类。看下面例子（<strong>constructor injection</strong>）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.springinaction.knights;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BraveKnight</span> <span class="keyword">implements</span> <span class="title">Knight</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Quest quest;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BraveKnight</span><span class="params">(Quest quest)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.quest = quest;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">embarkOnQuest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        quest.embark();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的<code>BraveKnight</code>就比较通用，可以接收各种<code>Quest</code>：<code>RescueDamselQuest</code>, <code>SlayDragonQuest</code>, <code>MakeRoundTableRounderQuest</code>。</p>
+<p>因此<code>BraveKnight</code>已经与<code>Quest</code>的各种具体实现完全解耦了，不再依赖于具体实现。 （设计模式原则之一：基于接口编程。策略模式）</p>
+<p>采用constructor injection后，很容易使用Mock来进行单元测试：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.springinaction.knights;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.mockito.Mockito.*;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BraveKnightTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">knightShouldEmbarkOnQuest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Quest mockQuest = mock(Quest.class);</span><br><span class="line">        BraveKnight knight = <span class="keyword">new</span> BraveKnight(mockQuest);</span><br><span class="line">        knight.embarkOnQuest();</span><br><span class="line">        verify(mockQuest, times(<span class="number">1</span>)).embark();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过采用调用<code>embarkOnQuest()</code>，可以利用<code>Mockito</code>来验证<code>Quest</code>的<code>embark()</code>是被调用了1次。</p>
+<h3 id="注入Quest"><a href="#注入Quest" class="headerlink" title="注入Quest"></a>注入Quest</h3><p>首先实现被注入的类<code>SlayDragonQuest</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.springinaction.knights;</span><br><span class="line"><span class="keyword">import</span> java.io.PrintStream;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SlayDragonQuest</span> <span class="keyword">implements</span> <span class="title">Quest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> PrintStream stream;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SlayDragonQuest</span><span class="params">(PrintStream stream)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.stream = stream;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">embark</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        stream.println(<span class="string">"Embarking on quest to slay the dragon!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到，<code>SlayDragonQuest</code>也使用了构造注入（constructor injection）。 </p>
+<p>在Spring中，可以使用XML来把<code>SlayDragonQuest</code>传递给<code>BraveKnight</code>：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span><br><span class="line">   <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">   <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span><br><span class="line">   http://www.springframework.org/schema/beans/spring-beans.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"knight"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.knights.BraveKnight"</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">ref</span>=<span class="string">"quest"</span> /&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"quest"</span>  <span class="attr">class</span>=<span class="string">"com.springinaction.knights.SlayDragonQuest"</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">value</span>=<span class="string">"#&#123;T(System).out&#125;"</span> /&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在上述XML文件中，两个类都被声明为Bean了。每个Bean都配置了构造函数输入参数，从而关联的对应的类（wire beans）。</p>
+<p>在Spring中，可以用Java代码来等价替换上述XML文件：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.springinaction.knights.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> com.springinaction.knights.BraveKnight;</span><br><span class="line"><span class="keyword">import</span> com.springinaction.knights.Knight;</span><br><span class="line"><span class="keyword">import</span> com.springinaction.knights.Quest;</span><br><span class="line"><span class="keyword">import</span> com.springinaction.knights.SlayDragonQuest;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">KnightConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Knight <span class="title">knight</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> BraveKnight(quest());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Quest <span class="title">quest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> SlayDragonQuest(System.out);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="工作起来"><a href="#工作起来" class="headerlink" title="工作起来"></a>工作起来</h3><p>在Spring application中，一个<code>application context</code>来读取bean定义，并把他们wire在一起。</p>
+<p>Spring提供了application context的多种实现，其差别仅仅在于如何load configuration。 本处以XML文件为例，需要使用<code>ClassPathXmlApplicationContext</code>（Java配置文件时，需要使用<code>AnnotationConfigApplicationContext</code>）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.springinaction.knights;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.support.</span><br><span class="line">ClassPathXmlApplicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">KnightMain</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        ClassPathXmlApplicationContext context = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"META-INF/spring/knight.xml"</span>);</span><br><span class="line">        Knight knight = context.getBean(Knight.class);  <span class="comment">// Get knight</span></span><br><span class="line">bean</span><br><span class="line">        knight.embarkOnQuest();</span><br><span class="line">        context.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h2><p>DI实现了模块间的解耦（松耦合），AOP可以帮组我们提高功能模块的可重用性。</p>
+<p>系统的不同功能分为不同的模块。但在实际过程中，一些模块除了自己的核心功能以外，还有一些其他的辅助功能，而这些辅助的功能可能会涉及多个模块。这就造成，修改一些代码，可能会涉及到系统很多部分。</p>
+<p>定义一个类<code>Minstrel</code>，其有两个函数，分别在knight做一个quest（embark on a quest）之前和之后执行:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.springinaction.knights;</span><br><span class="line"><span class="keyword">import</span> java.io.PrintStream;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Minstrel</span> </span>&#123;	<span class="keyword">private</span> PrintStream stream;	<span class="function"><span class="keyword">public</span> <span class="title">Minstrel</span><span class="params">(PrintStream stream)</span> </span>&#123;		<span class="keyword">this</span>.stream = stream;	&#125;<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">singBeforeQuest</span><span class="params">()</span> </span>&#123;      <span class="comment">// Called before quest</span>	stream.println(<span class="string">"Fa la la, the knight is so brave!"</span>);&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">singAfterQuest</span><span class="params">()</span> </span>&#123;       <span class="comment">// Called after quest</span>	stream.println(<span class="string">"Tee hee hee, the brave knight "</span> +<span class="string">"did embark on a quest!"</span>);	&#125;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="传统处理方式"><a href="#传统处理方式" class="headerlink" title="传统处理方式"></a>传统处理方式</h3><p>直接在某个具体骑士的类中调用<code>minstrel</code>的两个函数：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.springinaction.knights;<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BraveKnight</span> <span class="keyword">implements</span> <span class="title">Knight</span> </span>&#123;	<span class="keyword">private</span> Quest quest;	<span class="keyword">private</span> Minstrel minstrel;	<span class="function"><span class="keyword">public</span> <span class="title">BraveKnight</span><span class="params">(Quest quest, Minstrel minstrel)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.quest = quest;		<span class="keyword">this</span>.minstrel = minstrel;	&#125;	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">embarkOnQuest</span><span class="params">()</span> <span class="keyword">throws</span> QuestException </span>&#123;		minstrel.singBeforeQuest();		quest.embark();		minstrel.singAfterQuest();	&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，两个类紧紧耦合在一起了。</p>
+<h3 id="AOP处理方式"><a href="#AOP处理方式" class="headerlink" title="AOP处理方式"></a>AOP处理方式</h3><p>在Spring中，AOP处理方式对应的XML配置如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;&gt;<span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span>	<span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span>	<span class="attr">xmlns:aop</span>=<span class="string">"http://www.springframework.org/schema/aop"</span>	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/aophttp://www.springframework.org/schema/aop/spring-aop-3.2.xsdhttp://www.springframework.org/schema/beanshttp://www.springframework.org/schema/beans/spring-beans.xsd"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"knight"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.knights.BraveKnight"</span>&gt;</span>		<span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">ref</span>=<span class="string">"quest"</span> /&gt;</span>	<span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"quest"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.knights.SlayDragonQuest"</span>&gt;</span>		<span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">value</span>=<span class="string">"#&#123;T(System).out&#125;"</span> /&gt;</span>	<span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"minstrel"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.knights.Minstrel"</span>&gt;</span>		<span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">value</span>=<span class="string">"#&#123;T(System).out&#125;"</span> /&gt;</span>	<span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">aop:config</span>&gt;</span>	<span class="tag">&lt;<span class="name">aop:aspect</span> <span class="attr">ref</span>=<span class="string">"minstrel"</span>&gt;</span>		<span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">id</span>=<span class="string">"embark"</span>			<span class="attr">expression</span>=<span class="string">"execution(* *.embarkOnQuest(..))"</span>/&gt;</span>		<span class="tag">&lt;<span class="name">aop:before</span> <span class="attr">pointcut-ref</span>=<span class="string">"embark"</span> <span class="attr">method</span>=<span class="string">"singBeforeQuest"</span>/&gt;</span>		<span class="tag">&lt;<span class="name">aop:after</span> <span class="attr">pointcut-ref</span>=<span class="string">"embark"</span> <span class="attr">method</span>=<span class="string">"singAfterQuest"</span>/&gt;</span>	<span class="tag">&lt;/<span class="name">aop:aspect</span>&gt;</span><span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在上述配置中，首先把<code>Minstrel</code>声明为bean，然后通过<code>&lt;aop:aspect&gt;</code>来配置AOP。在这儿，<code>Minstrel</code>仍然是一个POJO。</p>
+<h2 id="利用模板消除冗余代码"><a href="#利用模板消除冗余代码" class="headerlink" title="利用模板消除冗余代码"></a>利用模板消除冗余代码</h2><p>Eliminating boilerplate code with templates</p>
+<h3 id="传统处理方式-1"><a href="#传统处理方式-1" class="headerlink" title="传统处理方式"></a>传统处理方式</h3><p>JDBC相关程序，会产生很多例行（冗余）代码，很多代码不是程序的核心功能，而是辅助性的代码。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Employee <span class="title">getEmployeeById</span><span class="params">(<span class="keyword">long</span> id)</span> </span>&#123;	Connection conn = <span class="keyword">null</span>;	PreparedStatement stmt = <span class="keyword">null</span>;	ResultSet rs = <span class="keyword">null</span>;	<span class="keyword">try</span> &#123;		conn = dataSource.getConnection();		stmt = conn.prepareStatement(<span class="string">"select id, firstname, lastname, salary from "</span> +<span class="string">"employee where id=?"</span>);	stmt.setLong(<span class="number">1</span>, id);	rs = stmt.executeQuery();	Employee employee = <span class="keyword">null</span>;	<span class="keyword">if</span> (rs.next()) &#123;		employee = <span class="keyword">new</span> Employee();		employee.setId(rs.getLong(<span class="string">"id"</span>));		employee.setFirstName(rs.getString(<span class="string">"firstname"</span>));		employee.setLastName(rs.getString(<span class="string">"lastname"</span>));		employee.setSalary(rs.getBigDecimal(<span class="string">"salary"</span>));	&#125;	<span class="keyword">return</span> employee;	&#125; <span class="keyword">catch</span> (SQLException e) &#123;	&#125; <span class="keyword">finally</span> &#123;                  <span class="comment">// Clean up mess</span>		<span class="keyword">if</span>(rs != <span class="keyword">null</span>) &#123;			<span class="keyword">try</span> &#123;				rs.close();			&#125; <span class="keyword">catch</span>(SQLException e) &#123;&#125;		&#125;		<span class="keyword">if</span>(stmt != <span class="keyword">null</span>) &#123;			<span class="keyword">try</span> &#123;				stmt.close();			&#125; <span class="keyword">catch</span>(SQLException e) &#123;&#125;		&#125;		<span class="keyword">if</span>(conn != <span class="keyword">null</span>) &#123;			<span class="keyword">try</span> &#123;				conn.close();			&#125; <span class="keyword">catch</span>(SQLException e) &#123;&#125;		&#125;	&#125;	<span class="keyword">return</span> <span class="keyword">null</span>;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="模板处理方式"><a href="#模板处理方式" class="headerlink" title="模板处理方式"></a>模板处理方式</h3><p>使用Spring中的模板<code>SimpleJdbcTemplate</code>，只要写核心功能相关的代码，和JDBC API相关的一些辅助性代码都交由模板处理，不需要额外写代码。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Employee <span class="title">getEmployeeById</span><span class="params">(<span class="keyword">long</span> id)</span> </span>&#123;	<span class="keyword">return</span> jdbcTemplate.queryForObject(		<span class="string">"select id, firstname, lastname, salary "</span> +		<span class="string">"from employee where id=?"</span>,		<span class="keyword">new</span> RowMapper&lt;Employee&gt;() &#123;			<span class="function"><span class="keyword">public</span> Employee <span class="title">mapRow</span><span class="params">(ResultSet rs, <span class="keyword">int</span> rowNum)</span> <span class="keyword">throws</span> SQLException </span>&#123;				Employee employee = <span class="keyword">new</span> Employee();				employee.setId(rs.getLong(<span class="string">"id"</span>));				employee.setFirstName(rs.getString(<span class="string">"firstname"</span>));				employee.setLastName(rs.getString(<span class="string">"lastname"</span>));				employee.setSalary(rs.getBigDecimal(<span class="string">"salary"</span>));				<span class="keyword">return</span> employee;				&#125;		&#125;,		id);&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/04/20/《Spring-In-Action》学习笔记（一）：基本概念/" data-id="cin8vylj70006gcs679xp6j4z" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Gradle构建Java程序：Task" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/04/18/Gradle构建Java程序：Task/" class="article-date">
@@ -128,7 +243,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/18/Gradle构建Java程序：Task/" data-id="cin6325890003wws6dzpeqb1t" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/18/Gradle构建Java程序：Task/" data-id="cin8vylj50004gcs6g6b64v9t" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li></ul>
@@ -192,7 +307,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：Gradle常用命令/" data-id="cin6325830001wws6pz1hj0uy" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：Gradle常用命令/" data-id="cin8vyliv0001gcs64m8uobbv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
@@ -256,7 +371,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：Junit集成/" data-id="cin63258c0004wws6es44qva0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：Junit集成/" data-id="cin8vylj20003gcs6x06o981p" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Junit/">Junit</a></li></ul>
@@ -323,7 +438,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：入门/" data-id="cin63258d0006wws6q29y6w7m" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：入门/" data-id="cin8vyljc0009gcs601k4jq4x" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
@@ -392,7 +507,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/17/Homebrew使用简介/" data-id="cin63258h0008wws6why4a9k1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/17/Homebrew使用简介/" data-id="cin8vylja0008gcs6j1bzbmro" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/">Mac</a></li></ul>
@@ -441,7 +556,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/16/常用内网IP段/" data-id="cin63258u000cwws695ad6ral" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/16/常用内网IP段/" data-id="cin8vyljw000jgcs6pqnttx0f" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Internet/">Internet</a></li></ul>
@@ -535,7 +650,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/16/常用Internet协议的RFC编号/" data-id="cin63258l000bwws6qfodubq7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/16/常用Internet协议的RFC编号/" data-id="cin8vyljn000cgcs61rtfxt83" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Internet/">Internet</a></li></ul>
@@ -574,7 +689,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/15/网络协议Layers/" data-id="cin632590000gwws6yvkeed3u" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/15/网络协议Layers/" data-id="cin8vyljt000ggcs6wgguqyf1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Internet/">Internet</a></li></ul>
@@ -644,52 +759,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/12/Github部署Hexo博客/" data-id="cin63257x0000wws6lh9dst7n" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-插件测试" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/04/12/插件测试/" class="article-date">
-  <time datetime="2016-04-12T00:10:49.000Z" itemprop="datePublished">2016-04-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/12/插件测试/">插件测试</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="PlantUML"><a href="#PlantUML" class="headerlink" title="PlantUML"></a>PlantUML</h2><p>安装</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-tag-plantuml --save</span><br></pre></td></tr></table></figure>
-<p>使用示例</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% plantuml %&#125;</span><br><span class="line">    Bob-&gt;Alice : hello</span><br><span class="line">&#123;% endplantuml %&#125;</span><br></pre></td></tr></table></figure>
-<img src="http://www.plantuml.com/plantuml/svg/SyfFqhLppCbCJbMmKiX8pSd91m00">
-<h2 id="Math"><a href="#Math" class="headerlink" title="Math"></a>Math</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm intall hexo-math --save</span><br></pre></td></tr></table></figure>
-<p>$$a = b + c$$</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/12/插件测试/" data-id="cin63258x000ewws6hn1p1heh" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/12/Github部署Hexo博客/" data-id="cin8vylip0000gcs6xhvr6m9v" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
@@ -717,7 +787,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internet/">Internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internet/">Internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
     </div>
   </div>
 
@@ -727,7 +797,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Gradle/" style="font-size: 20px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 13.33px;">Hexo</a> <a href="/tags/Internet/" style="font-size: 16.67px;">Internet</a> <a href="/tags/Java/" style="font-size: 16.67px;">Java</a> <a href="/tags/Junit/" style="font-size: 10px;">Junit</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a>
+      <a href="/tags/Gradle/" style="font-size: 20px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 13.33px;">Hexo</a> <a href="/tags/Internet/" style="font-size: 16.67px;">Internet</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Junit/" style="font-size: 10px;">Junit</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a>
     </div>
   </div>
 
@@ -749,6 +819,10 @@
       <ul>
         
           <li>
+            <a href="/2016/04/20/《Spring-In-Action》学习笔记（一）：基本概念/">《Spring In Action》学习笔记（一）：基本概念</a>
+          </li>
+        
+          <li>
             <a href="/2016/04/18/Gradle构建Java程序：Task/">Gradle构建Java程序：Task</a>
           </li>
         
@@ -762,10 +836,6 @@
         
           <li>
             <a href="/2016/04/17/Gradle构建Java程序：入门/">Gradle构建Java程序：入门</a>
-          </li>
-        
-          <li>
-            <a href="/2016/04/17/Homebrew使用简介/">Homebrew使用简介</a>
           </li>
         
       </ul>
