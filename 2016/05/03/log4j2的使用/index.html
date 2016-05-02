@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <title>log4j2的使用 | 一沙一世界</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Log4j2 是一个常用的日志工具。本文把试用结果和遇到的问题记录一下。
+Java文件Java代码如下：
+123456789101112131415package com.shizhihua.example;import org.apache.logging.log4j.LogManager;import org.apache.logging.log4j.Logger;public class T">
+<meta property="og:type" content="article">
+<meta property="og:title" content="log4j2的使用">
+<meta property="og:url" content="http://yoursite.com/2016/05/03/log4j2的使用/index.html">
+<meta property="og:site_name" content="一沙一世界">
+<meta property="og:description" content="Log4j2 是一个常用的日志工具。本文把试用结果和遇到的问题记录一下。
+Java文件Java代码如下：
+123456789101112131415package com.shizhihua.example;import org.apache.logging.log4j.LogManager;import org.apache.logging.log4j.Logger;public class T">
+<meta property="og:updated_time" content="2016-05-02T23:58:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="log4j2的使用">
+<meta name="twitter:description" content="Log4j2 是一个常用的日志工具。本文把试用结果和遇到的问题记录一下。
+Java文件Java代码如下：
+123456789101112131415package com.shizhihua.example;import org.apache.logging.log4j.LogManager;import org.apache.logging.log4j.Logger;public class T">
+  
+    <link rel="alternate" href="/atom.xml" title="一沙一世界" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">一沙一世界</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">SHIZHIHUA&#39;s BLOG</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-log4j2的使用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/05/03/log4j2的使用/" class="article-date">
+  <time datetime="2016-05-02T23:36:51.000Z" itemprop="datePublished">2016-05-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      log4j2的使用
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://http://logging.apache.org/log4j/2.x/" target="_blank" rel="external">Log4j2</a> 是一个常用的日志工具。本文把试用结果和遇到的问题记录一下。</p>
+<h2 id="Java文件"><a href="#Java文件" class="headerlink" title="Java文件"></a>Java文件</h2><p>Java代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.shizhihua.example;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.logging.log4j.LogManager;</span><br><span class="line"><span class="keyword">import</span> org.apache.logging.log4j.Logger;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestLog</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger  logger = LogManager.getLogger();</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		logger.info(<span class="string">"Hello, world!"</span>);</span><br><span class="line">		logger.error(<span class="string">"What are you doing?"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Log4j2配置"><a href="#Log4j2配置" class="headerlink" title="Log4j2配置"></a>Log4j2配置</h2><p>log4j2默认在console上输出ERROR级别的信息。为了显示INFO信息，需要通过配置更改默认设置。试用中采用XML文件来进行设置。具体设置内容如下（Root level设置为INFO）：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">Configuration</span> <span class="attr">status</span>=<span class="string">"WARN"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">Appenders</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Console</span> <span class="attr">name</span>=<span class="string">"Console"</span> <span class="attr">target</span>=<span class="string">"SYSTEM_OUT"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">PatternLayout</span> <span class="attr">pattern</span>=<span class="string">"%d&#123;HH:mm:ss.SSS&#125; [%t] %-5level %logger&#123;36&#125; - %msg%n"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Console</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">Appenders</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">Loggers</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Root</span> <span class="attr">level</span>=<span class="string">"INFO"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">AppenderRef</span> <span class="attr">ref</span>=<span class="string">"Console"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Root</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">Loggers</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>代码的组织按照gradle／maven的默认结构。</p>
+<p><strong>Q1:</strong> 程序找不到log4j2的配置文件？</p>
+<p><strong>A1:</strong> 配置文件必须放在<code>src\main\resources</code>下面，否则运行时需要指定配置文件。</p>
+<h2 id="Gradle脚本"><a href="#Gradle脚本" class="headerlink" title="Gradle脚本"></a>Gradle脚本</h2><p>build.gradle文件内容如下：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'java'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">repositories</span> &#123;</span><br><span class="line">	mavenCentral()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">  <span class="keyword">compile</span> <span class="keyword">group</span>: <span class="string">'org.apache.logging.log4j'</span>, name: <span class="string">'log4j-api'</span>, version: <span class="string">'2.5'</span></span><br><span class="line">  <span class="keyword">compile</span> <span class="keyword">group</span>: <span class="string">'org.apache.logging.log4j'</span>, name: <span class="string">'log4j-core'</span>, version: <span class="string">'2.5'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">jar &#123;</span><br><span class="line">    <span class="keyword">from</span> &#123; <span class="keyword">configurations</span>.<span class="keyword">compile</span>.<span class="keyword">collect</span> &#123; it.isDirectory() ? it : zipTree(it) &#125; &#125;</span><br><span class="line"></span><br><span class="line">    manifest &#123;</span><br><span class="line">        attributes <span class="string">'Main-Class'</span>: <span class="string">'com.shizhihua.example.TestLog'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Q2:</strong> 运行jar文件，找不到依赖包？</p>
+<p><strong>A2:</strong> Gradle能自动解决编译过程中的第三方依赖，但是我们直接从命令后直接运行程序时，还是要指定第三方依赖才行。为了能直接运行jar文件，上述脚本中在jar文件生成配置中增加了一行代码，这样就把第三方依赖包也打包起来了，形成了“胖”jar。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from &#123; configurations.compile.collect &#123; it.isDirectory() ? it : zipTree(it) &#125; &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><p>直接执行下面命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gradle build</span><br><span class="line">java -jar build\libs\<span class="built_in">test</span>Log.jar</span><br></pre></td></tr></table></figure>
+<p>得倒下面的输出（与时间有关）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">07:33:56.484 [main] INFO  com.shizhihua.example.TestLog - Hello, world!</span><br><span class="line">07:33:56.485 [main] ERROR com.shizhihua.example.TestLog - What are you doing?</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/05/03/log4j2的使用/" data-id="cinqnuara0009c1s6pupauo7c" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/04/20/《Spring-In-Action》学习笔记（三）：Spring-4-0-模块/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">《Spring In Action》学习笔记（三）：Spring 4.0 模块</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internet/">Internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Gradle/" style="font-size: 17.5px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="/tags/Internet/" style="font-size: 15px;">Internet</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Junit/" style="font-size: 10px;">Junit</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Spring/" style="font-size: 15px;">Spring</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/05/03/log4j2的使用/">log4j2的使用</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/20/《Spring-In-Action》学习笔记（三）：Spring-4-0-模块/">《Spring In Action》学习笔记（三）：Spring 4.0 模块</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/20/《Spring-In-Action》学习笔记（二）：Spring-Container/">《Spring In Action》学习笔记（二）：Spring Container</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/20/《Spring-In-Action》学习笔记（一）：基本概念/">《Spring In Action》学习笔记（一）：基本概念</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/18/Gradle构建Java程序：Task/">Gradle构建Java程序：Task</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 shizhihua<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
