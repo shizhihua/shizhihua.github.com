@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <title>Gradle生成可独立运行(runnable)程序 | 一沙一世界</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="无法运行的jar文件在Java程序中，经常需要使用第三方的库（一般以jar包的形式出现）。在脚本中，可以通过下面的方式添加依赖：
+12345678910111213141516apply plugin: &apos;java&apos;repositories &amp;#123;	mavenCentral()&amp;#125;dependencies &amp;#123;  compile group: &apos;org.apache.logg">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gradle生成可独立运行(runnable)程序">
+<meta property="og:url" content="http://yoursite.com/2016/05/03/Gradle生成可独立运行-runnable-程序/index.html">
+<meta property="og:site_name" content="一沙一世界">
+<meta property="og:description" content="无法运行的jar文件在Java程序中，经常需要使用第三方的库（一般以jar包的形式出现）。在脚本中，可以通过下面的方式添加依赖：
+12345678910111213141516apply plugin: &apos;java&apos;repositories &amp;#123;	mavenCentral()&amp;#125;dependencies &amp;#123;  compile group: &apos;org.apache.logg">
+<meta property="og:updated_time" content="2016-05-03T13:22:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gradle生成可独立运行(runnable)程序">
+<meta name="twitter:description" content="无法运行的jar文件在Java程序中，经常需要使用第三方的库（一般以jar包的形式出现）。在脚本中，可以通过下面的方式添加依赖：
+12345678910111213141516apply plugin: &apos;java&apos;repositories &amp;#123;	mavenCentral()&amp;#125;dependencies &amp;#123;  compile group: &apos;org.apache.logg">
+  
+    <link rel="alternate" href="/atom.xml" title="一沙一世界" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">一沙一世界</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">SHIZHIHUA&#39;s BLOG</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Gradle生成可独立运行-runnable-程序" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/05/03/Gradle生成可独立运行-runnable-程序/" class="article-date">
+  <time datetime="2016-05-03T13:10:27.000Z" itemprop="datePublished">2016-05-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Gradle生成可独立运行(runnable)程序
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="无法运行的jar文件"><a href="#无法运行的jar文件" class="headerlink" title="无法运行的jar文件"></a>无法运行的jar文件</h2><p>在Java程序中，经常需要使用第三方的库（一般以jar包的形式出现）。在脚本中，可以通过下面的方式添加依赖：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'java'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">repositories</span> &#123;</span><br><span class="line">	mavenCentral()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">  <span class="keyword">compile</span> <span class="keyword">group</span>: <span class="string">'org.apache.logging.log4j'</span>, name: <span class="string">'log4j-api'</span>, version: <span class="string">'2.5'</span></span><br><span class="line">  <span class="keyword">compile</span> <span class="keyword">group</span>: <span class="string">'org.apache.logging.log4j'</span>, name: <span class="string">'log4j-core'</span>, version: <span class="string">'2.5'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">jar &#123;</span><br><span class="line">    manifest &#123;</span><br><span class="line">        attributes <span class="string">'Main-Class'</span>: <span class="string">'com.shizhihua.example.TestLog'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>按照上面生成jar文件，如果直接运行，会出现找不到依赖的问题。</p>
+<h2 id="生成runnable的jar文件"><a href="#生成runnable的jar文件" class="headerlink" title="生成runnable的jar文件"></a>生成runnable的jar文件</h2><p>为了解决这个问题，可以在脚本中添加一段代码，生成胖jar文件。这样的jar文件可以直接运行。</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'java'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">repositories</span> &#123;</span><br><span class="line">	mavenCentral()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">  <span class="keyword">compile</span> <span class="keyword">group</span>: <span class="string">'org.apache.logging.log4j'</span>, name: <span class="string">'log4j-api'</span>, version: <span class="string">'2.5'</span></span><br><span class="line">  <span class="keyword">compile</span> <span class="keyword">group</span>: <span class="string">'org.apache.logging.log4j'</span>, name: <span class="string">'log4j-core'</span>, version: <span class="string">'2.5'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">jar &#123;</span><br><span class="line">    <span class="keyword">from</span> &#123; <span class="keyword">configurations</span>.<span class="keyword">compile</span>.<span class="keyword">collect</span> &#123; it.isDirectory() ? it : zipTree(it) &#125; &#125;</span><br><span class="line"></span><br><span class="line">    manifest &#123;</span><br><span class="line">        attributes <span class="string">'Main-Class'</span>: <span class="string">'com.shizhihua.example.TestLog'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="application插件"><a href="#application插件" class="headerlink" title="application插件"></a>application插件</h2><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'application'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">repositories</span> &#123;</span><br><span class="line">	mavenCentral()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">  <span class="keyword">compile</span> <span class="keyword">group</span>: <span class="string">'org.apache.logging.log4j'</span>, name: <span class="string">'log4j-api'</span>, version: <span class="string">'2.5'</span></span><br><span class="line">  <span class="keyword">compile</span> <span class="keyword">group</span>: <span class="string">'org.apache.logging.log4j'</span>, name: <span class="string">'log4j-core'</span>, version: <span class="string">'2.5'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">mainClassName = <span class="string">"com.shizhihua.example.TestLog"</span></span><br></pre></td></tr></table></figure>
+<p>运行<code>gradle tasks</code>，可以看到很多的task。其中有两个常用的新task：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle run</span><br></pre></td></tr></table></figure>
+<p>可以直接运行程序，看到输出结果。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle installDist</span><br></pre></td></tr></table></figure>
+<p>可以生成可运行的文件，其中相关的依赖库也都被拷贝到对应的libs(<code>build\install\testLog\libs</code>)下面。可以通过下面的命令直接运行程序：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">build/install/<span class="built_in">test</span>Log/bin/<span class="built_in">test</span>Log</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/05/03/Gradle生成可独立运行-runnable-程序/" data-id="cinrgsu1t0008xbs6fabzfkp1" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/05/03/Mac中查找命令的路径/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Mac中查找命令的路径</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internet/">Internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Gradle/" style="font-size: 17.5px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="/tags/Internet/" style="font-size: 15px;">Internet</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Junit/" style="font-size: 10px;">Junit</a> <a href="/tags/Mac/" style="font-size: 12.5px;">Mac</a> <a href="/tags/Spring/" style="font-size: 15px;">Spring</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/05/03/Gradle生成可独立运行-runnable-程序/">Gradle生成可独立运行(runnable)程序</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/03/Mac中查找命令的路径/">Mac中查找命令的路径</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/03/log4j2的使用/">log4j2的使用</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/20/《Spring-In-Action》学习笔记（三）：Spring-4-0-模块/">《Spring In Action》学习笔记（三）：Spring 4.0 模块</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/20/《Spring-In-Action》学习笔记（二）：Spring-Container/">《Spring In Action》学习笔记（二）：Spring Container</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 shizhihua<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

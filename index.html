@@ -68,6 +68,55 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Gradle生成可独立运行-runnable-程序" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/05/03/Gradle生成可独立运行-runnable-程序/" class="article-date">
+  <time datetime="2016-05-03T13:10:27.000Z" itemprop="datePublished">2016-05-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/03/Gradle生成可独立运行-runnable-程序/">Gradle生成可独立运行(runnable)程序</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="无法运行的jar文件"><a href="#无法运行的jar文件" class="headerlink" title="无法运行的jar文件"></a>无法运行的jar文件</h2><p>在Java程序中，经常需要使用第三方的库（一般以jar包的形式出现）。在脚本中，可以通过下面的方式添加依赖：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'java'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">repositories</span> &#123;</span><br><span class="line">	mavenCentral()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">  <span class="keyword">compile</span> <span class="keyword">group</span>: <span class="string">'org.apache.logging.log4j'</span>, name: <span class="string">'log4j-api'</span>, version: <span class="string">'2.5'</span></span><br><span class="line">  <span class="keyword">compile</span> <span class="keyword">group</span>: <span class="string">'org.apache.logging.log4j'</span>, name: <span class="string">'log4j-core'</span>, version: <span class="string">'2.5'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">jar &#123;</span><br><span class="line">    manifest &#123;</span><br><span class="line">        attributes <span class="string">'Main-Class'</span>: <span class="string">'com.shizhihua.example.TestLog'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>按照上面生成jar文件，如果直接运行，会出现找不到依赖的问题。</p>
+<h2 id="生成runnable的jar文件"><a href="#生成runnable的jar文件" class="headerlink" title="生成runnable的jar文件"></a>生成runnable的jar文件</h2><p>为了解决这个问题，可以在脚本中添加一段代码，生成胖jar文件。这样的jar文件可以直接运行。</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'java'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">repositories</span> &#123;</span><br><span class="line">	mavenCentral()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">  <span class="keyword">compile</span> <span class="keyword">group</span>: <span class="string">'org.apache.logging.log4j'</span>, name: <span class="string">'log4j-api'</span>, version: <span class="string">'2.5'</span></span><br><span class="line">  <span class="keyword">compile</span> <span class="keyword">group</span>: <span class="string">'org.apache.logging.log4j'</span>, name: <span class="string">'log4j-core'</span>, version: <span class="string">'2.5'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">jar &#123;</span><br><span class="line">    <span class="keyword">from</span> &#123; <span class="keyword">configurations</span>.<span class="keyword">compile</span>.<span class="keyword">collect</span> &#123; it.isDirectory() ? it : zipTree(it) &#125; &#125;</span><br><span class="line"></span><br><span class="line">    manifest &#123;</span><br><span class="line">        attributes <span class="string">'Main-Class'</span>: <span class="string">'com.shizhihua.example.TestLog'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="application插件"><a href="#application插件" class="headerlink" title="application插件"></a>application插件</h2><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'application'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">repositories</span> &#123;</span><br><span class="line">	mavenCentral()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">  <span class="keyword">compile</span> <span class="keyword">group</span>: <span class="string">'org.apache.logging.log4j'</span>, name: <span class="string">'log4j-api'</span>, version: <span class="string">'2.5'</span></span><br><span class="line">  <span class="keyword">compile</span> <span class="keyword">group</span>: <span class="string">'org.apache.logging.log4j'</span>, name: <span class="string">'log4j-core'</span>, version: <span class="string">'2.5'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">mainClassName = <span class="string">"com.shizhihua.example.TestLog"</span></span><br></pre></td></tr></table></figure>
+<p>运行<code>gradle tasks</code>，可以看到很多的task。其中有两个常用的新task：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle run</span><br></pre></td></tr></table></figure>
+<p>可以直接运行程序，看到输出结果。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle installDist</span><br></pre></td></tr></table></figure>
+<p>可以生成可运行的文件，其中相关的依赖库也都被拷贝到对应的libs(<code>build\install\testLog\libs</code>)下面。可以通过下面的命令直接运行程序：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">build/install/<span class="built_in">test</span>Log/bin/<span class="built_in">test</span>Log</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/05/03/Gradle生成可独立运行-runnable-程序/" data-id="cinrgsu1t0008xbs6fabzfkp1" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Mac中查找命令的路径" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/05/03/Mac中查找命令的路径/" class="article-date">
@@ -97,7 +146,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/05/03/Mac中查找命令的路径/" data-id="cinqon9az0004h7s658iakf9i" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/05/03/Mac中查找命令的路径/" data-id="cinrgsu2u000txbs6ww637l25" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/">Mac</a></li></ul>
@@ -152,7 +201,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/05/03/log4j2的使用/" data-id="cinqon9b50009h7s6xfv60ah1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/05/03/log4j2的使用/" data-id="cinrgsu27000cxbs61fcoggje" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
@@ -234,7 +283,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/20/《Spring-In-Action》学习笔记（三）：Spring-4-0-模块/" data-id="cinqon9bm000hh7s6ucotqmk6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/20/《Spring-In-Action》学习笔记（三）：Spring-4-0-模块/" data-id="cinrgsu2m000oxbs6kqeu5b7t" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
@@ -296,7 +345,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/20/《Spring-In-Action》学习笔记（二）：Spring-Container/" data-id="cinqon9bp000kh7s6bsvixkqo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/20/《Spring-In-Action》学习笔记（二）：Spring-Container/" data-id="cinrgsu2d000gxbs6aat8tbtw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
@@ -409,7 +458,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/20/《Spring-In-Action》学习笔记（一）：基本概念/" data-id="cinqon9bk000fh7s6g1z412yv" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/20/《Spring-In-Action》学习笔记（一）：基本概念/" data-id="cinrgsu2b000exbs6uhtkw6px" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
@@ -481,7 +530,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/18/Gradle构建Java程序：Task/" data-id="cinqon9b40008h7s68f756cfc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/18/Gradle构建Java程序：Task/" data-id="cinrgsu1o0004xbs6wdj61v5h" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li></ul>
@@ -545,7 +594,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：Gradle常用命令/" data-id="cinqon9ap0001h7s6hjmkg23r" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：Gradle常用命令/" data-id="cinrgsu1g0001xbs6cs33lo9z" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
@@ -609,7 +658,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：Junit集成/" data-id="cinqon9ax0003h7s6cq7dl6sq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：Junit集成/" data-id="cinrgsu1m0003xbs6mu8kyxly" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Junit/">Junit</a></li></ul>
@@ -676,79 +725,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：入门/" data-id="cinqon9b10006h7s62l97axal" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：入门/" data-id="cinrgsu1q0006xbs6cco6cd2s" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Homebrew使用简介" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/04/17/Homebrew使用简介/" class="article-date">
-  <time datetime="2016-04-17T02:24:54.000Z" itemprop="datePublished">2016-04-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/17/Homebrew使用简介/">Homebrew使用简介</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Homebrew，简称为<code>brew</code>，是Mac上的软件包管理工具，类似于Debain中的<code>apt-get</code>。</p>
-<p>Homebrew的官网地址为： <a href="http://brew.sh" target="_blank" rel="external">Homebrew</a></p>
-<h2 id="brew的安装与卸载"><a href="#brew的安装与卸载" class="headerlink" title="brew的安装与卸载"></a>brew的安装与卸载</h2><p>安装时不需要使用<code>sudo</code>。Homebrew不需要<code>sudo</code>可以正常安装软件，因为其认为<code>sudo</code>不完全。</p>
-<p>安装命令如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby <span class="_">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></span><br></pre></td></tr></table></figure>
-<p>卸载命令如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby <span class="_">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)</span>"</span></span><br></pre></td></tr></table></figure>
-<h2 id="brew常用命令"><a href="#brew常用命令" class="headerlink" title="brew常用命令"></a>brew常用命令</h2><p>通用命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew <span class="built_in">command</span> [--verbose|-v] [options] [formula] ...</span><br></pre></td></tr></table></figure>
-<p><code>formula</code> 就是对应要安装的软件。<code>formula</code>是<code>ruby</code>脚本，定义了安装对应软件的具体步骤和操作命令。</p>
-<p>安装软件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install formula</span><br></pre></td></tr></table></figure>
-<p>卸载软件可以用下列两条命令之一</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew remove formula</span><br><span class="line">brew uninstall formula</span><br></pre></td></tr></table></figure>
-<p>重装软件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew reinstall formula</span><br></pre></td></tr></table></figure>
-<p>更新软件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew upgrade [--cleanup] [formulae]</span><br></pre></td></tr></table></figure>
-<p>cleanup软件旧版本</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew cleanup</span><br></pre></td></tr></table></figure>
-<p>查看版本</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew --version</span><br></pre></td></tr></table></figure>
-<p>显示formula脚本代码</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew cat formula</span><br></pre></td></tr></table></figure>
-<p>更新Homebrew</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew update</span><br></pre></td></tr></table></figure>
-<p>罗列已安装的formula</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew list</span><br></pre></td></tr></table></figure>
-<p>查找软件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew search text</span><br></pre></td></tr></table></figure>
-<p>其中text可以是正则表达式。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/17/Homebrew使用简介/" data-id="cinqon9bg000dh7s6lyis080y" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/">Mac</a></li></ul>
 
     </footer>
   </div>
@@ -805,6 +785,10 @@
       <ul>
         
           <li>
+            <a href="/2016/05/03/Gradle生成可独立运行-runnable-程序/">Gradle生成可独立运行(runnable)程序</a>
+          </li>
+        
+          <li>
             <a href="/2016/05/03/Mac中查找命令的路径/">Mac中查找命令的路径</a>
           </li>
         
@@ -818,10 +802,6 @@
         
           <li>
             <a href="/2016/04/20/《Spring-In-Action》学习笔记（二）：Spring-Container/">《Spring In Action》学习笔记（二）：Spring Container</a>
-          </li>
-        
-          <li>
-            <a href="/2016/04/20/《Spring-In-Action》学习笔记（一）：基本概念/">《Spring In Action》学习笔记（一）：基本概念</a>
           </li>
         
       </ul>

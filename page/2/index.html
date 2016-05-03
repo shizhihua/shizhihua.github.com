@@ -68,6 +68,75 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Homebrew使用简介" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/04/17/Homebrew使用简介/" class="article-date">
+  <time datetime="2016-04-17T02:24:54.000Z" itemprop="datePublished">2016-04-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/17/Homebrew使用简介/">Homebrew使用简介</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Homebrew，简称为<code>brew</code>，是Mac上的软件包管理工具，类似于Debain中的<code>apt-get</code>。</p>
+<p>Homebrew的官网地址为： <a href="http://brew.sh" target="_blank" rel="external">Homebrew</a></p>
+<h2 id="brew的安装与卸载"><a href="#brew的安装与卸载" class="headerlink" title="brew的安装与卸载"></a>brew的安装与卸载</h2><p>安装时不需要使用<code>sudo</code>。Homebrew不需要<code>sudo</code>可以正常安装软件，因为其认为<code>sudo</code>不完全。</p>
+<p>安装命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby <span class="_">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></span><br></pre></td></tr></table></figure>
+<p>卸载命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby <span class="_">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)</span>"</span></span><br></pre></td></tr></table></figure>
+<h2 id="brew常用命令"><a href="#brew常用命令" class="headerlink" title="brew常用命令"></a>brew常用命令</h2><p>通用命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew <span class="built_in">command</span> [--verbose|-v] [options] [formula] ...</span><br></pre></td></tr></table></figure>
+<p><code>formula</code> 就是对应要安装的软件。<code>formula</code>是<code>ruby</code>脚本，定义了安装对应软件的具体步骤和操作命令。</p>
+<p>安装软件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install formula</span><br></pre></td></tr></table></figure>
+<p>卸载软件可以用下列两条命令之一</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew remove formula</span><br><span class="line">brew uninstall formula</span><br></pre></td></tr></table></figure>
+<p>重装软件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew reinstall formula</span><br></pre></td></tr></table></figure>
+<p>更新软件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew upgrade [--cleanup] [formulae]</span><br></pre></td></tr></table></figure>
+<p>cleanup软件旧版本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew cleanup</span><br></pre></td></tr></table></figure>
+<p>查看版本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew --version</span><br></pre></td></tr></table></figure>
+<p>显示formula脚本代码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew cat formula</span><br></pre></td></tr></table></figure>
+<p>更新Homebrew</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew update</span><br></pre></td></tr></table></figure>
+<p>罗列已安装的formula</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew list</span><br></pre></td></tr></table></figure>
+<p>查找软件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew search text</span><br></pre></td></tr></table></figure>
+<p>其中text可以是正则表达式。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/04/17/Homebrew使用简介/" data-id="cinrgsu1w0009xbs6h9uveyrh" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/">Mac</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-常用内网IP段" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/04/16/常用内网IP段/" class="article-date">
@@ -105,7 +174,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/16/常用内网IP段/" data-id="cinqon9br000lh7s604fzvrtf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/16/常用内网IP段/" data-id="cinrgsu2h000lxbs6jceh91uu" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Internet/">Internet</a></li></ul>
@@ -199,7 +268,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/16/常用Internet协议的RFC编号/" data-id="cinqon9bu000nh7s6mbulcrip" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/16/常用Internet协议的RFC编号/" data-id="cinrgsu2f000jxbs6pgxgb2az" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Internet/">Internet</a></li></ul>
@@ -238,7 +307,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/15/网络协议Layers/" data-id="cinqon9bw000oh7s6rjrufs5w" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/15/网络协议Layers/" data-id="cinrgsu2p000rxbs676ikfjgb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Internet/">Internet</a></li></ul>
@@ -308,7 +377,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/12/Github部署Hexo博客/" data-id="cinqon9aj0000h7s6d25hvoeu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/12/Github部署Hexo博客/" data-id="cinrgsu1a0000xbs6a06x3t12" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
@@ -353,7 +422,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/12/插件测试/" data-id="cinqon9bz000qh7s6hwpb64oa" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/12/插件测试/" data-id="cinrgsu2k000nxbs623numb5x" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
@@ -400,7 +469,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/12/hello-world/" data-id="cinqon9b8000bh7s6644qkzew" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/12/hello-world/" data-id="cinrgsu21000bxbs61rwlxio5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -458,6 +527,10 @@
       <ul>
         
           <li>
+            <a href="/2016/05/03/Gradle生成可独立运行-runnable-程序/">Gradle生成可独立运行(runnable)程序</a>
+          </li>
+        
+          <li>
             <a href="/2016/05/03/Mac中查找命令的路径/">Mac中查找命令的路径</a>
           </li>
         
@@ -471,10 +544,6 @@
         
           <li>
             <a href="/2016/04/20/《Spring-In-Action》学习笔记（二）：Spring-Container/">《Spring In Action》学习笔记（二）：Spring Container</a>
-          </li>
-        
-          <li>
-            <a href="/2016/04/20/《Spring-In-Action》学习笔记（一）：基本概念/">《Spring In Action》学习笔记（一）：基本概念</a>
           </li>
         
       </ul>
