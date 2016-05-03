@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="一沙一世界">
 <meta property="og:description" content="无法运行的jar文件在Java程序中，经常需要使用第三方的库（一般以jar包的形式出现）。在脚本中，可以通过下面的方式添加依赖：
 12345678910111213141516apply plugin: &apos;java&apos;repositories &amp;#123;	mavenCentral()&amp;#125;dependencies &amp;#123;  compile group: &apos;org.apache.logg">
-<meta property="og:updated_time" content="2016-05-03T13:22:17.000Z">
+<meta property="og:updated_time" content="2016-05-03T13:27:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Gradle生成可独立运行(runnable)程序">
 <meta name="twitter:description" content="无法运行的jar文件在Java程序中，经常需要使用第三方的库（一般以jar包的形式出现）。在脚本中，可以通过下面的方式添加依赖：
@@ -102,12 +102,12 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle run</span><br></pre></td></tr></table></figure>
 <p>可以直接运行程序，看到输出结果。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle installDist</span><br></pre></td></tr></table></figure>
-<p>可以生成可运行的文件，其中相关的依赖库也都被拷贝到对应的libs(<code>build\install\testLog\libs</code>)下面。可以通过下面的命令直接运行程序：</p>
+<p>可以生成可运行的文件(实际上是响应的脚本，指定了依赖库和运行的jar文文件)，其中相关的依赖库也都被拷贝到对应的libs(<code>build\install\testLog\libs</code>)下面。可以通过下面的命令直接运行程序：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">build/install/<span class="built_in">test</span>Log/bin/<span class="built_in">test</span>Log</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/05/03/Gradle生成可独立运行-runnable-程序/" data-id="cinrgsu1t0008xbs6fabzfkp1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/05/03/Gradle生成可独立运行-runnable-程序/" data-id="cinrgzykf0008yss6xemt3dap" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li></ul>
