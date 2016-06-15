@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <title>Go中Map与Struct联合使用注意点 | 一沙一世界</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在Go中，如果map联合struct使用需要注意。
+下面程序编译出错，因为 a[1].x =3无法编译通过，信息为：cannot assign to a[1].x
+1234567891011121314151617181920212223package mainimport (	&quot;fmt&quot;)func main() &amp;#123;	type Test struct &amp;#123;		x int		y i">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go中Map与Struct联合使用注意点">
+<meta property="og:url" content="http://yoursite.com/2016/06/15/Go中Map与Struct联合使用注意点/index.html">
+<meta property="og:site_name" content="一沙一世界">
+<meta property="og:description" content="在Go中，如果map联合struct使用需要注意。
+下面程序编译出错，因为 a[1].x =3无法编译通过，信息为：cannot assign to a[1].x
+1234567891011121314151617181920212223package mainimport (	&quot;fmt&quot;)func main() &amp;#123;	type Test struct &amp;#123;		x int		y i">
+<meta property="og:updated_time" content="2016-06-15T13:54:33.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Go中Map与Struct联合使用注意点">
+<meta name="twitter:description" content="在Go中，如果map联合struct使用需要注意。
+下面程序编译出错，因为 a[1].x =3无法编译通过，信息为：cannot assign to a[1].x
+1234567891011121314151617181920212223package mainimport (	&quot;fmt&quot;)func main() &amp;#123;	type Test struct &amp;#123;		x int		y i">
+  
+    <link rel="alternate" href="/atom.xml" title="一沙一世界" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">一沙一世界</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">SHIZHIHUA&#39;s BLOG</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Go中Map与Struct联合使用注意点" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/06/15/Go中Map与Struct联合使用注意点/" class="article-date">
+  <time datetime="2016-06-15T13:36:40.000Z" itemprop="datePublished">2016-06-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Go中Map与Struct联合使用注意点
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在Go中，如果map联合struct使用需要注意。</p>
+<p>下面程序编译出错，因为 <code>a[1].x =3</code>无法编译通过，信息为：<code>cannot assign to a[1].x</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">func</span> main() &#123;</span><br><span class="line">	<span class="keyword">type</span> Test <span class="keyword">struct</span> &#123;</span><br><span class="line">		x <span class="keyword">int</span></span><br><span class="line">		y <span class="keyword">int</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	a := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">int</span>]Test)</span><br><span class="line"></span><br><span class="line">	a[<span class="number">1</span>] = Test&#123;x: <span class="number">1</span>, y: <span class="number">1</span>&#125;</span><br><span class="line"></span><br><span class="line">	a[<span class="number">2</span>] = Test&#123;x: <span class="number">2</span>, y: <span class="number">2</span>&#125;</span><br><span class="line"></span><br><span class="line">	a[<span class="number">1</span>].x = <span class="number">3</span></span><br><span class="line"></span><br><span class="line">	fmt.Println(a[<span class="number">1</span>], a[<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果map类型改为slice类型，则程序没有问题</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> main() &#123;</span><br><span class="line">	<span class="keyword">type</span> Test <span class="keyword">struct</span> &#123;</span><br><span class="line">		x <span class="keyword">int</span></span><br><span class="line">		y <span class="keyword">int</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	a := <span class="built_in">make</span>([]Test,<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">	a[<span class="number">1</span>] = Test&#123;x: <span class="number">1</span>, y: <span class="number">1</span>&#125;</span><br><span class="line"></span><br><span class="line">	a[<span class="number">2</span>] = Test&#123;x: <span class="number">2</span>, y: <span class="number">2</span>&#125;</span><br><span class="line"></span><br><span class="line">	a[<span class="number">1</span>].x = <span class="number">3</span></span><br><span class="line"></span><br><span class="line">	fmt.Println(a[<span class="number">1</span>], a[<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果还要使用map类型，同时保持类似处理流程，则需要使用＊struct{}，具体程序如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">func</span> main() &#123;</span><br><span class="line">	<span class="keyword">type</span> Test <span class="keyword">struct</span> &#123;</span><br><span class="line">		x <span class="keyword">int</span></span><br><span class="line">		y <span class="keyword">int</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	a := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">int</span>]*Test)</span><br><span class="line"></span><br><span class="line">	a[<span class="number">1</span>] = &amp;Test&#123;x: <span class="number">1</span>, y: <span class="number">1</span>&#125;</span><br><span class="line"></span><br><span class="line">	a[<span class="number">2</span>] = &amp;Test&#123;x: <span class="number">2</span>, y: <span class="number">2</span>&#125;</span><br><span class="line"></span><br><span class="line">	a[<span class="number">1</span>].x = <span class="number">3</span></span><br><span class="line"></span><br><span class="line">	fmt.Println(*a[<span class="number">1</span>], *a[<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/06/15/Go中Map与Struct联合使用注意点/" data-id="cipgxwgex0000kxs6suc6i2ku" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Go/">Go</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/05/03/Gradle生成可独立运行-runnable-程序/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Gradle生成可独立运行(runnable)程序</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/">Go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internet/">Internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 17.5px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="/tags/Internet/" style="font-size: 15px;">Internet</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Junit/" style="font-size: 10px;">Junit</a> <a href="/tags/Mac/" style="font-size: 12.5px;">Mac</a> <a href="/tags/Spring/" style="font-size: 15px;">Spring</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/06/15/Go中Map与Struct联合使用注意点/">Go中Map与Struct联合使用注意点</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/03/Gradle生成可独立运行-runnable-程序/">Gradle生成可独立运行(runnable)程序</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/03/Mac中查找命令的路径/">Mac中查找命令的路径</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/03/log4j2的使用/">log4j2的使用</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/20/《Spring-In-Action》学习笔记（三）：Spring-4-0-模块/">《Spring In Action》学习笔记（三）：Spring 4.0 模块</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 shizhihua<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

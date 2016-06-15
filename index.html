@@ -68,6 +68,51 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Go中Map与Struct联合使用注意点" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/06/15/Go中Map与Struct联合使用注意点/" class="article-date">
+  <time datetime="2016-06-15T13:36:40.000Z" itemprop="datePublished">2016-06-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/15/Go中Map与Struct联合使用注意点/">Go中Map与Struct联合使用注意点</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在Go中，如果map联合struct使用需要注意。</p>
+<p>下面程序编译出错，因为 <code>a[1].x =3</code>无法编译通过，信息为：<code>cannot assign to a[1].x</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">func</span> main() &#123;</span><br><span class="line">	<span class="keyword">type</span> Test <span class="keyword">struct</span> &#123;</span><br><span class="line">		x <span class="keyword">int</span></span><br><span class="line">		y <span class="keyword">int</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	a := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">int</span>]Test)</span><br><span class="line"></span><br><span class="line">	a[<span class="number">1</span>] = Test&#123;x: <span class="number">1</span>, y: <span class="number">1</span>&#125;</span><br><span class="line"></span><br><span class="line">	a[<span class="number">2</span>] = Test&#123;x: <span class="number">2</span>, y: <span class="number">2</span>&#125;</span><br><span class="line"></span><br><span class="line">	a[<span class="number">1</span>].x = <span class="number">3</span></span><br><span class="line"></span><br><span class="line">	fmt.Println(a[<span class="number">1</span>], a[<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果map类型改为slice类型，则程序没有问题</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> main() &#123;</span><br><span class="line">	<span class="keyword">type</span> Test <span class="keyword">struct</span> &#123;</span><br><span class="line">		x <span class="keyword">int</span></span><br><span class="line">		y <span class="keyword">int</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	a := <span class="built_in">make</span>([]Test,<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">	a[<span class="number">1</span>] = Test&#123;x: <span class="number">1</span>, y: <span class="number">1</span>&#125;</span><br><span class="line"></span><br><span class="line">	a[<span class="number">2</span>] = Test&#123;x: <span class="number">2</span>, y: <span class="number">2</span>&#125;</span><br><span class="line"></span><br><span class="line">	a[<span class="number">1</span>].x = <span class="number">3</span></span><br><span class="line"></span><br><span class="line">	fmt.Println(a[<span class="number">1</span>], a[<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果还要使用map类型，同时保持类似处理流程，则需要使用＊struct{}，具体程序如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">func</span> main() &#123;</span><br><span class="line">	<span class="keyword">type</span> Test <span class="keyword">struct</span> &#123;</span><br><span class="line">		x <span class="keyword">int</span></span><br><span class="line">		y <span class="keyword">int</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	a := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">int</span>]*Test)</span><br><span class="line"></span><br><span class="line">	a[<span class="number">1</span>] = &amp;Test&#123;x: <span class="number">1</span>, y: <span class="number">1</span>&#125;</span><br><span class="line"></span><br><span class="line">	a[<span class="number">2</span>] = &amp;Test&#123;x: <span class="number">2</span>, y: <span class="number">2</span>&#125;</span><br><span class="line"></span><br><span class="line">	a[<span class="number">1</span>].x = <span class="number">3</span></span><br><span class="line"></span><br><span class="line">	fmt.Println(*a[<span class="number">1</span>], *a[<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/06/15/Go中Map与Struct联合使用注意点/" data-id="cipgxwgex0000kxs6suc6i2ku" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Go/">Go</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Gradle生成可独立运行-runnable-程序" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/05/03/Gradle生成可独立运行-runnable-程序/" class="article-date">
@@ -105,7 +150,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/05/03/Gradle生成可独立运行-runnable-程序/" data-id="cinsxjcdy0007mis6nzvnec7t" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/05/03/Gradle生成可独立运行-runnable-程序/" data-id="cipgxwgfj0008kxs6qsyyn8tb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li></ul>
@@ -146,7 +191,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/05/03/Mac中查找命令的路径/" data-id="cinsxjce7000bmis6ady1fd9n" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/05/03/Mac中查找命令的路径/" data-id="cipgxwgfl0009kxs6qj4kq896" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/">Mac</a></li></ul>
@@ -201,7 +246,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/05/03/log4j2的使用/" data-id="cinsxjcei000gmis6evoqcsju" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/05/03/log4j2的使用/" data-id="cipgxwgg0000dkxs6fa8h25gl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
@@ -283,7 +328,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/20/《Spring-In-Action》学习笔记（三）：Spring-4-0-模块/" data-id="cinsxjcek000imis69ls1eyv6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/20/《Spring-In-Action》学习笔记（三）：Spring-4-0-模块/" data-id="cipgxwgg7000hkxs6abvoohmh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
@@ -345,7 +390,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/20/《Spring-In-Action》学习笔记（二）：Spring-Container/" data-id="cinsxjceq000mmis64nvvhpkr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/20/《Spring-In-Action》学习笔记（二）：Spring-Container/" data-id="cipgxwggk000pkxs6ca1nt6eq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
@@ -458,7 +503,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/20/《Spring-In-Action》学习笔记（一）：基本概念/" data-id="cinsxjcen000lmis6ns14494c" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/20/《Spring-In-Action》学习笔记（一）：基本概念/" data-id="cipgxwgge000lkxs6vbybac12" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
@@ -530,7 +575,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/18/Gradle构建Java程序：Task/" data-id="cinsxjcdr0004mis66urj4434" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/18/Gradle构建Java程序：Task/" data-id="cipgxwgff0006kxs6qgrajojx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li></ul>
@@ -594,7 +639,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：Gradle常用命令/" data-id="cinsxjcdc0000mis6fysh9ocu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：Gradle常用命令/" data-id="cipgxwgfb0003kxs6n1hhrt6q" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
@@ -658,77 +703,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：Junit集成/" data-id="cinsxjcdp0003mis656iasfaw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：Junit集成/" data-id="cipgxwgfd0004kxs6gzvwkq1p" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Junit/">Junit</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Gradle构建Java程序：入门" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/04/17/Gradle构建Java程序：入门/" class="article-date">
-  <time datetime="2016-04-17T05:09:33.000Z" itemprop="datePublished">2016-04-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/17/Gradle构建Java程序：入门/">Gradle构建Java程序：入门</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="安装Gradle"><a href="#安装Gradle" class="headerlink" title="安装Gradle"></a>安装Gradle</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install gradle</span><br></pre></td></tr></table></figure>
-<p>查看版本</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle -v</span><br></pre></td></tr></table></figure>
-<p>本机安装版本为<code>Gradle 2.12</code>。</p>
-<h2 id="Java程序构建"><a href="#Java程序构建" class="headerlink" title="Java程序构建"></a>Java程序构建</h2><h3 id="Gradle文件"><a href="#Gradle文件" class="headerlink" title="Gradle文件"></a>Gradle文件</h3><p>在当前目录下生成文件<code>build.gradle</code>:</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'java'</span></span><br></pre></td></tr></table></figure>
-<h3 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h3><p>项目的目录结构需要按照下列固定约束（最里面几层对应package）：</p>
-<ul>
-<li><code>src/main/java</code>目录包含项目源代码</li>
-<li><code>src/main/resources</code>目录包含项目的资源</li>
-<li><code>src/test/java</code>目录包含项目测试类</li>
-<li><code>src/test/resource</code>目录包含项目测试资源</li>
-</ul>
-<p>本例中，没有测试相关内容，因此后两个目录没有。</p>
-<img src="http://www.plantuml.com/plantuml/svg/BOnB2e0m34JtEKNsWHx20oY85uXQR2HLyOTQlBkrkfet7sPXNI50g83G017McsXhkfbRjQzVvYOAeMSPNY3iUUT4XCteFuex9vSJj_rLJEp1VaedVr2KLbJFxCpPMvDkRhWV">
-<p>Java文件：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.shizhihua.example;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.net.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OReillyByName</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		String host = <span class="string">"www.baidu.com"</span>;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			InetAddress add = InetAddress.getLocalHost();</span><br><span class="line">			System.out.println(add);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (UnknownHostException ex) &#123;</span><br><span class="line">			System.out.println(<span class="string">"Couldn't not find the localhost"</span>);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			InetAddress adds[] = InetAddress.getAllByName(host);</span><br><span class="line">			<span class="keyword">for</span> (InetAddress add:adds) &#123;</span><br><span class="line">				System.out.println(add);</span><br><span class="line">				System.out.println(add.getHostName());</span><br><span class="line">				System.out.println(add.getHostAddress());</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">catch</span> (UnknownHostException ex) &#123;</span><br><span class="line">			System.out.println(<span class="string">"Couldn't not find "</span> + host);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="执行构建"><a href="#执行构建" class="headerlink" title="执行构建"></a>执行构建</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle build</span><br></pre></td></tr></table></figure>
-<h3 id="生成后的项目目录"><a href="#生成后的项目目录" class="headerlink" title="生成后的项目目录"></a>生成后的项目目录</h3><p>执行构建后，Gradle会生出一个目录<code>build</code>：</p>
-<ul>
-<li><code>classes</code>目录包含编译生成的<code>.class</code>文件</li>
-<li><code>libs</code>目录包含生成的<code>jar</code>或<code>war</code>文件</li>
-</ul>
-<img src="http://www.plantuml.com/plantuml/svg/fOux3i8m38PtdyAxHG_1o00IuW9kOX4ZfqHDYoXLxqv9MoHcji-F_v7PEXXXl01X1KHOzsf-1a9ddBFa3nD6rgRGlB_7XGXpq5VGqFEw89GdnsIopOIdiwZPi1-E7AKgdiNTIvB6I-E6dMCNYW9Dw-NQnGHRM5AJ0p-M3Bnn-wrPNLls9Gnpw-2dv_ouIlvhN6mccDu0">
-<h3 id="运行java程序"><a href="#运行java程序" class="headerlink" title="运行java程序"></a>运行java程序</h3><p>运行程序时，必须通过<code>-cp</code>指定<code>CLASSPATH</code>:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -cp build/classes/main/ com/shizhihua/example/OReillyByName</span><br></pre></td></tr></table></figure>
-<h3 id="jar配置"><a href="#jar配置" class="headerlink" title="jar配置"></a>jar配置</h3><p>上面得到的<code>jar</code>文件运行时需要指定入口，即<br>在<code>libs</code>中的<code>jar</code>文件，需要设置<code>Main-Class</code>属性的值，指定程序的入口点。为了运行简单，可以在gradle文件中直接配置好入口，即</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'java'</span></span><br><span class="line"></span><br><span class="line">jar &#123;</span><br><span class="line">    manifest &#123;</span><br><span class="line">        attributes <span class="string">'Main-Class'</span>: <span class="string">'com.shizhihua.example.OReillyByName'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>通过运行<code>gradle build</code>生产的<code>jar</code>文件，即可直接运行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar build/libs/<span class="built_in">test</span>Gradle.jar</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：入门/" data-id="cinsxjcdu0006mis65zezuexx" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
 
     </footer>
   </div>
@@ -753,7 +731,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internet/">Internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/">Go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internet/">Internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
     </div>
   </div>
 
@@ -763,7 +741,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Gradle/" style="font-size: 17.5px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="/tags/Internet/" style="font-size: 15px;">Internet</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Junit/" style="font-size: 10px;">Junit</a> <a href="/tags/Mac/" style="font-size: 12.5px;">Mac</a> <a href="/tags/Spring/" style="font-size: 15px;">Spring</a>
+      <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 17.5px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="/tags/Internet/" style="font-size: 15px;">Internet</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Junit/" style="font-size: 10px;">Junit</a> <a href="/tags/Mac/" style="font-size: 12.5px;">Mac</a> <a href="/tags/Spring/" style="font-size: 15px;">Spring</a>
     </div>
   </div>
 
@@ -772,7 +750,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li></ul>
     </div>
   </div>
 
@@ -783,6 +761,10 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/06/15/Go中Map与Struct联合使用注意点/">Go中Map与Struct联合使用注意点</a>
+          </li>
         
           <li>
             <a href="/2016/05/03/Gradle生成可独立运行-runnable-程序/">Gradle生成可独立运行(runnable)程序</a>
@@ -798,10 +780,6 @@
         
           <li>
             <a href="/2016/04/20/《Spring-In-Action》学习笔记（三）：Spring-4-0-模块/">《Spring In Action》学习笔记（三）：Spring 4.0 模块</a>
-          </li>
-        
-          <li>
-            <a href="/2016/04/20/《Spring-In-Action》学习笔记（二）：Spring-Container/">《Spring In Action》学习笔记（二）：Spring Container</a>
           </li>
         
       </ul>
