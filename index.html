@@ -68,6 +68,339 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Git学习笔记-5-Tag使用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/18/Git学习笔记-5-Tag使用/" class="article-date">
+  <time datetime="2016-07-18T12:25:23.000Z" itemprop="datePublished">2016-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/18/Git学习笔记-5-Tag使用/">Git学习笔记 (5) - Tag使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="标签Tag"><a href="#标签Tag" class="headerlink" title="标签Tag"></a>标签Tag</h2><p>Git中标签有两类：</p>
+<ol>
+<li>lightweight： just a pointer to a specific commit</li>
+<li>annotated</li>
+</ol>
+<h3 id="Annotated-Tags"><a href="#Annotated-Tags" class="headerlink" title="Annotated Tags"></a>Annotated Tags</h3><p>使用<code>-a</code>:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag <span class="_">-a</span> v1.4 -m <span class="string">"My version 1.4"</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Lightweight-Tags"><a href="#Lightweight-Tags" class="headerlink" title="Lightweight Tags"></a>Lightweight Tags</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag v1.4</span><br></pre></td></tr></table></figure>
+<h2 id="查看Tag"><a href="#查看Tag" class="headerlink" title="查看Tag"></a>查看Tag</h2><p>查看有哪些tag：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git tag</span><br><span class="line">git tag <span class="_">-l</span> <span class="string">"v1.8.5*"</span>   // 只显示以v1.8.5开头的标签</span><br></pre></td></tr></table></figure>
+<p>查看某个tag的信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git show v1.4</span><br></pre></td></tr></table></figure>
+<h2 id="Push"><a href="#Push" class="headerlink" title="Push"></a>Push</h2><p>Push命令不会自动把Tag信息包含，需要自己制定<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git push origin v1.5</span><br><span class="line">git push origin --tags   // 所有的tags</span><br></pre></td></tr></table></figure></p>
+<h2 id="Checkout"><a href="#Checkout" class="headerlink" title="Checkout"></a>Checkout</h2><p>需要新建一个新的branch，然后指定tag：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b [branchname] [tagname]</span><br><span class="line">git checkout -b version2 v2.0.0</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/18/Git学习笔记-5-Tag使用/" data-id="ciqs0atm00008pfs6elve3daz" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Git学习笔记-4-Git远程操作" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/18/Git学习笔记-4-Git远程操作/" class="article-date">
+  <time datetime="2016-07-18T12:23:54.000Z" itemprop="datePublished">2016-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/18/Git学习笔记-4-Git远程操作/">Git学习笔记 (4) - Git远程操作</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="克隆"><a href="#克隆" class="headerlink" title="克隆"></a>克隆</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/schacon/ticgit</span><br></pre></td></tr></table></figure>
+<h2 id="仓库信息"><a href="#仓库信息" class="headerlink" title="仓库信息"></a>仓库信息</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote</span><br><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
+<p>如果需要查看远程仓库更详细的信息，可以使用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote show [remote-name]</span><br></pre></td></tr></table></figure>
+<h2 id="添加远程仓库和改名"><a href="#添加远程仓库和改名" class="headerlink" title="添加远程仓库和改名"></a>添加远程仓库和改名</h2><p>添加<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add  &lt;shortname&gt;  &lt;url&gt;</span><br></pre></td></tr></table></figure></p>
+<p>移除<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote rm remote-name</span><br></pre></td></tr></table></figure></p>
+<p>改名<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote rename OldName NewName</span><br></pre></td></tr></table></figure></p>
+<h2 id="获取远程仓库新数据"><a href="#获取远程仓库新数据" class="headerlink" title="获取远程仓库新数据"></a>获取远程仓库新数据</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git fetch [remote-name]</span><br><span class="line">git pull</span><br></pre></td></tr></table></figure>
+<p>两个差别是：fetch只获取新数据，而pull除了获取新数据，还会把新数据主动与当前工作的分支进行合并。</p>
+<h2 id="发布"><a href="#发布" class="headerlink" title="发布"></a>发布</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git push [remote-name] [branch-name]</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/18/Git学习笔记-4-Git远程操作/" data-id="ciqs0atlv0006pfs67x48h46l" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Git学习笔记-3-Git基本命令" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/18/Git学习笔记-3-Git基本命令/" class="article-date">
+  <time datetime="2016-07-18T12:21:19.000Z" itemprop="datePublished">2016-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/18/Git学习笔记-3-Git基本命令/">Git学习笔记 (3) - Git基本命令</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="创建Repository"><a href="#创建Repository" class="headerlink" title="创建Repository"></a>创建Repository</h2><p>有两种方式：</p>
+<ol>
+<li>基于目录创建</li>
+<li>克隆</li>
+</ol>
+<h3 id="基于目录创建"><a href="#基于目录创建" class="headerlink" title="基于目录创建"></a>基于目录创建</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+<p>上述命令创建了一个仓库，但是并没有把当前目录下面的文件都加入仓库，即还是一个空仓库，后续还需要 <code>git add *.*</code>, <code>git commint -m &#39;xxxx&#39;</code>等命令</p>
+<h3 id="克隆"><a href="#克隆" class="headerlink" title="克隆"></a>克隆</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> url  [newName]</span><br></pre></td></tr></table></figure>
+<p>如果没有newName，则克隆的名字与原先仓库一样。</p>
+<p>上述命令包含了几个操作：</p>
+<ol>
+<li>从url地址下载仓库</li>
+<li>在本地复制了下载的仓库</li>
+<li>在当前目录checkout了一分工作文件（基于仓库中最新的版本）</li>
+</ol>
+<h2 id="文件状态和命令"><a href="#文件状态和命令" class="headerlink" title="文件状态和命令"></a>文件状态和命令</h2><p>在Git中，文件主要分为三种状态</p>
+<ol>
+<li>Modified： 文件修改了，还没进行任何其他操作（或者新文件，还没有被tracked）</li>
+<li>Staged：即下次commit会被记入的文件，相当于下次commit对应的indexing</li>
+<li>Committed：已经递交，所有变化已经被git所记录</li>
+</ol>
+<h3 id="Modified-gt-Staged"><a href="#Modified-gt-Staged" class="headerlink" title="Modified -&gt; Staged"></a>Modified -&gt; Staged</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add xx.xx</span><br></pre></td></tr></table></figure>
+<h3 id="Staged-gt-committed"><a href="#Staged-gt-committed" class="headerlink" title="Staged -&gt; committed"></a>Staged -&gt; committed</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">'coments and messages`</span></span><br></pre></td></tr></table></figure>
+<h3 id="跳过Staged-Area"><a href="#跳过Staged-Area" class="headerlink" title="跳过Staged Area"></a>跳过Staged Area</h3><p>使用<code>git commit</code>的同时添加参数<code>-a</code>，会自动把所有被tracked的文件的改动都自动stage，然后再递交：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git commit <span class="_">-a</span></span><br><span class="line">git commit <span class="_">-a</span> -m <span class="string">'add xxxx'</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="查看文件状态"><a href="#查看文件状态" class="headerlink" title="查看文件状态"></a>查看文件状态</h2><h3 id="Git-Status"><a href="#Git-Status" class="headerlink" title="Git Status"></a>Git Status</h3><p>可以详细列出处于各种状态的文件：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure></p>
+<p>上述信息如果嫌过多的话，可以使用short形式<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git status --short</span><br><span class="line">git status <span class="_">-s</span></span><br></pre></td></tr></table></figure></p>
+<p>输出分为两列</p>
+<ul>
+<li>第一列：文件状态（M：Modified， A：Staged（Added）， ??： not traced）</li>
+<li>第二列：文件名称</li>
+</ul>
+<h3 id="Git-Diff"><a href="#Git-Diff" class="headerlink" title="Git Diff"></a>Git Diff</h3><p>显示staged以后做的修改的部分，如果staged以后，没有修改，则此命令没有输出。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff</span><br></pre></td></tr></table></figure>
+<p>如果需要看staged中的修改部分，即哪些修改后续将会进入commit，需要添加参数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff --staged</span><br></pre></td></tr></table></figure>
+<h2 id="忽略文件"><a href="#忽略文件" class="headerlink" title="忽略文件"></a>忽略文件</h2><p>项目当前目录下，修改文件<code>.gitignore</code>，一些规则如下：</p>
+<ul>
+<li>#<ul>
+<li>注释行</li>
+</ul>
+</li>
+<li>*<ul>
+<li>0或更多个character</li>
+</ul>
+</li>
+<li>[abc]<ul>
+<li>a 或 b 或 c</li>
+</ul>
+</li>
+<li>？<ul>
+<li>单个character</li>
+</ul>
+</li>
+<li>[0-9]<ul>
+<li>0-9中间一个数</li>
+</ul>
+</li>
+<li><em>\</em><ul>
+<li>nested dirctories，例如<code>a/**/z</code>，匹配下面各种情况<code>a/z</code>，<code>a/b/z</code>, <code>a/b/c/z</code>等   </li>
+</ul>
+</li>
+<li>！<ul>
+<li>！lib.a，lib.a文件需要被tracked，不能ignore </li>
+</ul>
+</li>
+<li>/结尾<ul>
+<li>表示目录，<code>build/</code> 即 <code>build</code>目录下面所有文件 </li>
+<li><code>doc/**/*.pdf</code>：<code>doc</code>目录下，所有的pdf文件</li>
+</ul>
+</li>
+</ul>
+<p>##查看Log</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span>      // 最新的先显示</span><br><span class="line">git <span class="built_in">log</span> -p   // 显示每次commit对应的difference</span><br><span class="line">git <span class="built_in">log</span> -2   // 显示最近2次的结果</span><br></pre></td></tr></table></figure>
+<h2 id="其他文件操作"><a href="#其他文件操作" class="headerlink" title="其他文件操作"></a>其他文件操作</h2><h3 id="移除文件"><a href="#移除文件" class="headerlink" title="移除文件"></a>移除文件</h3><p>从Git中移除，并且从working directory里面删除对应文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rm xxx.yy</span><br></pre></td></tr></table></figure>
+<h3 id="重命名文件"><a href="#重命名文件" class="headerlink" title="重命名文件"></a>重命名文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git mv name1 name2</span><br></pre></td></tr></table></figure>
+<p>上述命令等价于下面三个命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mv name1 name2</span><br><span class="line">git rm name1</span><br><span class="line">git add name2</span><br></pre></td></tr></table></figure>
+<h3 id="重新递交"><a href="#重新递交" class="headerlink" title="重新递交"></a>重新递交</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit --amend</span><br></pre></td></tr></table></figure>
+<h3 id="把文件从staged状态移除"><a href="#把文件从staged状态移除" class="headerlink" title="把文件从staged状态移除"></a>把文件从staged状态移除</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset HEAD xxxxxx</span><br></pre></td></tr></table></figure>
+<h3 id="放弃修改"><a href="#放弃修改" class="headerlink" title="放弃修改"></a>放弃修改</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout --xxxx.txt</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/18/Git学习笔记-3-Git基本命令/" data-id="ciqs0atls0003pfs698u7b8c0" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Git学习笔记-2-Git帮助命令" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/18/Git学习笔记-2-Git帮助命令/" class="article-date">
+  <time datetime="2016-07-18T12:16:38.000Z" itemprop="datePublished">2016-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/18/Git学习笔记-2-Git帮助命令/">Git学习笔记 (2) - Git帮助命令</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Git帮助命令有三种形式：</p>
+<ol>
+<li>git help verb</li>
+<li>git verb –help</li>
+<li>man git-verb</li>
+</ol>
+<p>第一种的方式，与go语言一样，可以统一记忆，更方便。运行命令后，会自动打开浏览器，看到详细的manpage。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/18/Git学习笔记-2-Git帮助命令/" data-id="ciqs0atlg0000pfs6gs2lqzpg" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Git学习笔记-1-基本配置" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/18/Git学习笔记-1-基本配置/" class="article-date">
+  <time datetime="2016-07-18T12:12:27.000Z" itemprop="datePublished">2016-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/18/Git学习笔记-1-基本配置/">Git学习笔记 (1) - 基本配置</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="配置的三个层级"><a href="#配置的三个层级" class="headerlink" title="配置的三个层级"></a>配置的三个层级</h2><p>Git使用 <code>git config</code> 来进行配置。按照控制范围来说，Git配置分为三层：</p>
+<ol>
+<li>某个Repository<ol>
+<li>配置文件： <code>.git/config</code></li>
+<li>在当前的git repository目录下面使用命令： <code>git config</code></li>
+</ol>
+</li>
+<li>当前用户<ol>
+<li>配置文件： <code>~/.gitconfig</code> 或 <code>~/.config/git/config</code></li>
+<li>使用命令： <code>git config --global</code></li>
+</ol>
+</li>
+<li>所有用户<ol>
+<li>配置文件： <code>/etc/gitconfig</code></li>
+<li>使用命令： <code>git config --system</code></li>
+</ol>
+</li>
+</ol>
+<p>上述三个层级，范围小的层级会override范围大的层级，即上面的配置可以override下面的配置。</p>
+<h2 id="配置参数"><a href="#配置参数" class="headerlink" title="配置参数"></a>配置参数</h2><h3 id="用户名"><a href="#用户名" class="headerlink" title="用户名"></a>用户名</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">"shizhihua"</span></span><br></pre></td></tr></table></figure>
+<h3 id="邮箱"><a href="#邮箱" class="headerlink" title="邮箱"></a>邮箱</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email xxxyyy@gmail.com</span><br></pre></td></tr></table></figure>
+<h3 id="默认文本编辑器"><a href="#默认文本编辑器" class="headerlink" title="默认文本编辑器"></a>默认文本编辑器</h3><p>如果不进行设置，Git会使用系统默认的文本编辑器。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.editor emacs</span><br><span class="line">git config --global core.editor <span class="string">"'C:/Programe Files/Notepad++/notepad++.exe' -multiInst -nosession"</span></span><br></pre></td></tr></table></figure>
+<p>在win下面，<code>-multiInst -nosession</code>需要，否则会出错。</p>
+<h2 id="查看配置"><a href="#查看配置" class="headerlink" title="查看配置"></a>查看配置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --list</span><br></pre></td></tr></table></figure>
+<p>上述命令会列出所有的配置。</p>
+<p>如果需要列出某个key的配置值，可以利用下面的命令<code>git config &lt;key&gt;</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config user.name</span><br></pre></td></tr></table></figure>
+<h2 id="Git-Aliases"><a href="#Git-Aliases" class="headerlink" title="Git Aliases"></a>Git Aliases</h2><p>通过设置，可以制定一些命令的简写方式，例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global alias.co checkout</span><br><span class="line">git config --global alias.br branch</span><br><span class="line">git config --global alias.last <span class="string">'log -1 HEAD'</span></span><br></pre></td></tr></table></figure>
+<p>则下面一些命令就可以简写如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git co       // git checkout</span><br><span class="line">git last     // git <span class="built_in">log</span> -1 HEAD</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/18/Git学习笔记-1-基本配置/" data-id="ciqs0atlm0001pfs6i1xdw4pd" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Go中Map与Struct联合使用注意点" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/06/15/Go中Map与Struct联合使用注意点/" class="article-date">
@@ -101,7 +434,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/15/Go中Map与Struct联合使用注意点/" data-id="cipgxwgex0000kxs6suc6i2ku" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/06/15/Go中Map与Struct联合使用注意点/" data-id="ciqs0atm2000bpfs6wai4sydf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Go/">Go</a></li></ul>
@@ -150,7 +483,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/05/03/Gradle生成可独立运行-runnable-程序/" data-id="cipgxwgfj0008kxs6qsyyn8tb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/05/03/Gradle生成可独立运行-runnable-程序/" data-id="ciqs0atnc0011pfs6wi1aksxt" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li></ul>
@@ -191,7 +524,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/05/03/Mac中查找命令的路径/" data-id="cipgxwgfl0009kxs6qj4kq896" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/05/03/Mac中查找命令的路径/" data-id="ciqs0atn8000zpfs6vde0zunm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/">Mac</a></li></ul>
@@ -246,7 +579,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/05/03/log4j2的使用/" data-id="cipgxwgg0000dkxs6fa8h25gl" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/05/03/log4j2的使用/" data-id="ciqs0atnx0019pfs6nfzekdve" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
@@ -328,385 +661,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/20/《Spring-In-Action》学习笔记（三）：Spring-4-0-模块/" data-id="cipgxwgg7000hkxs6abvoohmh" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/20/《Spring-In-Action》学习笔记（三）：Spring-4-0-模块/" data-id="ciqs0ato7001epfs617fgb1zt" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-《Spring-In-Action》学习笔记（二）：Spring-Container" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/04/20/《Spring-In-Action》学习笔记（二）：Spring-Container/" class="article-date">
-  <time datetime="2016-04-20T13:51:34.000Z" itemprop="datePublished">2016-04-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/20/《Spring-In-Action》学习笔记（二）：Spring-Container/">《Spring In Action》学习笔记（二）：Spring Container</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在一个Spring－based application中，程序中的对象都生存在<code>Spring Container</code>中。由这一Container来负责这些对象的生成、关联、配置和管理等等。</p>
-<h2 id="两类容器"><a href="#两类容器" class="headerlink" title="两类容器"></a>两类容器</h2><p>在Spring中，存在多个容器的实现，大体可以分为两大类：</p>
-<ul>
-<li><strong>Bean factories</strong><ul>
-<li>由接口<code>org.springframework.beans.factory.BeanFactory</code>定义</li>
-<li>最简单的容器，为DI提供基本的支持</li>
-</ul>
-</li>
-<li><strong>Application contexts</strong><ul>
-<li>由接口<code>org.springframework.context.ApplicationContext</code>定义<br>－ 建立在bean factory基础上，提供application-framework services</li>
-</ul>
-</li>
-</ul>
-<p>在实际应用中，由于<code>bean factories</code>过于底层，不便于应用。所以，在大部分程序中，一般更倾向于采用<code>application contexts</code>。</p>
-<h2 id="Application-Context-容器"><a href="#Application-Context-容器" class="headerlink" title="Application Context 容器"></a>Application Context 容器</h2><p>常见的一些<code>application contexts</code>：</p>
-<ul>
-<li><strong><code>AnnotationConfigApplicationContext</code></strong>：Loads a Spring application context from one or more <strong>Java-based configuration</strong> classes</li>
-<li><strong><code>AnnotationConfigWebApplicationContext</code></strong>：Loads a Spring web application context from one or more <strong>Java-based configuration</strong> classes</li>
-<li><strong><code>ClassPathXmlApplicationContext</code></strong>：Loads a context definition from one ormore XML files located in the classpath, treating context-definition files as classpath<br>resources</li>
-<li><strong><code>FileSystemXmlApplicationContext</code></strong>：Loads a context definition from one or more XML files in the filesystem</li>
-<li><strong><code>XmlWebApplicationContext</code></strong>：Loads context definitions from one or more XML files contained in a web application</li>
-</ul>
-<p>两个例子：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext context = <span class="keyword">new</span> FileSystemXmlApplicationContext(<span class="string">"c:/knight.xml"</span>);</span><br><span class="line">ApplicationContext context = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"knight.xml"</span>);</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/20/《Spring-In-Action》学习笔记（二）：Spring-Container/" data-id="cipgxwggk000pkxs6ca1nt6eq" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-《Spring-In-Action》学习笔记（一）：基本概念" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/04/20/《Spring-In-Action》学习笔记（一）：基本概念/" class="article-date">
-  <time datetime="2016-04-20T12:24:33.000Z" itemprop="datePublished">2016-04-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/20/《Spring-In-Action》学习笔记（一）：基本概念/">《Spring In Action》学习笔记（一）：基本概念</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>基于《Spring In Action》第四版。</p>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>为了替代笨重的Enterprise JavaBeans (EJB)，人们设计了轻量级的框架Spring。 因此Spring的设计目的就是：<strong>简化java开发</strong>。 Spring simplifies Java development。</p>
-<p>为了降低Java开发复杂度，Spring采用了四方面的策略</p>
-<ul>
-<li>Lightweight and minimally invasive development with POJOs</li>
-<li>Loose coupling through DI and interface orientation</li>
-<li>Declarative programming through aspects and common conventions</li>
-<li>Eliminating boilerplate code with aspects and templates</li>
-</ul>
-<p>后续四部分会分别针对这四个方面，以实际例子来说明其含义。</p>
-<p>先记录一些常用的名词：</p>
-<ul>
-<li><strong>POJO</strong>： plain old Java object （简单Java类）</li>
-<li><strong>Bean/JavaBean</strong>：Spring中使用宽松的定义，就是指一个spring component，当作POJO的同义词</li>
-<li><strong>DI</strong>：Dependency Injection（依赖注入）</li>
-<li><strong>AOP</strong>：Aspect-Oriented Programming</li>
-</ul>
-<h2 id="Non-invasive-Programming-Model"><a href="#Non-invasive-Programming-Model" class="headerlink" title="Non-invasive Programming Model"></a>Non-invasive Programming Model</h2><p>有一些Java框架在使用时，开发人员需要在自己的程序中扩展或者实现框架的的一些interface或者class。</p>
-<p>Spring框架不会让程序代码和他的API混在一起。Spring almost never forces you to implement a Sprint-specific interface or extend a Spring-specific class。</p>
-<p>通常，使用Spring时，往往感受不到在使用Spring。 最差情况是会使用一些Spring’s annotation。下面是一个例子：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Spring doesn’t make any unreasonable demands on HelloWorldBean</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> com.habuma.spring;</span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorldBean</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">sayHello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Hello World"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>从上面例子可以看到，这就是一个简单Java类（POJO），没有Spring的组件直接体现出来。这样的好处是：</p>
-<blockquote>
-<p>同样的代码可以在其他非Spring程序中使用（in a non-Spring application）。</p>
-</blockquote>
-<h2 id="Dependency-Injection"><a href="#Dependency-Injection" class="headerlink" title="Dependency Injection"></a>Dependency Injection</h2><p>Dependency Injection (DI) 的用处主要是解耦不同的class/object。</p>
-<p>一个典型应用场景是： </p>
-<ul>
-<li>Class B1来自通用的Inferface B</li>
-<li>Class A里面需要使用Class B1<ul>
-<li>若直接在Class A中直接生产Class B1的对象，则两个类型之间产生了紧耦合。不利于后续程序的扩展</li>
-<li>Class A可以把Interface B的对象作为输入参数，这样就从外界获取Class B1的对象，而不是内部直接产生，从而实现解耦；同时也利于扩展，例如获取Interface B的其他实现B2、B3等。</li>
-</ul>
-</li>
-</ul>
-<p>下面分三部分通过例子来</p>
-<h3 id="传统紧耦合方式"><a href="#传统紧耦合方式" class="headerlink" title="传统紧耦合方式"></a>传统紧耦合方式</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.springinaction.knights;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DamselRescuingKnight</span> <span class="keyword">implements</span> <span class="title">Knight</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> RescueDamselQuest quest;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DamselRescuingKnight</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.quest = <span class="keyword">new</span> RescueDamselQuest();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">embarkOnQuest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        quest.embark();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上述代码，存在两方面的问题：</p>
-<ol>
-<li><strong>紧耦合、难以扩展</strong>：两个类<code>DamselRescuingKnight</code>与<code>RescueDamselQuest</code>紧密联系在一起。如果要一个屠龙的knight，则上述代码都得重新写，很难直接利用。</li>
-<li><strong>测试测试困难</strong>：单元测试需要知道是否正确调用了<code>quest.embark()</code>，目前没有简洁的方法可以进行验证。</li>
-</ol>
-<h3 id="依赖注入（DI）"><a href="#依赖注入（DI）" class="headerlink" title="依赖注入（DI）"></a>依赖注入（DI）</h3><p>使用DI，则有一个第三方来负责协同两个类。看下面例子（<strong>constructor injection</strong>）：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.springinaction.knights;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BraveKnight</span> <span class="keyword">implements</span> <span class="title">Knight</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Quest quest;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BraveKnight</span><span class="params">(Quest quest)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.quest = quest;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">embarkOnQuest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        quest.embark();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面的<code>BraveKnight</code>就比较通用，可以接收各种<code>Quest</code>：<code>RescueDamselQuest</code>, <code>SlayDragonQuest</code>, <code>MakeRoundTableRounderQuest</code>。</p>
-<p>因此<code>BraveKnight</code>已经与<code>Quest</code>的各种具体实现完全解耦了，不再依赖于具体实现。 （设计模式原则之一：基于接口编程。策略模式）</p>
-<p>采用constructor injection后，很容易使用Mock来进行单元测试：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.springinaction.knights;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.mockito.Mockito.*;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BraveKnightTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">knightShouldEmbarkOnQuest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Quest mockQuest = mock(Quest.class);</span><br><span class="line">        BraveKnight knight = <span class="keyword">new</span> BraveKnight(mockQuest);</span><br><span class="line">        knight.embarkOnQuest();</span><br><span class="line">        verify(mockQuest, times(<span class="number">1</span>)).embark();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>通过采用调用<code>embarkOnQuest()</code>，可以利用<code>Mockito</code>来验证<code>Quest</code>的<code>embark()</code>是被调用了1次。</p>
-<h3 id="注入Quest"><a href="#注入Quest" class="headerlink" title="注入Quest"></a>注入Quest</h3><p>首先实现被注入的类<code>SlayDragonQuest</code>：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.springinaction.knights;</span><br><span class="line"><span class="keyword">import</span> java.io.PrintStream;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SlayDragonQuest</span> <span class="keyword">implements</span> <span class="title">Quest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> PrintStream stream;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SlayDragonQuest</span><span class="params">(PrintStream stream)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.stream = stream;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">embark</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        stream.println(<span class="string">"Embarking on quest to slay the dragon!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可以看到，<code>SlayDragonQuest</code>也使用了构造注入（constructor injection）。 </p>
-<p>在Spring中，可以使用XML来把<code>SlayDragonQuest</code>传递给<code>BraveKnight</code>：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span><br><span class="line">   <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">   <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span><br><span class="line">   http://www.springframework.org/schema/beans/spring-beans.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"knight"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.knights.BraveKnight"</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">ref</span>=<span class="string">"quest"</span> /&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"quest"</span>  <span class="attr">class</span>=<span class="string">"com.springinaction.knights.SlayDragonQuest"</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">value</span>=<span class="string">"#&#123;T(System).out&#125;"</span> /&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>在上述XML文件中，两个类都被声明为Bean了。每个Bean都配置了构造函数输入参数，从而关联的对应的类（wire beans）。</p>
-<p>在Spring中，可以用Java代码来等价替换上述XML文件：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.springinaction.knights.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> com.springinaction.knights.BraveKnight;</span><br><span class="line"><span class="keyword">import</span> com.springinaction.knights.Knight;</span><br><span class="line"><span class="keyword">import</span> com.springinaction.knights.Quest;</span><br><span class="line"><span class="keyword">import</span> com.springinaction.knights.SlayDragonQuest;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">KnightConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Knight <span class="title">knight</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> BraveKnight(quest());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Quest <span class="title">quest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> SlayDragonQuest(System.out);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="工作起来"><a href="#工作起来" class="headerlink" title="工作起来"></a>工作起来</h3><p>在Spring application中，一个<code>application context</code>来读取bean定义，并把他们wire在一起。</p>
-<p>Spring提供了application context的多种实现，其差别仅仅在于如何load configuration。 本处以XML文件为例，需要使用<code>ClassPathXmlApplicationContext</code>（Java配置文件时，需要使用<code>AnnotationConfigApplicationContext</code>）：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.springinaction.knights;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.support.</span><br><span class="line">ClassPathXmlApplicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">KnightMain</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        ClassPathXmlApplicationContext context = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"META-INF/spring/knight.xml"</span>);</span><br><span class="line">        Knight knight = context.getBean(Knight.class);  <span class="comment">// Get knight</span></span><br><span class="line">bean</span><br><span class="line">        knight.embarkOnQuest();</span><br><span class="line">        context.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h2><p>DI实现了模块间的解耦（松耦合），AOP可以帮组我们提高功能模块的可重用性。</p>
-<p>系统的不同功能分为不同的模块。但在实际过程中，一些模块除了自己的核心功能以外，还有一些其他的辅助功能，而这些辅助的功能可能会涉及多个模块。这就造成，修改一些代码，可能会涉及到系统很多部分。</p>
-<p>定义一个类<code>Minstrel</code>，其有两个函数，分别在knight做一个quest（embark on a quest）之前和之后执行:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.springinaction.knights;</span><br><span class="line"><span class="keyword">import</span> java.io.PrintStream;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Minstrel</span> </span>&#123;	<span class="keyword">private</span> PrintStream stream;	<span class="function"><span class="keyword">public</span> <span class="title">Minstrel</span><span class="params">(PrintStream stream)</span> </span>&#123;		<span class="keyword">this</span>.stream = stream;	&#125;<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">singBeforeQuest</span><span class="params">()</span> </span>&#123;      <span class="comment">// Called before quest</span>	stream.println(<span class="string">"Fa la la, the knight is so brave!"</span>);&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">singAfterQuest</span><span class="params">()</span> </span>&#123;       <span class="comment">// Called after quest</span>	stream.println(<span class="string">"Tee hee hee, the brave knight "</span> +<span class="string">"did embark on a quest!"</span>);	&#125;&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="传统处理方式"><a href="#传统处理方式" class="headerlink" title="传统处理方式"></a>传统处理方式</h3><p>直接在某个具体骑士的类中调用<code>minstrel</code>的两个函数：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.springinaction.knights;<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BraveKnight</span> <span class="keyword">implements</span> <span class="title">Knight</span> </span>&#123;	<span class="keyword">private</span> Quest quest;	<span class="keyword">private</span> Minstrel minstrel;	<span class="function"><span class="keyword">public</span> <span class="title">BraveKnight</span><span class="params">(Quest quest, Minstrel minstrel)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.quest = quest;		<span class="keyword">this</span>.minstrel = minstrel;	&#125;	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">embarkOnQuest</span><span class="params">()</span> <span class="keyword">throws</span> QuestException </span>&#123;		minstrel.singBeforeQuest();		quest.embark();		minstrel.singAfterQuest();	&#125;&#125;</span><br></pre></td></tr></table></figure>
-<p>在这个例子中，两个类紧紧耦合在一起了。</p>
-<h3 id="AOP处理方式"><a href="#AOP处理方式" class="headerlink" title="AOP处理方式"></a>AOP处理方式</h3><p>在Spring中，AOP处理方式对应的XML配置如下：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;&gt;<span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span>	<span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span>	<span class="attr">xmlns:aop</span>=<span class="string">"http://www.springframework.org/schema/aop"</span>	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/aophttp://www.springframework.org/schema/aop/spring-aop-3.2.xsdhttp://www.springframework.org/schema/beanshttp://www.springframework.org/schema/beans/spring-beans.xsd"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"knight"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.knights.BraveKnight"</span>&gt;</span>		<span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">ref</span>=<span class="string">"quest"</span> /&gt;</span>	<span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"quest"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.knights.SlayDragonQuest"</span>&gt;</span>		<span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">value</span>=<span class="string">"#&#123;T(System).out&#125;"</span> /&gt;</span>	<span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"minstrel"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.knights.Minstrel"</span>&gt;</span>		<span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">value</span>=<span class="string">"#&#123;T(System).out&#125;"</span> /&gt;</span>	<span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">aop:config</span>&gt;</span>	<span class="tag">&lt;<span class="name">aop:aspect</span> <span class="attr">ref</span>=<span class="string">"minstrel"</span>&gt;</span>		<span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">id</span>=<span class="string">"embark"</span>			<span class="attr">expression</span>=<span class="string">"execution(* *.embarkOnQuest(..))"</span>/&gt;</span>		<span class="tag">&lt;<span class="name">aop:before</span> <span class="attr">pointcut-ref</span>=<span class="string">"embark"</span> <span class="attr">method</span>=<span class="string">"singBeforeQuest"</span>/&gt;</span>		<span class="tag">&lt;<span class="name">aop:after</span> <span class="attr">pointcut-ref</span>=<span class="string">"embark"</span> <span class="attr">method</span>=<span class="string">"singAfterQuest"</span>/&gt;</span>	<span class="tag">&lt;/<span class="name">aop:aspect</span>&gt;</span><span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>在上述配置中，首先把<code>Minstrel</code>声明为bean，然后通过<code>&lt;aop:aspect&gt;</code>来配置AOP。在这儿，<code>Minstrel</code>仍然是一个POJO。</p>
-<h2 id="利用模板消除冗余代码"><a href="#利用模板消除冗余代码" class="headerlink" title="利用模板消除冗余代码"></a>利用模板消除冗余代码</h2><p>Eliminating boilerplate code with templates</p>
-<h3 id="传统处理方式-1"><a href="#传统处理方式-1" class="headerlink" title="传统处理方式"></a>传统处理方式</h3><p>JDBC相关程序，会产生很多例行（冗余）代码，很多代码不是程序的核心功能，而是辅助性的代码。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Employee <span class="title">getEmployeeById</span><span class="params">(<span class="keyword">long</span> id)</span> </span>&#123;	Connection conn = <span class="keyword">null</span>;	PreparedStatement stmt = <span class="keyword">null</span>;	ResultSet rs = <span class="keyword">null</span>;	<span class="keyword">try</span> &#123;		conn = dataSource.getConnection();		stmt = conn.prepareStatement(<span class="string">"select id, firstname, lastname, salary from "</span> +<span class="string">"employee where id=?"</span>);	stmt.setLong(<span class="number">1</span>, id);	rs = stmt.executeQuery();	Employee employee = <span class="keyword">null</span>;	<span class="keyword">if</span> (rs.next()) &#123;		employee = <span class="keyword">new</span> Employee();		employee.setId(rs.getLong(<span class="string">"id"</span>));		employee.setFirstName(rs.getString(<span class="string">"firstname"</span>));		employee.setLastName(rs.getString(<span class="string">"lastname"</span>));		employee.setSalary(rs.getBigDecimal(<span class="string">"salary"</span>));	&#125;	<span class="keyword">return</span> employee;	&#125; <span class="keyword">catch</span> (SQLException e) &#123;	&#125; <span class="keyword">finally</span> &#123;                  <span class="comment">// Clean up mess</span>		<span class="keyword">if</span>(rs != <span class="keyword">null</span>) &#123;			<span class="keyword">try</span> &#123;				rs.close();			&#125; <span class="keyword">catch</span>(SQLException e) &#123;&#125;		&#125;		<span class="keyword">if</span>(stmt != <span class="keyword">null</span>) &#123;			<span class="keyword">try</span> &#123;				stmt.close();			&#125; <span class="keyword">catch</span>(SQLException e) &#123;&#125;		&#125;		<span class="keyword">if</span>(conn != <span class="keyword">null</span>) &#123;			<span class="keyword">try</span> &#123;				conn.close();			&#125; <span class="keyword">catch</span>(SQLException e) &#123;&#125;		&#125;	&#125;	<span class="keyword">return</span> <span class="keyword">null</span>;&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="模板处理方式"><a href="#模板处理方式" class="headerlink" title="模板处理方式"></a>模板处理方式</h3><p>使用Spring中的模板<code>SimpleJdbcTemplate</code>，只要写核心功能相关的代码，和JDBC API相关的一些辅助性代码都交由模板处理，不需要额外写代码。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Employee <span class="title">getEmployeeById</span><span class="params">(<span class="keyword">long</span> id)</span> </span>&#123;	<span class="keyword">return</span> jdbcTemplate.queryForObject(		<span class="string">"select id, firstname, lastname, salary "</span> +		<span class="string">"from employee where id=?"</span>,		<span class="keyword">new</span> RowMapper&lt;Employee&gt;() &#123;			<span class="function"><span class="keyword">public</span> Employee <span class="title">mapRow</span><span class="params">(ResultSet rs, <span class="keyword">int</span> rowNum)</span> <span class="keyword">throws</span> SQLException </span>&#123;				Employee employee = <span class="keyword">new</span> Employee();				employee.setId(rs.getLong(<span class="string">"id"</span>));				employee.setFirstName(rs.getString(<span class="string">"firstname"</span>));				employee.setLastName(rs.getString(<span class="string">"lastname"</span>));				employee.setSalary(rs.getBigDecimal(<span class="string">"salary"</span>));				<span class="keyword">return</span> employee;				&#125;		&#125;,		id);&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/20/《Spring-In-Action》学习笔记（一）：基本概念/" data-id="cipgxwgge000lkxs6vbybac12" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Gradle构建Java程序：Task" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/04/18/Gradle构建Java程序：Task/" class="article-date">
-  <time datetime="2016-04-18T12:43:35.000Z" itemprop="datePublished">2016-04-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/18/Gradle构建Java程序：Task/">Gradle构建Java程序：Task</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>下列内容来自《Building and Testing with Gradle》。</p>
-<p>Gradle运行生命周期如下：</p>
-<ul>
-<li><strong>Configuration phase</strong>: 运行configuration blocks</li>
-<li><strong>Execution phase</strong>：运行task actions</li>
-</ul>
-<h2 id="Task-action定义"><a href="#Task-action定义" class="headerlink" title="Task action定义"></a>Task action定义</h2><p>在Gradle中，task是build activity的基本单元，由一系列的构建指令组合而成。Task是first-class object。</p>
-<p>Task Action使用<code>task</code>和<code>&lt;&lt;</code>来定义：</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> hello &lt;&lt; &#123;</span><br><span class="line">  <span class="keyword">println</span> <span class="string">'hello, world'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其中<code>&lt;&lt;</code>在此处表示为<code>hello</code>任务添加一系列的操作(append a code block to the list of actions a task performs)。</p>
-<p>上述表达式可以用下面的命令来等价：</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> hello</span><br><span class="line"></span><br><span class="line">hello &lt;&lt; &#123;</span><br><span class="line">  <span class="keyword">print</span> <span class="string">'hello, '</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hello &lt;&lt; &#123;</span><br><span class="line">  <span class="keyword">println</span> <span class="string">'world'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Task配置"><a href="#Task配置" class="headerlink" title="Task配置"></a>Task配置</h2><p>Task的定义与配置很像，差别在于task配置中<strong>不使用</strong><code>&lt;&lt;</code>。</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> initializeDatabase</span><br><span class="line">initializeDatabase &lt;&lt; &#123; <span class="keyword">println</span> <span class="string">'task'</span> &#125;</span><br><span class="line">initializeDatabase &#123; <span class="keyword">println</span> <span class="string">'configuration&#125;</span></span><br></pre></td></tr></table></figure>
-<p>上述第1条声明一个task，第2条添加operation到task，第3条是task的配置。</p>
-<p>运行上述build文件，可以得到下列结果：</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ gradle -b scratch.gradle initializeDatabase</span><br><span class="line">configuration</span><br><span class="line">:initializeDatabase</span><br><span class="line"><span class="keyword">task</span></span><br></pre></td></tr></table></figure>
-<h2 id="Task是对象"><a href="#Task是对象" class="headerlink" title="Task是对象"></a>Task是对象</h2><p><code>Tasks are Objects</code>。和不同的对象一样，a task object可以含有方法（methods）和属性（properties）。</p>
-<p>前述定义的Task，属于<code>DefaultTask</code>，有以下一些方法。</p>
-<h3 id="dependsOn"><a href="#dependsOn" class="headerlink" title="dependsOn"></a>dependsOn</h3><p>被依赖的task会先执行。可以有不同的表示方法，结果是等效的。下面示例中定义的task依赖于两个其它task（只显示了4种方法）：</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> world(dependsOn: [compileTestClasses, createSchema])</span><br></pre></td></tr></table></figure>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> world</span><br><span class="line">world.dependsOn compileTestClasses, createSchema</span><br></pre></td></tr></table></figure>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> world &#123;</span><br><span class="line">  dependsOn compileTestClasses, createSchema</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> world &#123;</span><br><span class="line">  dependsOn &lt;&lt; compileTestClasses</span><br><span class="line">  dependson &lt;&lt; createSchema</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="doFirst"><a href="#doFirst" class="headerlink" title="doFirst"></a>doFirst</h3><p><code>doFirst</code>中的代码会在对应的task action之前执行；多个<code>doFirst</code>出现时，后出现的先运行，即遵照FILO规则。</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> setupDatabaseTest &lt;&lt; &#123;</span><br><span class="line">   <span class="keyword">println</span> <span class="string">'load test data'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">setupDatabaseTest.<span class="keyword">doFirst</span> &#123;</span><br><span class="line">  <span class="keyword">println</span> <span class="string">'create schea'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> setupDatabaseTest &lt;&lt; &#123;</span><br><span class="line">   <span class="keyword">println</span> <span class="string">'load test data'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">setupDatabaseTest&#123;</span><br><span class="line">    <span class="keyword">doFirst</span> &#123;</span><br><span class="line">       <span class="keyword">println</span> <span class="string">'create schea'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="doLast"><a href="#doLast" class="headerlink" title="doLast"></a>doLast</h3><p><code>doLast</code>中的代码会在对应的task action之后执行。多个<code>doLast</code>出现时，先出现的先运行，即遵照FIFO规则。<code>doLast</code>用法与<code>doFirst</code>类似。</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> setupDatabaseTest &lt;&lt; &#123;</span><br><span class="line">   <span class="keyword">println</span> <span class="string">'create database schema'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">setupDatabaseTest.<span class="keyword">doLast</span> &#123;</span><br><span class="line">  <span class="keyword">println</span> <span class="string">'load test data'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Task-type"><a href="#Task-type" class="headerlink" title="Task type"></a>Task type</h2><p>除了<code>DefaultTask</code>，task还有其它一些type。在task名字后面添加<code>(type: typeName)</code>即可指定task type。</p>
-<h3 id="Copy"><a href="#Copy" class="headerlink" title="Copy"></a>Copy</h3><p>Copy task从一个目录拷贝文件到另一个目录。</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> copyFiles(type: <span class="keyword">Copy</span>) &#123;  <span class="keyword">from</span> <span class="string">'resources'</span>  <span class="keyword">into</span> <span class="string">'target'</span>  <span class="keyword">include</span> <span class="string">'**/*.xml'</span>, <span class="string">'**/*.txt'</span>, <span class="string">'**/*.properties'</span>&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Jar"><a href="#Jar" class="headerlink" title="Jar"></a>Jar</h3><p>从源文件生成<code>jar</code>文件</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'java'</span></span><br><span class="line"><span class="keyword">task</span> customJar(type: Jar) &#123;    manifest &#123;         attributes firstKey: <span class="string">'firstValue'</span>, secondKey: <span class="string">'secondValue'</span>    &#125;    archiveName = <span class="string">'hello.jar'</span>    <span class="keyword">destinationDir</span> = <span class="keyword">file</span>(<span class="string">"$&#123;buildDir&#125;/jars"</span>)    <span class="keyword">from</span> <span class="keyword">sourceSets</span>.main.classes&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/18/Gradle构建Java程序：Task/" data-id="cipgxwgff0006kxs6qgrajojx" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Gradle构建Java程序：Gradle常用命令" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/04/17/Gradle构建Java程序：Gradle常用命令/" class="article-date">
-  <time datetime="2016-04-17T13:18:05.000Z" itemprop="datePublished">2016-04-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/17/Gradle构建Java程序：Gradle常用命令/">Gradle构建Java程序：Gradle常用命令</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Gradle通用命令格式：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle [option ...] [task ...]</span><br></pre></td></tr></table></figure>
-<p>运行gradle相关命令后，可以看到依次执行的tasks：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&gt; gradle build</span><br><span class="line">:compileJava</span><br><span class="line">:processResources </span><br><span class="line">:classes</span><br><span class="line">:jar</span><br><span class="line">:assemble</span><br><span class="line">:compileTestJava </span><br><span class="line">:processTestResources </span><br><span class="line">:<span class="built_in">test</span>Classes </span><br><span class="line">:<span class="built_in">test</span></span><br><span class="line">:check </span><br><span class="line">:build</span><br><span class="line"> </span><br><span class="line">BUILD SUCCESSFUL</span><br></pre></td></tr></table></figure>
-<p>帮助命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gradle <span class="built_in">help</span></span><br><span class="line">gradle --help</span><br></pre></td></tr></table></figure>
-<p>执行完整的项目构建（生成class文件、jar文件、执行单元测试等）：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle build</span><br></pre></td></tr></table></figure>
-<p>编译源代码，并生成jar文件（不执行单元测试）：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle assemble</span><br></pre></td></tr></table></figure>
-<p>删除构建目录：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle clean</span><br></pre></td></tr></table></figure>
-<p>编译源代码：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle classes</span><br></pre></td></tr></table></figure>
-<p>编译测试类的代码：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle <span class="built_in">test</span>Classes</span><br></pre></td></tr></table></figure>
-<p>生成jar文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle jar</span><br></pre></td></tr></table></figure>
-<p>生成Javadoc API文档：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle javadoc</span><br></pre></td></tr></table></figure>
-<p>显示项目的<code>properties</code>：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle properties</span><br></pre></td></tr></table></figure>
-<p>显示当前项目的可运行task的完整列表：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle tasks</span><br></pre></td></tr></table></figure>
-<p>通过这种方式，不需要阅读构建脚本，就能对项目进行大致的浏览。由于Java插件在构建中自动加入了很多任务，因此上述命令可以看到build文件中之外的其它一些task。</p>
-<p>在某个项目下，上述命令运行后，terminal显示如下信息：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">:tasks</span><br><span class="line"></span><br><span class="line">------------------------------------------------------------</span><br><span class="line">All tasks runnable from root project</span><br><span class="line">------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">Build tasks</span><br><span class="line">-----------</span><br><span class="line">assemble - Assembles the outputs of this project.</span><br><span class="line">build - Assembles and tests this project.</span><br><span class="line">buildDependents - Assembles and tests this project and all projects that depend on it.</span><br><span class="line">buildNeeded - Assembles and tests this project and all projects it depends on.</span><br><span class="line">classes - Assembles main classes.</span><br><span class="line">clean - Deletes the build directory.</span><br><span class="line">jar - Assembles a jar archive containing the main classes.</span><br><span class="line"><span class="built_in">test</span>Classes - Assembles <span class="built_in">test</span> classes.</span><br><span class="line"></span><br><span class="line">Build Setup tasks</span><br><span class="line">-----------------</span><br><span class="line">init - Initializes a new Gradle build. [incubating]</span><br><span class="line">wrapper - Generates Gradle wrapper files. [incubating]</span><br><span class="line"></span><br><span class="line">Documentation tasks</span><br><span class="line">-------------------</span><br><span class="line">javadoc - Generates Javadoc API documentation <span class="keyword">for</span> the main <span class="built_in">source</span> code.</span><br><span class="line"></span><br><span class="line">Help tasks</span><br><span class="line">----------</span><br><span class="line">buildEnvironment - Displays all buildscript dependencies declared <span class="keyword">in</span> root project <span class="string">'testJunit'</span>.</span><br><span class="line">components - Displays the components produced by root project <span class="string">'testJunit'</span>. [incubating]</span><br><span class="line">dependencies - Displays all dependencies declared <span class="keyword">in</span> root project <span class="string">'testJunit'</span>.</span><br><span class="line">dependencyInsight - Displays the insight into a specific dependency <span class="keyword">in</span> root project <span class="string">'testJunit'</span>.</span><br><span class="line"><span class="built_in">help</span> - Displays a <span class="built_in">help</span> message.</span><br><span class="line">model - Displays the configuration model of root project <span class="string">'testJunit'</span>. [incubating]</span><br><span class="line">projects - Displays the sub-projects of root project <span class="string">'testJunit'</span>.</span><br><span class="line">properties - Displays the properties of root project <span class="string">'testJunit'</span>.</span><br><span class="line">tasks - Displays the tasks runnable from root project <span class="string">'testJunit'</span>.</span><br><span class="line"></span><br><span class="line">Verification tasks</span><br><span class="line">------------------</span><br><span class="line">check - Runs all checks.</span><br><span class="line"><span class="built_in">test</span> - Runs the unit tests.</span><br><span class="line"></span><br><span class="line">Rules</span><br><span class="line">-----</span><br><span class="line">Pattern: clean&lt;TaskName&gt;: Cleans the output files of a task.</span><br><span class="line">Pattern: build&lt;ConfigurationName&gt;: Assembles the artifacts of a configuration.</span><br><span class="line">Pattern: upload&lt;ConfigurationName&gt;: Assembles and uploads the artifacts belonging to a configuration.</span><br><span class="line"></span><br><span class="line">To see all tasks and more detail, run gradle tasks --all</span><br><span class="line"></span><br><span class="line">To see more detail about a task, run gradle <span class="built_in">help</span> --task &lt;task&gt;</span><br><span class="line"></span><br><span class="line">BUILD SUCCESSFUL</span><br><span class="line"></span><br><span class="line">Total time: 3.786 secs</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：Gradle常用命令/" data-id="cipgxwgfb0003kxs6n1hhrt6q" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Gradle构建Java程序：Junit集成" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/04/17/Gradle构建Java程序：Junit集成/" class="article-date">
-  <time datetime="2016-04-17T06:54:21.000Z" itemprop="datePublished">2016-04-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/17/Gradle构建Java程序：Junit集成/">Gradle构建Java程序：Junit集成</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Build文件"><a href="#Build文件" class="headerlink" title="Build文件"></a>Build文件</h2><p><code>build.gradle</code>如下：</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'java'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">repositories</span> &#123;</span><br><span class="line">	mavenCentral()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">	testCompile <span class="string">'junit:junit:4.12'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">jar &#123;</span><br><span class="line">    manifest &#123;</span><br><span class="line">        attributes <span class="string">'Main-Class'</span>: <span class="string">'com.shizhihua.example.Calculator'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上述配置指定仓库后，不需要额外再安装Junit4了。</p>
-<h2 id="Java文件"><a href="#Java文件" class="headerlink" title="Java文件"></a>Java文件</h2><p><code>Calculator.java</code>：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.shizhihua.example;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Calculator</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">evaluate</span><span class="params">(String expression)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (String summand: expression.split(<span class="string">"\\+"</span>))</span><br><span class="line">      sum += Integer.valueOf(summand);</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="测试文件"><a href="#测试文件" class="headerlink" title="测试文件"></a>测试文件</h2><p><code>CalculatorTest.java</code>：</p>
-<ul>
-<li>测试文件和类是在被测类名后添加<code>Test</code></li>
-<li><code>@Test</code>表示需要运行的测试函数</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.shizhihua.example;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.Assert.assertEquals;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CalculatorTest</span> </span>&#123;</span><br><span class="line">  <span class="meta">@Test</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">evaluatesExpression</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Calculator calculator = <span class="keyword">new</span> Calculator();</span><br><span class="line">    <span class="keyword">int</span> sum = calculator.evaluate(<span class="string">"1+2+3"</span>);</span><br><span class="line">    assertEquals(<span class="number">6</span>, sum);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h2><p>为了Gradle，项目结构需要按照下面约定。注意被测的源java文件和测试例的java文件目录相对应:</p>
-<ul>
-<li><code>src/main/java</code>目录包含项目源代码</li>
-<li><code>src/main/resources</code>目录包含项目的资源</li>
-<li><code>src/test/java</code>目录包含项目测试类</li>
-<li><code>src/test/resource</code>目录包含项目测试资源</li>
-</ul>
-<p>执行测试：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
-<p>运行上述命令后，整个项目的目录结构如下：</p>
-<img src="http://www.plantuml.com/plantuml/svg/hOyn3iCW34LtJk7TIYxHhNCku1AhK9a40QdILhbx2P1AdTljstm__eyaIRtKQr08lKA4os9bp0912yN8STS8ZknKLDxFhYg4QEpJMBDGMo3mIiuB7pF2YKGlGcaEVG4MzCYUfv4d_UWqQLFi4DZF8RN_4iSc4Moshhr9JjJnr0MEYrG79EVLaSnRuJFTQo2uKVXqwg-1nf8COj3ggrGsjfCVwXsCFT_Vg4E6LVAcjZS0">
-<p>打开上述<code>index.html</code>可以看到测试结果的统计报告。</p>
-<h2 id="设置多进程"><a href="#设置多进程" class="headerlink" title="设置多进程"></a>设置多进程</h2><p>当项目中的测试例过多，需要通过并行的方法来加快运行速度。但是，如果每个unit test都需要自己独立的JVM，则系统overhead消耗大。Gradle采用了一种这种方法：设定<code>maxParallelForks</code>，限定最大的并发JVMs。</p>
-<p>如果一个JVM不断运行unit test，可能会引起性能问题（e.g.,<code>leak</code>）。Gradle设定<code>forkEvery</code>，使得一个test-running JVM运行完设定的test数目后会结束，并启动一个新的test-running JVM来替代。</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'java'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">repositories</span> &#123;</span><br><span class="line">	mavenCentral()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">	testCompile <span class="string">'junit:junit:4.12'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">jar &#123;</span><br><span class="line">    manifest &#123;</span><br><span class="line">        attributes <span class="string">'Main-Class'</span>: <span class="string">'com.shizhihua.example.Calculator'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test &#123;</span><br><span class="line">	maxParallelForks = <span class="number">5</span></span><br><span class="line">	forkEvery = <span class="number">50</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：Junit集成/" data-id="cipgxwgfd0004kxs6gzvwkq1p" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Junit/">Junit</a></li></ul>
 
     </footer>
   </div>
@@ -718,7 +676,7 @@
 
 
   <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">__('next') &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">__('next') &raquo;</a>
   </nav>
 </section>
         
@@ -731,7 +689,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/">Go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internet/">Internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/">Go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internet/">Internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
     </div>
   </div>
 
@@ -741,7 +699,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 17.5px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="/tags/Internet/" style="font-size: 15px;">Internet</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Junit/" style="font-size: 10px;">Junit</a> <a href="/tags/Mac/" style="font-size: 12.5px;">Mac</a> <a href="/tags/Spring/" style="font-size: 15px;">Spring</a>
+      <a href="/tags/Git/" style="font-size: 17.5px;">Git</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 17.5px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="/tags/Internet/" style="font-size: 15px;">Internet</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Junit/" style="font-size: 10px;">Junit</a> <a href="/tags/Mac/" style="font-size: 12.5px;">Mac</a> <a href="/tags/Spring/" style="font-size: 15px;">Spring</a>
     </div>
   </div>
 
@@ -750,7 +708,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li></ul>
     </div>
   </div>
 
@@ -763,23 +721,23 @@
       <ul>
         
           <li>
-            <a href="/2016/06/15/Go中Map与Struct联合使用注意点/">Go中Map与Struct联合使用注意点</a>
+            <a href="/2016/07/18/Git学习笔记-5-Tag使用/">Git学习笔记 (5) - Tag使用</a>
           </li>
         
           <li>
-            <a href="/2016/05/03/Gradle生成可独立运行-runnable-程序/">Gradle生成可独立运行(runnable)程序</a>
+            <a href="/2016/07/18/Git学习笔记-4-Git远程操作/">Git学习笔记 (4) - Git远程操作</a>
           </li>
         
           <li>
-            <a href="/2016/05/03/Mac中查找命令的路径/">Mac中查找命令的路径</a>
+            <a href="/2016/07/18/Git学习笔记-3-Git基本命令/">Git学习笔记 (3) - Git基本命令</a>
           </li>
         
           <li>
-            <a href="/2016/05/03/log4j2的使用/">log4j2的使用</a>
+            <a href="/2016/07/18/Git学习笔记-2-Git帮助命令/">Git学习笔记 (2) - Git帮助命令</a>
           </li>
         
           <li>
-            <a href="/2016/04/20/《Spring-In-Action》学习笔记（三）：Spring-4-0-模块/">《Spring In Action》学习笔记（三）：Spring 4.0 模块</a>
+            <a href="/2016/07/18/Git学习笔记-1-基本配置/">Git学习笔记 (1) - 基本配置</a>
           </li>
         
       </ul>
@@ -818,23 +776,6 @@
 
 <script src="/js/script.js"></script>
 
-  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

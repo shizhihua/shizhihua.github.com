@@ -3,17 +3,42 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
-  <title>归档: 2016/6 | 一沙一世界</title>
+  <title>Git学习笔记 (5) - Tag使用 | 一沙一世界</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="一沙一世界">
-<meta property="og:url" content="http://yoursite.com/archives/2016/06/index.html">
+  <meta name="description" content="标签TagGit中标签有两类：
+
+lightweight： just a pointer to a specific commit
+annotated
+
+Annotated Tags使用-a:1git tag -a v1.4 -m &quot;My version 1.4&quot;
+Lightweight Tags1git tag v1.4
+查看Tag查看有哪些tag：
+12git taggit tag -l &quot;v">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git学习笔记 (5) - Tag使用">
+<meta property="og:url" content="http://yoursite.com/2016/07/18/Git学习笔记-5-Tag使用/index.html">
 <meta property="og:site_name" content="一沙一世界">
-<meta property="og:description">
+<meta property="og:description" content="标签TagGit中标签有两类：
+
+lightweight： just a pointer to a specific commit
+annotated
+
+Annotated Tags使用-a:1git tag -a v1.4 -m &quot;My version 1.4&quot;
+Lightweight Tags1git tag v1.4
+查看Tag查看有哪些tag：
+12git taggit tag -l &quot;v">
+<meta property="og:updated_time" content="2016-07-18T12:26:57.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="一沙一世界">
-<meta name="twitter:description">
+<meta name="twitter:title" content="Git学习笔记 (5) - Tag使用">
+<meta name="twitter:description" content="标签TagGit中标签有两类：
+
+lightweight： just a pointer to a specific commit
+annotated
+
+Annotated Tags使用-a:1git tag -a v1.4 -m &quot;My version 1.4&quot;
+Lightweight Tags1git tag v1.4
+查看Tag查看有哪些tag：
+12git taggit tag -l &quot;v">
   
     <link rel="alternate" href="/atom.xml" title="一沙一世界" type="application/atom+xml">
   
@@ -66,39 +91,66 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/06/15/Go中Map与Struct联合使用注意点/" class="archive-article-date">
-  <time datetime="2016-06-15T13:36:40.000Z" itemprop="datePublished">6月 15</time>
+        <section id="main"><article id="post-Git学习笔记-5-Tag使用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/18/Git学习笔记-5-Tag使用/" class="article-date">
+  <time datetime="2016-07-18T12:25:23.000Z" itemprop="datePublished">2016-07-18</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/06/15/Go中Map与Struct联合使用注意点/">Go中Map与Struct联合使用注意点</a>
+    <h1 class="article-title" itemprop="name">
+      Git学习笔记 (5) - Tag使用
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="标签Tag"><a href="#标签Tag" class="headerlink" title="标签Tag"></a>标签Tag</h2><p>Git中标签有两类：</p>
+<ol>
+<li>lightweight： just a pointer to a specific commit</li>
+<li>annotated</li>
+</ol>
+<h3 id="Annotated-Tags"><a href="#Annotated-Tags" class="headerlink" title="Annotated Tags"></a>Annotated Tags</h3><p>使用<code>-a</code>:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag <span class="_">-a</span> v1.4 -m <span class="string">"My version 1.4"</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Lightweight-Tags"><a href="#Lightweight-Tags" class="headerlink" title="Lightweight Tags"></a>Lightweight Tags</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag v1.4</span><br></pre></td></tr></table></figure>
+<h2 id="查看Tag"><a href="#查看Tag" class="headerlink" title="查看Tag"></a>查看Tag</h2><p>查看有哪些tag：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git tag</span><br><span class="line">git tag <span class="_">-l</span> <span class="string">"v1.8.5*"</span>   // 只显示以v1.8.5开头的标签</span><br></pre></td></tr></table></figure>
+<p>查看某个tag的信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git show v1.4</span><br></pre></td></tr></table></figure>
+<h2 id="Push"><a href="#Push" class="headerlink" title="Push"></a>Push</h2><p>Push命令不会自动把Tag信息包含，需要自己制定<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git push origin v1.5</span><br><span class="line">git push origin --tags   // 所有的tags</span><br></pre></td></tr></table></figure></p>
+<h2 id="Checkout"><a href="#Checkout" class="headerlink" title="Checkout"></a>Checkout</h2><p>需要新建一个新的branch，然后指定tag：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b [branchname] [tagname]</span><br><span class="line">git checkout -b version2 v2.0.0</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/18/Git学习笔记-5-Tag使用/" data-id="ciqs0atm00008pfs6elve3daz" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/07/18/Git学习笔记-4-Git远程操作/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Git学习笔记 (4) - Git远程操作</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 </section>
         

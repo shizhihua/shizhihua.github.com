@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <title>Git学习笔记 (1) - 基本配置 | 一沙一世界</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="配置的三个层级Git使用 git config 来进行配置。按照控制范围来说，Git配置分为三层：
+
+某个Repository
+配置文件： .git/config
+在当前的git repository目录下面使用命令： git config
+
+
+当前用户
+配置文件： ~/.gitconfig 或 ~/.config/git/config
+使用命令： git config --global
+
+
+所有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git学习笔记 (1) - 基本配置">
+<meta property="og:url" content="http://yoursite.com/2016/07/18/Git学习笔记-1-基本配置/index.html">
+<meta property="og:site_name" content="一沙一世界">
+<meta property="og:description" content="配置的三个层级Git使用 git config 来进行配置。按照控制范围来说，Git配置分为三层：
+
+某个Repository
+配置文件： .git/config
+在当前的git repository目录下面使用命令： git config
+
+
+当前用户
+配置文件： ~/.gitconfig 或 ~/.config/git/config
+使用命令： git config --global
+
+
+所有">
+<meta property="og:updated_time" content="2016-07-18T12:15:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git学习笔记 (1) - 基本配置">
+<meta name="twitter:description" content="配置的三个层级Git使用 git config 来进行配置。按照控制范围来说，Git配置分为三层：
+
+某个Repository
+配置文件： .git/config
+在当前的git repository目录下面使用命令： git config
+
+
+当前用户
+配置文件： ~/.gitconfig 或 ~/.config/git/config
+使用命令： git config --global
+
+
+所有">
+  
+    <link rel="alternate" href="/atom.xml" title="一沙一世界" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">一沙一世界</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">SHIZHIHUA&#39;s BLOG</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Git学习笔记-1-基本配置" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/18/Git学习笔记-1-基本配置/" class="article-date">
+  <time datetime="2016-07-18T12:12:27.000Z" itemprop="datePublished">2016-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Git学习笔记 (1) - 基本配置
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="配置的三个层级"><a href="#配置的三个层级" class="headerlink" title="配置的三个层级"></a>配置的三个层级</h2><p>Git使用 <code>git config</code> 来进行配置。按照控制范围来说，Git配置分为三层：</p>
+<ol>
+<li>某个Repository<ol>
+<li>配置文件： <code>.git/config</code></li>
+<li>在当前的git repository目录下面使用命令： <code>git config</code></li>
+</ol>
+</li>
+<li>当前用户<ol>
+<li>配置文件： <code>~/.gitconfig</code> 或 <code>~/.config/git/config</code></li>
+<li>使用命令： <code>git config --global</code></li>
+</ol>
+</li>
+<li>所有用户<ol>
+<li>配置文件： <code>/etc/gitconfig</code></li>
+<li>使用命令： <code>git config --system</code></li>
+</ol>
+</li>
+</ol>
+<p>上述三个层级，范围小的层级会override范围大的层级，即上面的配置可以override下面的配置。</p>
+<h2 id="配置参数"><a href="#配置参数" class="headerlink" title="配置参数"></a>配置参数</h2><h3 id="用户名"><a href="#用户名" class="headerlink" title="用户名"></a>用户名</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">"shizhihua"</span></span><br></pre></td></tr></table></figure>
+<h3 id="邮箱"><a href="#邮箱" class="headerlink" title="邮箱"></a>邮箱</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email xxxyyy@gmail.com</span><br></pre></td></tr></table></figure>
+<h3 id="默认文本编辑器"><a href="#默认文本编辑器" class="headerlink" title="默认文本编辑器"></a>默认文本编辑器</h3><p>如果不进行设置，Git会使用系统默认的文本编辑器。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.editor emacs</span><br><span class="line">git config --global core.editor <span class="string">"'C:/Programe Files/Notepad++/notepad++.exe' -multiInst -nosession"</span></span><br></pre></td></tr></table></figure>
+<p>在win下面，<code>-multiInst -nosession</code>需要，否则会出错。</p>
+<h2 id="查看配置"><a href="#查看配置" class="headerlink" title="查看配置"></a>查看配置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --list</span><br></pre></td></tr></table></figure>
+<p>上述命令会列出所有的配置。</p>
+<p>如果需要列出某个key的配置值，可以利用下面的命令<code>git config &lt;key&gt;</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config user.name</span><br></pre></td></tr></table></figure>
+<h2 id="Git-Aliases"><a href="#Git-Aliases" class="headerlink" title="Git Aliases"></a>Git Aliases</h2><p>通过设置，可以制定一些命令的简写方式，例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global alias.co checkout</span><br><span class="line">git config --global alias.br branch</span><br><span class="line">git config --global alias.last <span class="string">'log -1 HEAD'</span></span><br></pre></td></tr></table></figure>
+<p>则下面一些命令就可以简写如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git co       // git checkout</span><br><span class="line">git last     // git <span class="built_in">log</span> -1 HEAD</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/18/Git学习笔记-1-基本配置/" data-id="ciqs0atlm0001pfs6i1xdw4pd" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/07/18/Git学习笔记-2-Git帮助命令/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Git学习笔记 (2) - Git帮助命令
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/06/15/Go中Map与Struct联合使用注意点/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Go中Map与Struct联合使用注意点</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/">Go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internet/">Internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Junit/">Junit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Git/" style="font-size: 17.5px;">Git</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 17.5px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="/tags/Internet/" style="font-size: 15px;">Internet</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Junit/" style="font-size: 10px;">Junit</a> <a href="/tags/Mac/" style="font-size: 12.5px;">Mac</a> <a href="/tags/Spring/" style="font-size: 15px;">Spring</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/07/18/Git学习笔记-5-Tag使用/">Git学习笔记 (5) - Tag使用</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/18/Git学习笔记-4-Git远程操作/">Git学习笔记 (4) - Git远程操作</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/18/Git学习笔记-3-Git基本命令/">Git学习笔记 (3) - Git基本命令</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/18/Git学习笔记-2-Git帮助命令/">Git学习笔记 (2) - Git帮助命令</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/18/Git学习笔记-1-基本配置/">Git学习笔记 (1) - 基本配置</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 shizhihua<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
