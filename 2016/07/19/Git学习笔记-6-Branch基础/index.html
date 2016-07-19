@@ -3,30 +3,27 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
-  <title>Homebrew使用简介 | 一沙一世界</title>
+  <title>Git学习笔记 (6) - Branch基础 | 一沙一世界</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Homebrew，简称为brew，是Mac上的软件包管理工具，类似于Debain中的apt-get。
-Homebrew的官网地址为： Homebrew
-brew的安装与卸载安装时不需要使用sudo。Homebrew不需要sudo可以正常安装软件，因为其认为sudo不完全。
-安装命令如下：
-1ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.co">
+  <meta name="description" content="Git分支是轻量级的在Git中，branch就是一个轻量级的file（40个字节），有一个特殊的指针HEAD来指示Git位于哪个分支。
+和其他版本控制软件相比，Git分支是轻量级的，鼓励多用分支。
+例如，在某个仓库下运行下来命令，可以看到这个仓库下有2个分支：master，testing，同时HEAD是指向master的，即当前工作的分支为master
+123$ git log --oneline">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Homebrew使用简介">
-<meta property="og:url" content="http://yoursite.com/2016/04/17/Homebrew使用简介/index.html">
+<meta property="og:title" content="Git学习笔记 (6) - Branch基础">
+<meta property="og:url" content="http://yoursite.com/2016/07/19/Git学习笔记-6-Branch基础/index.html">
 <meta property="og:site_name" content="一沙一世界">
-<meta property="og:description" content="Homebrew，简称为brew，是Mac上的软件包管理工具，类似于Debain中的apt-get。
-Homebrew的官网地址为： Homebrew
-brew的安装与卸载安装时不需要使用sudo。Homebrew不需要sudo可以正常安装软件，因为其认为sudo不完全。
-安装命令如下：
-1ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.co">
-<meta property="og:updated_time" content="2016-04-17T03:23:23.000Z">
+<meta property="og:description" content="Git分支是轻量级的在Git中，branch就是一个轻量级的file（40个字节），有一个特殊的指针HEAD来指示Git位于哪个分支。
+和其他版本控制软件相比，Git分支是轻量级的，鼓励多用分支。
+例如，在某个仓库下运行下来命令，可以看到这个仓库下有2个分支：master，testing，同时HEAD是指向master的，即当前工作的分支为master
+123$ git log --oneline">
+<meta property="og:updated_time" content="2016-07-19T12:20:00.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Homebrew使用简介">
-<meta name="twitter:description" content="Homebrew，简称为brew，是Mac上的软件包管理工具，类似于Debain中的apt-get。
-Homebrew的官网地址为： Homebrew
-brew的安装与卸载安装时不需要使用sudo。Homebrew不需要sudo可以正常安装软件，因为其认为sudo不完全。
-安装命令如下：
-1ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.co">
+<meta name="twitter:title" content="Git学习笔记 (6) - Branch基础">
+<meta name="twitter:description" content="Git分支是轻量级的在Git中，branch就是一个轻量级的file（40个字节），有一个特殊的指针HEAD来指示Git位于哪个分支。
+和其他版本控制软件相比，Git分支是轻量级的，鼓励多用分支。
+例如，在某个仓库下运行下来命令，可以看到这个仓库下有2个分支：master，testing，同时HEAD是指向master的，即当前工作的分支为master
+123$ git log --oneline">
   
     <link rel="alternate" href="/atom.xml" title="一沙一世界" type="application/atom+xml">
   
@@ -79,10 +76,10 @@ brew的安装与卸载安装时不需要使用sudo。Homebrew不需要sudo可以
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Homebrew使用简介" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Git学习笔记-6-Branch基础" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2016/04/17/Homebrew使用简介/" class="article-date">
-  <time datetime="2016-04-17T02:24:54.000Z" itemprop="datePublished">2016-04-17</time>
+    <a href="/2016/07/19/Git学习笔记-6-Branch基础/" class="article-date">
+  <time datetime="2016-07-19T12:17:08.000Z" itemprop="datePublished">2016-07-19</time>
 </a>
     
   </div>
@@ -93,7 +90,7 @@ brew的安装与卸载安装时不需要使用sudo。Homebrew不需要sudo可以
         
   
     <h1 class="article-title" itemprop="name">
-      Homebrew使用简介
+      Git学习笔记 (6) - Branch基础
     </h1>
   
 
@@ -101,45 +98,30 @@ brew的安装与卸载安装时不需要使用sudo。Homebrew不需要sudo可以
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Homebrew，简称为<code>brew</code>，是Mac上的软件包管理工具，类似于Debain中的<code>apt-get</code>。</p>
-<p>Homebrew的官网地址为： <a href="http://brew.sh" target="_blank" rel="external">Homebrew</a></p>
-<h2 id="brew的安装与卸载"><a href="#brew的安装与卸载" class="headerlink" title="brew的安装与卸载"></a>brew的安装与卸载</h2><p>安装时不需要使用<code>sudo</code>。Homebrew不需要<code>sudo</code>可以正常安装软件，因为其认为<code>sudo</code>不完全。</p>
-<p>安装命令如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby <span class="_">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></span><br></pre></td></tr></table></figure>
-<p>卸载命令如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby <span class="_">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)</span>"</span></span><br></pre></td></tr></table></figure>
-<h2 id="brew常用命令"><a href="#brew常用命令" class="headerlink" title="brew常用命令"></a>brew常用命令</h2><p>通用命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew <span class="built_in">command</span> [--verbose|-v] [options] [formula] ...</span><br></pre></td></tr></table></figure>
-<p><code>formula</code> 就是对应要安装的软件。<code>formula</code>是<code>ruby</code>脚本，定义了安装对应软件的具体步骤和操作命令。</p>
-<p>安装软件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install formula</span><br></pre></td></tr></table></figure>
-<p>卸载软件可以用下列两条命令之一</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew remove formula</span><br><span class="line">brew uninstall formula</span><br></pre></td></tr></table></figure>
-<p>重装软件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew reinstall formula</span><br></pre></td></tr></table></figure>
-<p>更新软件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew upgrade [--cleanup] [formulae]</span><br></pre></td></tr></table></figure>
-<p>cleanup软件旧版本</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew cleanup</span><br></pre></td></tr></table></figure>
-<p>查看版本</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew --version</span><br></pre></td></tr></table></figure>
-<p>显示formula脚本代码</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew cat formula</span><br></pre></td></tr></table></figure>
-<p>更新Homebrew</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew update</span><br></pre></td></tr></table></figure>
-<p>罗列已安装的formula</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew list</span><br></pre></td></tr></table></figure>
-<p>查找软件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew search text</span><br></pre></td></tr></table></figure>
-<p>其中text可以是正则表达式。</p>
+        <h2 id="Git分支是轻量级的"><a href="#Git分支是轻量级的" class="headerlink" title="Git分支是轻量级的"></a>Git分支是轻量级的</h2><p>在Git中，branch就是一个轻量级的file（40个字节），有一个特殊的指针<code>HEAD</code>来指示Git位于哪个分支。</p>
+<p>和其他版本控制软件相比，Git分支是轻量级的，鼓励多用分支。</p>
+<p>例如，在某个仓库下运行下来命令，可以看到这个仓库下有2个分支：master，testing，同时HEAD是指向master的，即当前工作的分支为master</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --oneline --decorate</span><br><span class="line">f30ab (HEAD -&gt; master, testing)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h2 id="分支常用命令"><a href="#分支常用命令" class="headerlink" title="分支常用命令"></a>分支常用命令</h2><h3 id="创建和switch"><a href="#创建和switch" class="headerlink" title="创建和switch"></a>创建和switch</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch testing     // 创建分支testing，但是仍在原先分支下</span><br><span class="line">git checkout testing   // Switch到分支testing</span><br></pre></td></tr></table></figure>
+<p>上述两条命令可以合并成一条命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b testing</span><br></pre></td></tr></table></figure>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><p>和创建相比，多了一个option：<code>-d</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch <span class="_">-d</span> testing</span><br></pre></td></tr></table></figure></p>
+<h3 id="Merge-与-Rebase"><a href="#Merge-与-Rebase" class="headerlink" title="Merge 与 Rebase"></a>Merge 与 Rebase</h3><p>例如，master分支合并testing分支</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout master     // 如果不在master分支下，需要先switch到master分支</span><br><span class="line">git merge testing</span><br></pre></td></tr></table></figure>
+<p>把testing上改变rebase到master上面</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout testing</span><br><span class="line">git rebase master</span><br></pre></td></tr></table></figure>
+<p><code>rebase</code>和<code>merge</code>最后得到的新的snapshot是一样的，但是<code>rebase</code>可以得到a cleaner history（看上去history是一个串行的记录过程）。 而<code>merge</code>看到的history中间有分支然后再合流成一个（在merge的点）</p>
+<h3 id="list"><a href="#list" class="headerlink" title="list"></a>list</h3><p>把仓库里面的分支list出来：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure>
+<h3 id="分支管理其他命令"><a href="#分支管理其他命令" class="headerlink" title="分支管理其他命令"></a>分支管理其他命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git branch -v           // 查看每个branch的最后一次commit</span><br><span class="line">git branch --merged     // 合并到当前分支的所有分支</span><br><span class="line">git branch --no-merged  // 未合并到当前分支的所有分支</span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/17/Homebrew使用简介/" data-id="ciqtfhf1u000rj1s63ec8xlpx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/19/Git学习笔记-6-Branch基础/" data-id="ciqtfhf0u0009j1s6xvzgoumk" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/">Mac</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
 
     </footer>
   </div>
@@ -147,19 +129,10 @@ brew的安装与卸载安装时不需要使用sudo。Homebrew不需要sudo可以
     
 <nav id="article-nav">
   
-    <a href="/2016/04/17/Gradle构建Java程序：入门/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Gradle构建Java程序：入门
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/04/16/常用内网IP段/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2016/07/18/Git学习笔记-5-Tag使用/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">常用内网IP段</div>
+      <div class="article-nav-title">Git学习笔记 (5) - Tag使用</div>
     </a>
   
 </nav>
