@@ -68,6 +68,61 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-log4j2的使用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/05/03/log4j2的使用/" class="article-date">
+  <time datetime="2016-05-02T23:36:51.000Z" itemprop="datePublished">2016-05-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/03/log4j2的使用/">log4j2的使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://http://logging.apache.org/log4j/2.x/" target="_blank" rel="external">Log4j2</a> 是一个常用的日志工具。本文把试用结果和遇到的问题记录一下。</p>
+<h2 id="Java文件"><a href="#Java文件" class="headerlink" title="Java文件"></a>Java文件</h2><p>Java代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.shizhihua.example;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.logging.log4j.LogManager;</span><br><span class="line"><span class="keyword">import</span> org.apache.logging.log4j.Logger;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestLog</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger  logger = LogManager.getLogger();</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		logger.info(<span class="string">"Hello, world!"</span>);</span><br><span class="line">		logger.error(<span class="string">"What are you doing?"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Log4j2配置"><a href="#Log4j2配置" class="headerlink" title="Log4j2配置"></a>Log4j2配置</h2><p>log4j2默认在console上输出ERROR级别的信息。为了显示INFO信息，需要通过配置更改默认设置。试用中采用XML文件来进行设置。<code>log4j2.xml</code>的具体设置内容如下（Root level设置为INFO）：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">Configuration</span> <span class="attr">status</span>=<span class="string">"WARN"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">Appenders</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Console</span> <span class="attr">name</span>=<span class="string">"Console"</span> <span class="attr">target</span>=<span class="string">"SYSTEM_OUT"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">PatternLayout</span> <span class="attr">pattern</span>=<span class="string">"%d&#123;HH:mm:ss.SSS&#125; [%t] %-5level %logger&#123;36&#125; - %msg%n"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Console</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">Appenders</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">Loggers</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Root</span> <span class="attr">level</span>=<span class="string">"INFO"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">AppenderRef</span> <span class="attr">ref</span>=<span class="string">"Console"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Root</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">Loggers</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>代码的组织按照gradle／maven的默认结构。</p>
+<p><strong>Q1:</strong> 程序找不到log4j2的配置文件？</p>
+<p><strong>A1:</strong> 配置文件必须放在<code>src\main\resources</code>下面，否则运行时需要指定配置文件。</p>
+<h2 id="Gradle脚本"><a href="#Gradle脚本" class="headerlink" title="Gradle脚本"></a>Gradle脚本</h2><p>build.gradle文件内容如下：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'java'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">repositories</span> &#123;</span><br><span class="line">	mavenCentral()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">  <span class="keyword">compile</span> <span class="keyword">group</span>: <span class="string">'org.apache.logging.log4j'</span>, name: <span class="string">'log4j-api'</span>, version: <span class="string">'2.5'</span></span><br><span class="line">  <span class="keyword">compile</span> <span class="keyword">group</span>: <span class="string">'org.apache.logging.log4j'</span>, name: <span class="string">'log4j-core'</span>, version: <span class="string">'2.5'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">jar &#123;</span><br><span class="line">    <span class="keyword">from</span> &#123; <span class="keyword">configurations</span>.<span class="keyword">compile</span>.<span class="keyword">collect</span> &#123; it.isDirectory() ? it : zipTree(it) &#125; &#125;</span><br><span class="line"></span><br><span class="line">    manifest &#123;</span><br><span class="line">        attributes <span class="string">'Main-Class'</span>: <span class="string">'com.shizhihua.example.TestLog'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Q2:</strong> 运行jar文件，找不到依赖包？</p>
+<p><strong>A2:</strong> Gradle能自动解决编译过程中的第三方依赖，但是我们直接从命令后直接运行程序时，还是要指定第三方依赖才行。为了能直接运行jar文件，上述脚本中在jar文件生成配置中增加了一行代码，这样就把第三方依赖包也打包起来了，形成了“胖”jar。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from &#123; configurations.compile.collect &#123; it.isDirectory() ? it : zipTree(it) &#125; &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><p>直接执行下面命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gradle build</span><br><span class="line">java -jar build\libs\<span class="built_in">test</span>Log.jar</span><br></pre></td></tr></table></figure>
+<p>得倒下面的输出（与时间有关）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">07:33:56.484 [main] INFO  com.shizhihua.example.TestLog - Hello, world!</span><br><span class="line">07:33:56.485 [main] ERROR com.shizhihua.example.TestLog - What are you doing?</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/05/03/log4j2的使用/" data-id="ciqthlsa0000s7cs6eybd645z" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-《Spring-In-Action》学习笔记（三）：Spring-4-0-模块" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/04/20/《Spring-In-Action》学习笔记（三）：Spring-4-0-模块/" class="article-date">
@@ -138,7 +193,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/20/《Spring-In-Action》学习笔记（三）：Spring-4-0-模块/" data-id="ciqtfhf2a000xj1s6l2kwaer6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/20/《Spring-In-Action》学习笔记（三）：Spring-4-0-模块/" data-id="ciqthlsak00107cs6vqpiav6l" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
@@ -200,7 +255,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/20/《Spring-In-Action》学习笔记（二）：Spring-Container/" data-id="ciqtfhf2f0011j1s6dgdaisbc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/20/《Spring-In-Action》学习笔记（二）：Spring-Container/" data-id="ciqthlsaf000y7cs602ozl2wi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
@@ -313,7 +368,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/20/《Spring-In-Action》学习笔记（一）：基本概念/" data-id="ciqtfhf2c000zj1s6edsedst1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/20/《Spring-In-Action》学习笔记（一）：基本概念/" data-id="ciqthlsap00137cs6v79m3uon" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
@@ -385,7 +440,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/18/Gradle构建Java程序：Task/" data-id="ciqtfhf1j000mj1s6irobwx83" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/18/Gradle构建Java程序：Task/" data-id="ciqthls9n000m7cs6lbajqnpg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li></ul>
@@ -449,7 +504,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：Gradle常用命令/" data-id="ciqtfhf1g000jj1s6fsvf8rle" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：Gradle常用命令/" data-id="ciqthls9j000j7cs6di3cht1q" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
@@ -513,7 +568,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：Junit集成/" data-id="ciqtfhf1a000ej1s6pg83ixsc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：Junit集成/" data-id="ciqthls95000c7cs60en8niit" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Junit/">Junit</a></li></ul>
@@ -580,7 +635,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：入门/" data-id="ciqtfhf1e000hj1s64yqsnwm7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/17/Gradle构建Java程序：入门/" data-id="ciqthls9e000e7cs6ka0y4hlh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
@@ -645,11 +700,12 @@
 <p>查找软件</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew search text</span><br></pre></td></tr></table></figure>
 <p>其中text可以是正则表达式。</p>
+<h2 id="安装目录"><a href="#安装目录" class="headerlink" title="安装目录"></a>安装目录</h2><p>通过brew安装的文件，可以在目录<code>/usr/local/Cellar/</code>下面找到。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/17/Homebrew使用简介/" data-id="ciqtfhf1u000rj1s63ec8xlpx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/17/Homebrew使用简介/" data-id="ciqthlsa3000u7cs6a198nqrf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/">Mac</a></li></ul>
@@ -698,101 +754,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/16/常用内网IP段/" data-id="ciqtfhf2m0013j1s65nlri6d0" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Internet/">Internet</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-常用Internet协议的RFC编号" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/04/16/常用Internet协议的RFC编号/" class="article-date">
-  <time datetime="2016-04-16T01:47:32.000Z" itemprop="datePublished">2016-04-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/16/常用Internet协议的RFC编号/">常用Internet协议的RFC编号</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>把日常遇到的一些常用协议RFC收集如下：</p>
-<h2 id="IP"><a href="#IP" class="headerlink" title="IP"></a>IP</h2><h3 id="IPv4"><a href="#IPv4" class="headerlink" title="IPv4"></a>IPv4</h3><ul>
-<li>RFC 791</li>
-<li>RFC 919</li>
-<li>RFC 922</li>
-<li>RFC 950</li>
-</ul>
-<h3 id="IPv6"><a href="#IPv6" class="headerlink" title="IPv6"></a>IPv6</h3><ul>
-<li>RFC 2373</li>
-</ul>
-<h2 id="ICMP"><a href="#ICMP" class="headerlink" title="ICMP"></a>ICMP</h2><ul>
-<li>RFC 792</li>
-</ul>
-<h2 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h2><ul>
-<li>RFC 768</li>
-</ul>
-<h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><ul>
-<li>RFC 793</li>
-</ul>
-<h2 id="SMTP"><a href="#SMTP" class="headerlink" title="SMTP"></a>SMTP</h2><ul>
-<li>RFC 2821</li>
-</ul>
-<h2 id="Telent"><a href="#Telent" class="headerlink" title="Telent"></a>Telent</h2><ul>
-<li>RFC 854</li>
-<li>RFC 855</li>
-</ul>
-<h2 id="FTP"><a href="#FTP" class="headerlink" title="FTP"></a>FTP</h2><ul>
-<li>RFC 959</li>
-</ul>
-<h2 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h2><ul>
-<li>RFC 1034</li>
-<li>RFC 1035</li>
-</ul>
-<h2 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h2><h3 id="HTTP-1-1"><a href="#HTTP-1-1" class="headerlink" title="HTTP 1.1"></a>HTTP 1.1</h3><ul>
-<li>RFC 2616</li>
-</ul>
-<p>当前RFC 2616已经被更新了，HTTP 1.1的协议被分为几个RFC：</p>
-<ul>
-<li>RFC7230 - Message Syntax and Routing - low-level message parsing and connection management</li>
-<li>RFC7231 - Semantics and Content - methods, status codes and headers</li>
-<li>RFC7232 - Conditional Requests - e.g., If-Modified-Since</li>
-<li>RFC7233 - Range Requests - getting partial content</li>
-<li>RFC7234 - Caching - browser and intermediary caches</li>
-<li>RFC7235 - Authentication - a framework for HTTP authentication</li>
-</ul>
-<h3 id="HTTP-2"><a href="#HTTP-2" class="headerlink" title="HTTP 2"></a>HTTP 2</h3><ul>
-<li>RFC 7540</li>
-</ul>
-<h2 id="SIP"><a href="#SIP" class="headerlink" title="SIP"></a>SIP</h2><ul>
-<li>RFC 2543</li>
-</ul>
-<h2 id="RTP-RTCP"><a href="#RTP-RTCP" class="headerlink" title="RTP/RTCP"></a>RTP/RTCP</h2><p>RTP与RTCP都定义在同一协议中：</p>
-<ul>
-<li>RFC 3550 : A Transport Protocol for Real-Time Applications</li>
-<li>RFC 6184 : RTP Payload Format for H.264 Video</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/16/常用Internet协议的RFC编号/" data-id="ciqtfhf2i0012j1s6skq4ocar" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/16/常用内网IP段/" data-id="ciqthlsb000197cs61849n0jl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Internet/">Internet</a></li></ul>
@@ -830,7 +792,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Git/" style="font-size: 18px;">Git</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 16px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12px;">Hexo</a> <a href="/tags/Internet/" style="font-size: 14px;">Internet</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Junit/" style="font-size: 10px;">Junit</a> <a href="/tags/Mac/" style="font-size: 12px;">Mac</a> <a href="/tags/Spring/" style="font-size: 14px;">Spring</a>
+      <a href="/tags/Git/" style="font-size: 17.5px;">Git</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 17.5px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="/tags/Internet/" style="font-size: 15px;">Internet</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Junit/" style="font-size: 10px;">Junit</a> <a href="/tags/Mac/" style="font-size: 12.5px;">Mac</a> <a href="/tags/Spring/" style="font-size: 15px;">Spring</a>
     </div>
   </div>
 
@@ -852,6 +814,10 @@
       <ul>
         
           <li>
+            <a href="/2016/07/19/MAC下Gradle安装路径/">MAC下Gradle安装路径</a>
+          </li>
+        
+          <li>
             <a href="/2016/07/19/Git学习笔记-6-Branch基础/">Git学习笔记 (6) - Branch基础</a>
           </li>
         
@@ -865,10 +831,6 @@
         
           <li>
             <a href="/2016/07/18/Git学习笔记-3-Git基本命令/">Git学习笔记 (3) - Git基本命令</a>
-          </li>
-        
-          <li>
-            <a href="/2016/07/18/Git学习笔记-2-Git帮助命令/">Git学习笔记 (2) - Git帮助命令</a>
           </li>
         
       </ul>
